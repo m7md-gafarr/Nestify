@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:depi_graduation_project/data/repositories/remote/api_response_handler.dart';
+import 'package:depi_graduation_project/data/data_sources/remote/api_response_handler.dart';
 import 'package:dio/dio.dart';
 
 class ApiHelper {

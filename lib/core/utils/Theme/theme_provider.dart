@@ -1,4 +1,4 @@
-import 'package:depi_graduation_project/data/repositories/local/shared_pref.dart';
+import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

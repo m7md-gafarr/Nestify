@@ -60,6 +60,5 @@ flutter_intl:
 
 flutter_assets:
   assets_path: assets/images/
-  output_path: lib/core/constants
-  filename: app_assets.dart
-  field_prefix: null
+  output_path: lib/core/images/
+  filename: app_images.dart

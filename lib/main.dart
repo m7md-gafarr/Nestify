@@ -1,9 +1,10 @@
+import 'package:depi_graduation_project/core/router/route_names.dart';
+import 'package:depi_graduation_project/core/router/router.dart';
 import 'package:depi_graduation_project/core/theme/app_theme/app_theme_dark.dart';
 import 'package:depi_graduation_project/core/theme/app_theme/app_theme_light.dart';
 import 'package:depi_graduation_project/core/utils/Theme/theme_provider.dart';
 import 'package:depi_graduation_project/core/utils/language/language.dart';
-import 'package:depi_graduation_project/routes/app_route.dart';
-import 'package:depi_graduation_project/routes/route_name.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,8 +41,8 @@ class MyApp extends StatelessWidget {
                 ],
                 supportedLocales: S.delegate.supportedLocales,
                 debugShowCheckedModeBanner: false,
-                onGenerateRoute: appRouter.generate_route,
-                initialRoute: AppRoutesName.homeScreenRoute,
+                onGenerateRoute: appRouter.generateRoute,
+                initialRoute: AppRouteNames.homePageRoute,
                 themeMode: themeProvider.themeMode,
                 theme: getThemeColorLight(context, languageProvider.locale),
                 darkTheme: getThemeColorDark(context, languageProvider.locale),
