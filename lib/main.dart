@@ -4,6 +4,7 @@ import 'package:depi_graduation_project/core/theme/app_theme/app_theme_dark.dart
 import 'package:depi_graduation_project/core/theme/app_theme/app_theme_light.dart';
 import 'package:depi_graduation_project/core/utils/Theme/theme_provider.dart';
 import 'package:depi_graduation_project/core/utils/language/language.dart';
+import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,6 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
   await dotenv.load(fileName: ".env");
+  await SharedPreferencesService().init();
 
   runApp(
     MultiProvider(

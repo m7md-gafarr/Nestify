@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:depi_graduation_project/core/images/app_images.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
+import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -63,7 +64,12 @@ class _IntroducationScreenState extends State<IntroducationScreen> {
                   ),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, AppRouteNames.homePageRoute);
+                      SharedPreferencesService().saveOnboardingStatus(true);
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        AppRouteNames.homePageRoute,
+                        (route) => false,
+                      );
                     },
                     child: Text("Get Started"),
                   ),
