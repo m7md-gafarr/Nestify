@@ -5,50 +5,41 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
   fontFamily: locale?.languageCode == 'ar' ? fontArabic : fontEnglish,
-  primaryColor: AppColorLight.primaryColor,
-  secondaryHeaderColor: AppColorLight.secondaryColor,
-  scaffoldBackgroundColor: AppColorLight.scaffoldBackgroundColor,
+  primaryColor: AppColorLight.primary,
+  secondaryHeaderColor: AppColorLight.info,
+  scaffoldBackgroundColor: AppColorLight.background,
 
   colorScheme: ColorScheme.light(
-    primary: AppColorLight.primaryColor,
-    secondary: AppColorLight.secondaryColor,
-    error: AppColorLight.errorColor,
-    outline: AppColorLight.borderColor,
-    primaryContainer: AppColorLight.containerBackgroundColor,
+    primary: AppColorLight.primary,
+    secondary: AppColorLight.info,
+    error: AppColorLight.error,
+    outline: AppColorLight.border,
+    primaryContainer: AppColorLight.primaryContainer,
   ),
 
-  appBarTheme: const AppBarTheme(
-    backgroundColor: AppColorLight.appBarColor,
-    surfaceTintColor: Colors.transparent,
-    elevation: 0,
-  ),
-
-  iconTheme: const IconThemeData(
-    color: AppColorLight.iconPrimaryColor,
-    size: 27,
-  ),
+  iconTheme: IconThemeData(color: AppColorLight.iconPrimary, size: 27.sp),
 
   iconButtonTheme: IconButtonThemeData(
     style: ButtonStyle(
-      iconColor: const WidgetStatePropertyAll(AppColorLight.iconPrimaryColor),
-      foregroundColor: const WidgetStatePropertyAll(
-        AppColorLight.backgroundColor,
-      ),
+      iconColor: WidgetStatePropertyAll(AppColorLight.iconPrimary),
+      foregroundColor: WidgetStatePropertyAll(AppColorLight.background),
     ),
   ),
 
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      fixedSize: const WidgetStatePropertyAll(Size(double.maxFinite, 47)),
+      fixedSize: const WidgetStatePropertyAll(Size(double.maxFinite, 64)),
       shape: const WidgetStatePropertyAll(
         ContinuousRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(27)),
         ),
       ),
       elevation: const WidgetStatePropertyAll(0),
-      backgroundColor: const WidgetStatePropertyAll(AppColorLight.primaryColor),
+      backgroundColor: const WidgetStatePropertyAll(
+        AppColorLight.buttonPrimary,
+      ),
       foregroundColor: const WidgetStatePropertyAll(
-        AppColorLight.backgroundColor,
+        AppColorLight.onButtonPrimary,
       ),
       textStyle: WidgetStatePropertyAll(
         TextStyle(
@@ -63,18 +54,20 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
 
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: ButtonStyle(
-      fixedSize: const WidgetStatePropertyAll(Size(double.maxFinite, 47)),
+      fixedSize: const WidgetStatePropertyAll(Size(double.maxFinite, 64)),
       shape: const WidgetStatePropertyAll(
         ContinuousRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(27)),
         ),
       ),
       elevation: const WidgetStatePropertyAll(0),
-      side: const WidgetStatePropertyAll(
-        BorderSide(color: AppColorLight.primaryColor, width: 1.2),
+      side: const WidgetStatePropertyAll(BorderSide.none),
+      foregroundColor: const WidgetStatePropertyAll(
+        AppColorLight.onButtonSecondary,
       ),
-      foregroundColor: const WidgetStatePropertyAll(AppColorLight.primaryColor),
-      backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
+      backgroundColor: const WidgetStatePropertyAll(
+        AppColorLight.buttonSecondary,
+      ),
       textStyle: WidgetStatePropertyAll(
         TextStyle(
           fontSize: 18.sp,
@@ -88,9 +81,7 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
 
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
-      foregroundColor: const WidgetStatePropertyAll(
-        AppColorLight.linkTextColor,
-      ),
+      foregroundColor: const WidgetStatePropertyAll(AppColorLight.info),
       textStyle: WidgetStatePropertyAll(
         TextStyle(
           fontSize: 18.sp,
@@ -101,13 +92,13 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
   ),
 
   radioTheme: const RadioThemeData(
-    fillColor: WidgetStatePropertyAll(AppColorLight.primaryColor),
+    fillColor: WidgetStatePropertyAll(AppColorLight.primary),
   ),
 
   checkboxTheme: const CheckboxThemeData(
-    side: BorderSide(color: AppColorLight.primaryColor),
-    checkColor: WidgetStatePropertyAll(AppColorLight.primaryColor),
-    fillColor: WidgetStatePropertyAll(AppColorLight.backgroundColor),
+    side: BorderSide(color: AppColorLight.primary),
+    checkColor: WidgetStatePropertyAll(AppColorLight.primary),
+    fillColor: WidgetStatePropertyAll(AppColorLight.background),
   ),
 
   textTheme: TextTheme(
@@ -175,21 +166,21 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
       locale,
     ),
     labelLarge: _getTextStyle(
-      AppColorLight.textTertiary,
+      AppColorLight.textSecondary,
       16,
       FontWeight.w500,
       context,
       locale,
     ),
     labelMedium: _getTextStyle(
-      AppColorLight.textTertiary,
+      AppColorLight.textSecondary,
       14,
       FontWeight.w500,
       context,
       locale,
     ),
     labelSmall: _getTextStyle(
-      AppColorLight.textTertiary,
+      AppColorLight.textSecondary,
       12,
       FontWeight.w500,
       context,
@@ -199,54 +190,54 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
 
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: AppColorLight.containerBackgroundColor.withOpacity(.6),
+    fillColor: AppColorLight.surface.withOpacity(.6),
     border: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColorLight.borderColor),
+      borderSide: BorderSide(color: AppColorLight.border),
     ),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColorLight.primaryColor),
+      borderSide: BorderSide(color: AppColorLight.primary),
     ),
     enabledBorder: const OutlineInputBorder(borderSide: BorderSide.none),
     errorBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColorLight.errorColor.withOpacity(.5)),
+      borderSide: BorderSide(color: AppColorLight.error.withOpacity(.5)),
     ),
     focusedErrorBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColorLight.errorColor),
+      borderSide: BorderSide(color: AppColorLight.error),
     ),
-    prefixIconColor: AppColorLight.primaryColor,
-    labelStyle: TextStyle(color: AppColorLight.primaryColor, fontSize: 16.sp),
-    hintStyle: TextStyle(color: AppColorLight.textTertiary, fontSize: 17.sp),
-    suffixIconColor: AppColorLight.textTertiary,
-    errorStyle: TextStyle(color: AppColorLight.errorColor),
+    prefixIconColor: AppColorLight.primary,
+    labelStyle: TextStyle(color: AppColorLight.primary, fontSize: 16.sp),
+    hintStyle: TextStyle(color: AppColorLight.textSecondary, fontSize: 17.sp),
+    suffixIconColor: AppColorLight.textSecondary,
+    errorStyle: TextStyle(color: AppColorLight.error),
   ),
 
   bottomSheetTheme: const BottomSheetThemeData(
-    backgroundColor: AppColorLight.backgroundColor,
+    backgroundColor: AppColorLight.background,
     dragHandleSize: Size(double.infinity, 4),
-    dragHandleColor: AppColorLight.primaryColor,
+    dragHandleColor: AppColorLight.primary,
   ),
 
   progressIndicatorTheme: const ProgressIndicatorThemeData(
-    color: AppColorLight.primaryColor,
+    color: AppColorLight.primary,
   ),
 
   dividerTheme: const DividerThemeData(
-    color: AppColorLight.dividerColor,
+    color: AppColorLight.divider,
     thickness: 1.2,
     endIndent: 10,
     indent: 10,
   ),
 
-  dialogTheme: DialogThemeData(backgroundColor: AppColorLight.backgroundColor),
+  dialogTheme: DialogThemeData(backgroundColor: AppColorLight.background),
 
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    selectedItemColor: AppColorLight.primaryColor,
+    selectedItemColor: AppColorLight.primary,
     unselectedItemColor: AppColorLight.textDisabled,
     elevation: 10,
   ),
 
   expansionTileTheme: const ExpansionTileThemeData(
-    iconColor: AppColorLight.primaryColor,
+    iconColor: AppColorLight.primary,
     shape: Border(),
   ),
 );
