@@ -6,7 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
   fontFamily: font,
   primaryColor: AppColorLight.primary,
-  secondaryHeaderColor: AppColorLight.info,
+
+  secondaryHeaderColor: AppColorLight.onPrimary,
   scaffoldBackgroundColor: AppColorLight.background,
 
   colorScheme: ColorScheme.light(
@@ -172,15 +173,18 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
       context,
     ),
   ),
-
+  textSelectionTheme: TextSelectionThemeData(
+    cursorColor: AppColorLight.onPrimary,
+    selectionColor: AppColorLight.primary.withOpacity(0.5),
+    selectionHandleColor: AppColorLight.primary,
+  ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: AppColorLight.surface.withOpacity(.6),
-    border: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColorLight.border),
-    ),
+
+    fillColor: AppColorLight.surface.withOpacity(.8),
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.r)),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColorLight.primary),
+      borderSide: BorderSide(color: AppColorLight.border, width: 1.5),
     ),
     enabledBorder: const OutlineInputBorder(borderSide: BorderSide.none),
     errorBorder: OutlineInputBorder(
@@ -189,9 +193,13 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
     focusedErrorBorder: OutlineInputBorder(
       borderSide: BorderSide(color: AppColorLight.error),
     ),
-    prefixIconColor: AppColorLight.primary,
-    labelStyle: TextStyle(color: AppColorLight.primary, fontSize: 16.sp),
-    hintStyle: TextStyle(color: AppColorLight.textSecondary, fontSize: 17.sp),
+    prefixIconColor: AppColorLight.textSecondary.withOpacity(.5),
+
+    hintStyle: TextStyle(
+      color: AppColorLight.textSecondary,
+      fontSize: 17.sp,
+      fontFamily: font,
+    ),
     suffixIconColor: AppColorLight.textSecondary,
     errorStyle: TextStyle(color: AppColorLight.error),
   ),
