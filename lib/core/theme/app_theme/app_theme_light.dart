@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
-  fontFamily: locale?.languageCode == 'ar' ? fontArabic : fontEnglish,
+  fontFamily: font,
   primaryColor: AppColorLight.primary,
-  secondaryHeaderColor: AppColorLight.info,
+
+  secondaryHeaderColor: AppColorLight.onPrimary,
   scaffoldBackgroundColor: AppColorLight.background,
 
   colorScheme: ColorScheme.light(
@@ -44,8 +45,8 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
       textStyle: WidgetStatePropertyAll(
         TextStyle(
           fontSize: 18.sp,
-          fontWeight: FontWeight.w500,
-          fontFamily: locale?.languageCode == 'ar' ? fontArabic : fontEnglish,
+          fontWeight: FontWeight.w600,
+          fontFamily: font,
           letterSpacing: 0.7,
         ),
       ),
@@ -72,7 +73,7 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
         TextStyle(
           fontSize: 18.sp,
           fontWeight: FontWeight.w500,
-          fontFamily: locale?.languageCode == 'ar' ? fontArabic : fontEnglish,
+          fontFamily: font,
           letterSpacing: 0.7,
         ),
       ),
@@ -83,10 +84,7 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
     style: ButtonStyle(
       foregroundColor: const WidgetStatePropertyAll(AppColorLight.info),
       textStyle: WidgetStatePropertyAll(
-        TextStyle(
-          fontSize: 18.sp,
-          fontFamily: locale?.languageCode == 'ar' ? fontArabic : fontEnglish,
-        ),
+        TextStyle(fontSize: 18.sp, fontFamily: font),
       ),
     ),
   ),
@@ -107,95 +105,86 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
       32,
       FontWeight.bold,
       context,
-      locale,
     ),
     headlineMedium: _getTextStyle(
       AppColorLight.textPrimary,
       28,
       FontWeight.bold,
       context,
-      locale,
     ),
     headlineSmall: _getTextStyle(
       AppColorLight.textPrimary,
       24,
       FontWeight.bold,
       context,
-      locale,
     ),
     titleLarge: _getTextStyle(
       AppColorLight.textPrimary,
       22,
       FontWeight.w600,
       context,
-      locale,
     ),
     titleMedium: _getTextStyle(
       AppColorLight.textPrimary,
       20,
       FontWeight.w600,
       context,
-      locale,
     ),
     titleSmall: _getTextStyle(
       AppColorLight.textPrimary,
       18,
       FontWeight.w500,
       context,
-      locale,
     ),
     bodyLarge: _getTextStyle(
       AppColorLight.textSecondary,
       16,
       FontWeight.normal,
       context,
-      locale,
     ),
     bodyMedium: _getTextStyle(
       AppColorLight.textSecondary,
       14,
       FontWeight.normal,
       context,
-      locale,
     ),
     bodySmall: _getTextStyle(
       AppColorLight.textSecondary,
       12,
       FontWeight.normal,
       context,
-      locale,
     ),
     labelLarge: _getTextStyle(
       AppColorLight.textSecondary,
       16,
       FontWeight.w500,
       context,
-      locale,
     ),
     labelMedium: _getTextStyle(
       AppColorLight.textSecondary,
       14,
       FontWeight.w500,
       context,
-      locale,
     ),
     labelSmall: _getTextStyle(
       AppColorLight.textSecondary,
       12,
       FontWeight.w500,
       context,
-      locale,
     ),
   ),
-
+  textSelectionTheme: TextSelectionThemeData(
+    cursorColor: AppColorLight.onPrimary,
+    selectionColor: AppColorLight.primary.withOpacity(0.5),
+    selectionHandleColor: AppColorLight.primary,
+  ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: AppColorLight.surface.withOpacity(.6),
-    border: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColorLight.border),
-    ),
+
+    fillColor: AppColorLight.surface.withOpacity(.8),
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.r)),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColorLight.primary),
+      borderSide: BorderSide(color: AppColorLight.border, width: 1.5),
     ),
     enabledBorder: const OutlineInputBorder(borderSide: BorderSide.none),
     errorBorder: OutlineInputBorder(
@@ -204,9 +193,13 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
     focusedErrorBorder: OutlineInputBorder(
       borderSide: BorderSide(color: AppColorLight.error),
     ),
-    prefixIconColor: AppColorLight.primary,
-    labelStyle: TextStyle(color: AppColorLight.primary, fontSize: 16.sp),
-    hintStyle: TextStyle(color: AppColorLight.textSecondary, fontSize: 17.sp),
+    prefixIconColor: AppColorLight.textSecondary.withOpacity(.5),
+
+    hintStyle: TextStyle(
+      color: AppColorLight.textSecondary,
+      fontSize: 17.sp,
+      fontFamily: font,
+    ),
     suffixIconColor: AppColorLight.textSecondary,
     errorStyle: TextStyle(color: AppColorLight.error),
   ),
@@ -240,6 +233,16 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
     iconColor: AppColorLight.primary,
     shape: Border(),
   ),
+
+  cardTheme: CardThemeData(
+    color: AppColorLight.card,
+    shadowColor: AppColorLight.shadow,
+
+    margin: EdgeInsets.all(8),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(12)),
+    ),
+  ),
 );
 
 TextStyle _getTextStyle(
@@ -247,11 +250,10 @@ TextStyle _getTextStyle(
   double fontSize,
   FontWeight fontWeight,
   BuildContext context,
-  Locale? locale,
 ) {
   return TextStyle(
     color: color,
-    fontFamily: locale?.languageCode == 'ar' ? fontArabic : fontEnglish,
+    fontFamily: font,
     fontSize: fontSize.sp,
     fontWeight: fontWeight,
   );
