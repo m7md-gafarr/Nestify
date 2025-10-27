@@ -48,6 +48,8 @@ flutter:
     - assets/sounds/
     - assets/logo/
 
+    - .env
+
   fonts:
     - family: Poppins
       fonts:

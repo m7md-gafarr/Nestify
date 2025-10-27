@@ -16,7 +16,15 @@ void main() async {
   await ScreenUtil.ensureScreenSize();
   await dotenv.load(fileName: ".env");
 
-  runApp(MyApp(appRouter: AppRouter()));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LanguageProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
+      child: MyApp(appRouter: AppRouter()),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -25,6 +33,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
+      designSize: Size(375, 812),
       builder: (_, child) => Consumer<LanguageProvider>(
         builder: (context, languageProvider, child) {
           return Consumer<ThemeProvider>(
@@ -40,7 +49,7 @@ class MyApp extends StatelessWidget {
                 supportedLocales: S.delegate.supportedLocales,
                 debugShowCheckedModeBanner: false,
                 onGenerateRoute: appRouter.generateRoute,
-                initialRoute: AppRouteNames.homePageRoute,
+                initialRoute: AppRouteNames.introducationPageRoute,
                 themeMode: themeProvider.themeMode,
                 theme: getThemeColorLight(context, languageProvider.locale),
                 darkTheme: getThemeColorDark(context, languageProvider.locale),

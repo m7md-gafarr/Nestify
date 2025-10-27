@@ -5,30 +5,26 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
   fontFamily: locale?.languageCode == 'ar' ? fontArabic : fontEnglish,
-  primaryColor: AppColorDark.primaryColor,
-  secondaryHeaderColor: AppColorDark.secondaryColor,
-  scaffoldBackgroundColor: AppColorDark.backgroundColor,
+  primaryColor: AppColorDark.primary,
+  secondaryHeaderColor: AppColorDark.info,
+  scaffoldBackgroundColor: AppColorDark.background,
 
-  //
   colorScheme: ColorScheme.dark(
     outline: Colors.white.withOpacity(.2),
-    primaryContainer: AppColorDark.containerBackgroundColor,
+    primaryContainer: AppColorDark.primaryContainer,
   ),
-  //AppBar
   appBarTheme: AppBarTheme(
-    backgroundColor: AppColorDark.appBarColor,
+    backgroundColor: AppColorDark.surface,
     surfaceTintColor: Colors.transparent,
   ),
 
-  //Icon Button
   iconButtonTheme: IconButtonThemeData(
     style: ButtonStyle(
-      iconColor: WidgetStatePropertyAll(AppColorDark.iconPrimaryColor),
-      foregroundColor: WidgetStatePropertyAll(AppColorDark.backgroundColor),
+      iconColor: WidgetStatePropertyAll(AppColorDark.iconPrimary),
+      foregroundColor: WidgetStatePropertyAll(AppColorDark.background),
     ),
   ),
 
-  //Elevated Button
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       fixedSize: const WidgetStatePropertyAll(Size(double.maxFinite, 47)),
@@ -46,16 +42,11 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
         ),
       ),
       elevation: const WidgetStatePropertyAll(0),
-      backgroundColor: WidgetStateProperty.all(
-        AppColorDark.primaryColor,
-      ), // Button background color
-      foregroundColor: WidgetStateProperty.all(
-        AppColorDark.textPrimary,
-      ), // Text color
+      backgroundColor: WidgetStateProperty.all(AppColorDark.buttonPrimary),
+      foregroundColor: WidgetStateProperty.all(AppColorDark.onButtonPrimary),
     ),
   ),
 
-  //outlinedButton
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: ButtonStyle(
       fixedSize: const WidgetStatePropertyAll(Size(double.maxFinite, 47)),
@@ -73,28 +64,22 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
         ),
       ),
       elevation: const WidgetStatePropertyAll(0),
-      side: WidgetStatePropertyAll(
-        BorderSide(color: AppColorDark.primaryColor, width: 1.2),
-      ),
-      foregroundColor: WidgetStateProperty.all(AppColorDark.primaryColor),
-      backgroundColor: WidgetStateProperty.all(Colors.transparent),
+      side: const WidgetStatePropertyAll(BorderSide.none),
+      foregroundColor: WidgetStateProperty.all(AppColorDark.onButtonSecondary),
+      backgroundColor: WidgetStateProperty.all(AppColorDark.buttonSecondary),
     ),
   ),
   checkboxTheme: CheckboxThemeData(
-    side: BorderSide(color: AppColorDark.primaryColor),
-    checkColor: WidgetStatePropertyAll(AppColorDark.primaryColor),
-    fillColor: WidgetStatePropertyAll(AppColorDark.backgroundColor),
+    side: BorderSide(color: AppColorDark.primary),
+    checkColor: WidgetStatePropertyAll(AppColorDark.primary),
+    fillColor: WidgetStatePropertyAll(AppColorDark.background),
   ),
-  //Icon
-  iconTheme: IconThemeData(color: AppColorDark.iconPrimaryColor),
+  iconTheme: IconThemeData(color: AppColorDark.iconPrimary),
 
-  //Radio
   radioTheme: RadioThemeData(
-    fillColor: WidgetStatePropertyAll(AppColorDark.primaryColor),
+    fillColor: WidgetStatePropertyAll(AppColorDark.primary),
   ),
-  // Text,
   textTheme: TextTheme(
-    // Headline - Large Titles (Used for Page Titles or Important Headlines)
     headlineLarge: _getTextStyle(
       AppColorDark.textPrimary,
       32,
@@ -117,7 +102,6 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
       locale,
     ),
 
-    // Title - Medium Titles (Used for Section Titles)
     titleLarge: _getTextStyle(
       AppColorDark.textPrimary,
       22,
@@ -140,7 +124,6 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
       locale,
     ),
 
-    // Body - Normal Text (Used for Main Paragraphs and Content)
     bodyLarge: _getTextStyle(
       AppColorDark.textSecondary,
       16,
@@ -163,23 +146,22 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
       locale,
     ),
 
-    // Labels -   Small Captions
     labelLarge: _getTextStyle(
-      AppColorDark.textTertiary,
+      AppColorDark.textSecondary,
       16,
       FontWeight.w500,
       context,
       locale,
     ),
     labelMedium: _getTextStyle(
-      AppColorDark.textTertiary,
+      AppColorDark.textSecondary,
       14,
       FontWeight.w500,
       context,
       locale,
     ),
     labelSmall: _getTextStyle(
-      AppColorDark.textTertiary,
+      AppColorDark.textSecondary,
       12,
       FontWeight.w500,
       context,
@@ -187,84 +169,67 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
     ),
   ),
 
-  // Text Field
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: AppColorDark.containerBackgroundColor,
+    fillColor: AppColorDark.surface,
     border: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColorDark.primaryColor),
+      borderSide: BorderSide(color: AppColorDark.primary),
     ),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColorDark.primaryColor),
+      borderSide: BorderSide(color: AppColorDark.primary),
     ),
     enabledBorder: const OutlineInputBorder(borderSide: BorderSide.none),
     errorBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColorDark.errorColor.withOpacity(.5)),
+      borderSide: BorderSide(color: AppColorDark.error.withOpacity(.5)),
     ),
     focusedErrorBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColorDark.errorColor),
+      borderSide: BorderSide(color: AppColorDark.error),
     ),
-    prefixIconColor: AppColorDark.primaryColor,
-    labelStyle: TextStyle(color: AppColorDark.primaryColor, fontSize: 16.0.sp),
+    prefixIconColor: AppColorDark.primary,
+    labelStyle: TextStyle(color: AppColorDark.primary, fontSize: 16.0.sp),
     hintStyle: TextStyle(
-      color: AppColorDark.textTertiary,
+      color: AppColorDark.textSecondary,
       fontSize: 17.sp,
       fontWeight: FontWeight.normal,
-      // fontFamily: isRTL(context) ? fontArabic : fontEnglish,
     ),
-    suffixIconColor: AppColorDark.textTertiary,
-    errorStyle: TextStyle(
-      color: AppColorDark.errorColor,
-      // fontFamily: isRTL(context) ? fontArabic : fontEnglish,
-    ),
+    suffixIconColor: AppColorDark.textSecondary,
+    errorStyle: TextStyle(color: AppColorDark.error),
   ),
 
-  //Bottom Sheet
   bottomSheetTheme: BottomSheetThemeData(
-    backgroundColor: AppColorDark.backgroundColor,
+    backgroundColor: AppColorDark.background,
     dragHandleSize: const Size(double.infinity, 4),
-    dragHandleColor: AppColorDark.primaryColor,
+    dragHandleColor: AppColorDark.primary,
   ),
 
-  // Progress Indicator
   progressIndicatorTheme: ProgressIndicatorThemeData(
-    color: AppColorDark.primaryColor,
+    color: AppColorDark.primary,
   ),
 
-  //Text Button
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
-      textStyle: WidgetStatePropertyAll(
-        TextStyle(
-          // fontFamily: isRTL(context) ? fontArabic : fontEnglish,
-          fontSize: 18.sp,
-        ),
-      ),
-      foregroundColor: WidgetStatePropertyAll(AppColorDark.linkTextColor),
+      textStyle: WidgetStatePropertyAll(TextStyle(fontSize: 18.sp)),
+      foregroundColor: WidgetStatePropertyAll(AppColorDark.info),
     ),
   ),
 
-  //Divider
   dividerTheme: DividerThemeData(
-    color: AppColorDark.dividerColor,
+    color: AppColorDark.divider,
     thickness: 1.2,
     endIndent: 10,
     indent: 10,
   ),
 
-  //Dialog
-  dialogTheme: DialogThemeData(backgroundColor: AppColorDark.backgroundColor),
+  dialogTheme: DialogThemeData(backgroundColor: AppColorDark.background),
 
-  // Bottom Navigation Bar
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    selectedItemColor: AppColorDark.primaryColor,
+    selectedItemColor: AppColorDark.primary,
     unselectedItemColor: AppColorDark.textDisabled,
     elevation: 10,
   ),
 
-  // Expansion Tile
   expansionTileTheme: ExpansionTileThemeData(
-    iconColor: AppColorDark.primaryColor,
+    iconColor: AppColorDark.primary,
     shape: Border.all(width: 0, color: Colors.transparent),
   ),
 );
