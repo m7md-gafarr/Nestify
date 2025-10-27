@@ -12,12 +12,18 @@ import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
 
+String? _initialRoute;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
   await dotenv.load(fileName: ".env");
-  await SharedPreferencesService().init();
-
+  SharedPreferencesService pref = SharedPreferencesService();
+  await pref.init();
+  bool? seen = await pref.loadOnboardingStatus();
+  _initialRoute = seen == true
+      ? AppRouteNames.homePageRoute
+      : AppRouteNames.introducationPageRoute;
   runApp(
     MultiProvider(
       providers: [
@@ -32,6 +38,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key, required this.appRouter});
   final AppRouter appRouter;
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -51,7 +58,7 @@ class MyApp extends StatelessWidget {
                 supportedLocales: S.delegate.supportedLocales,
                 debugShowCheckedModeBanner: false,
                 onGenerateRoute: appRouter.generateRoute,
-                initialRoute: AppRouteNames.introducationPageRoute,
+                initialRoute: _initialRoute,
                 themeMode: themeProvider.themeMode,
                 theme: getThemeColorLight(context, languageProvider.locale),
                 darkTheme: getThemeColorDark(context, languageProvider.locale),

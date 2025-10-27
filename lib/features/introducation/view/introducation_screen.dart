@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:depi_graduation_project/core/images/app_images.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
