@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
-  fontFamily: locale?.languageCode == 'ar' ? fontArabic : fontEnglish,
+  fontFamily: font,
   primaryColor: AppColorDark.primary,
   secondaryHeaderColor: AppColorDark.info,
   scaffoldBackgroundColor: AppColorDark.background,
@@ -36,7 +36,7 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
       textStyle: WidgetStatePropertyAll(
         TextStyle(
           letterSpacing: .7,
-          fontFamily: locale?.languageCode == 'ar' ? fontArabic : fontEnglish,
+          fontFamily: font,
           fontSize: 18.sp,
           fontWeight: FontWeight.w500,
         ),
@@ -58,7 +58,7 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
       textStyle: WidgetStatePropertyAll(
         TextStyle(
           letterSpacing: .7,
-          fontFamily: locale?.languageCode == 'ar' ? fontArabic : fontEnglish,
+          fontFamily: font,
           fontSize: 18.sp,
           fontWeight: FontWeight.w500,
         ),
@@ -85,21 +85,18 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
       32,
       FontWeight.bold,
       context,
-      locale,
     ),
     headlineMedium: _getTextStyle(
       AppColorDark.textPrimary,
       28,
       FontWeight.bold,
       context,
-      locale,
     ),
     headlineSmall: _getTextStyle(
       AppColorDark.textPrimary,
       24,
       FontWeight.bold,
       context,
-      locale,
     ),
 
     titleLarge: _getTextStyle(
@@ -107,21 +104,18 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
       22,
       FontWeight.w600,
       context,
-      locale,
     ),
     titleMedium: _getTextStyle(
       AppColorDark.textPrimary,
       20,
       FontWeight.w600,
       context,
-      locale,
     ),
     titleSmall: _getTextStyle(
       AppColorDark.textPrimary,
       18,
       FontWeight.w500,
       context,
-      locale,
     ),
 
     bodyLarge: _getTextStyle(
@@ -129,21 +123,18 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
       16,
       FontWeight.normal,
       context,
-      locale,
     ),
     bodyMedium: _getTextStyle(
       AppColorDark.textSecondary,
       14,
       FontWeight.normal,
       context,
-      locale,
     ),
     bodySmall: _getTextStyle(
       AppColorDark.textSecondary,
       12,
       FontWeight.normal,
       context,
-      locale,
     ),
 
     labelLarge: _getTextStyle(
@@ -151,21 +142,18 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
       16,
       FontWeight.w500,
       context,
-      locale,
     ),
     labelMedium: _getTextStyle(
       AppColorDark.textSecondary,
       14,
       FontWeight.w500,
       context,
-      locale,
     ),
     labelSmall: _getTextStyle(
       AppColorDark.textSecondary,
       12,
       FontWeight.w500,
       context,
-      locale,
     ),
   ),
 
@@ -239,12 +227,10 @@ TextStyle _getTextStyle(
   double fontSize,
   FontWeight fontWeight,
   BuildContext context,
-  Locale? locale,
 ) {
   return TextStyle(
     color: color,
-    fontFamily: locale?.languageCode == 'ar' ? fontArabic : fontEnglish,
-    // fontSize: fontSize * ScaleSize.textScaleFactor(context),
+    fontFamily: font,
     fontSize: fontSize.sp,
     fontWeight: fontWeight,
   );

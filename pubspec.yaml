@@ -43,21 +43,30 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/images/dialog/
     - assets/icons/
     - assets/sounds/
     - assets/logo/
-
     - .env
 
   fonts:
-    - family: Poppins
+    - family: Cairo
       fonts:
-        - asset: assets/fonts/Poppins-Regular.ttf
-
-    - family: cairo
-      fonts:
-        - asset: assets/fonts/Cairo-Regular.ttf
+        - asset: assets/fonts/cairo/Cairo-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/cairo/Cairo-Light.ttf
+          weight: 300
+        - asset: assets/fonts/cairo/Cairo-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/cairo/Cairo-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/cairo/Cairo-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/cairo/Cairo-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/cairo/Cairo-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/cairo/Cairo-Black.ttf
+          weight: 900
 
 flutter_native_splash:
   color: "#feeb70"

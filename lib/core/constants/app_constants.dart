@@ -10,5 +10,4 @@ bool isArabicText(String text) {
   return arabicRegExp.hasMatch(text);
 }
 
-const fontArabic = "cairo";
-const fontEnglish = "Poppins";
+const font = "cairo";
