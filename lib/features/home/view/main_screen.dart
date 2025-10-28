@@ -113,7 +113,7 @@ class HomeContent extends StatelessWidget {
               (index) => Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
                 child: RoomCategoryCard(
-                  title: "Comfortable Chair",
+                  title: "Living room",
                   imagePath: Assets.assetsImagesPic,
                 ),
               ),
