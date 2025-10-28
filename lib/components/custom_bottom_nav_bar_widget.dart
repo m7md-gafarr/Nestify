@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
 
-class CustomBottomNavBar extends StatelessWidget {
-  const CustomBottomNavBar({super.key, this.currentIndex = 0, this.onTap});
+class CustomBottomNavBarWidget extends StatelessWidget {
+  const CustomBottomNavBarWidget({
+    super.key,
+    this.currentIndex = 0,
+    this.onTap,
+  });
 
   final int currentIndex;
   final Function(int)? onTap;

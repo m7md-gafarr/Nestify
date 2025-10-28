@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CategoryCard extends StatelessWidget {
-  const CategoryCard({super.key, required this.imagePath, required this.text});
+class CategoryCardWidget extends StatelessWidget {
+  const CategoryCardWidget({
+    super.key,
+    required this.imagePath,
+    required this.text,
+  });
 
   final String imagePath;
   final String text;
