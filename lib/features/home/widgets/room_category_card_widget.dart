@@ -2,8 +2,8 @@ import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class RoomCategoryCard extends StatelessWidget {
-  const RoomCategoryCard({
+class RoomCategoryCardWidget extends StatelessWidget {
+  const RoomCategoryCardWidget({
     super.key,
     required this.title,
     required this.imagePath,

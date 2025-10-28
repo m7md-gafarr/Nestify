@@ -6,9 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
   fontFamily: font,
   primaryColor: AppColorLight.primary,
-
   secondaryHeaderColor: AppColorLight.onPrimary,
   scaffoldBackgroundColor: AppColorLight.background,
+  appBarTheme: AppBarTheme(
+    backgroundColor: Colors.transparent,
+    surfaceTintColor: Colors.transparent,
+  ),
 
   colorScheme: ColorScheme.light(
     primary: AppColorLight.primary,
