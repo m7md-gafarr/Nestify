@@ -1,11 +1,26 @@
 import 'package:depi_graduation_project/components/custom_app_bar_widget.dart';
+import 'package:depi_graduation_project/features/home/widgets/main_filter_sheet.dart';
 import 'package:depi_graduation_project/features/home/widgets/product_grid_item.dart';
+import 'package:depi_graduation_project/features/home/widgets/sort_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
 
-class CatalogScreen extends StatelessWidget {
+class CatalogScreen extends StatefulWidget {
   const CatalogScreen({super.key});
+
+  @override
+  State<CatalogScreen> createState() => _CatalogScreenState();
+}
+
+class _CatalogScreenState extends State<CatalogScreen> {
+  int selectedSortIndex = 0;
+  RangeValues _priceRange = const RangeValues(200, 900);
+
+  String selectedProductType = "All";
+  String selectedColor = "All";
+  String selectedSize = "All";
+  String selectedQuality = "All";
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +43,17 @@ class CatalogScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: OutlinedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      showSortBottomSheet(
+                        context: context,
+                        selectedSortIndex: selectedSortIndex,
+                        onSortSelected: (index) {
+                          setState(() {
+                            selectedSortIndex = index;
+                          });
+                        },
+                      );
+                    },
                     icon: const Icon(Iconsax.sort),
                     label: const Text("Sort"),
                     style: Theme.of(context).outlinedButtonTheme.style
@@ -42,7 +67,50 @@ class CatalogScreen extends StatelessWidget {
                 SizedBox(width: 15.w),
                 Expanded(
                   child: OutlinedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      showMainFilterSheet(
+                        context: context,
+                        priceRange: _priceRange,
+                        selectedProductType: selectedProductType,
+                        selectedColor: selectedColor,
+                        selectedSize: selectedSize,
+                        selectedQuality: selectedQuality,
+                        onPriceRangeChanged: (values) {
+                          setState(() {
+                            _priceRange = values;
+                          });
+                        },
+                        onClearFilters: () {
+                          setState(() {
+                            _priceRange = const RangeValues(0, 1000);
+                            selectedProductType = "All";
+                            selectedColor = "All";
+                            selectedSize = "All";
+                            selectedQuality = "All";
+                          });
+                        },
+                        onProductTypeSelected: (value) {
+                          setState(() {
+                            selectedProductType = value;
+                          });
+                        },
+                        onColorSelected: (value) {
+                          setState(() {
+                            selectedColor = value;
+                          });
+                        },
+                        onSizeSelected: (value) {
+                          setState(() {
+                            selectedSize = value;
+                          });
+                        },
+                        onQualitySelected: (value) {
+                          setState(() {
+                            selectedQuality = value;
+                          });
+                        },
+                      );
+                    },
                     icon: const Icon(Iconsax.filter),
                     label: const Text("Filter"),
                     style: Theme.of(context).outlinedButtonTheme.style
