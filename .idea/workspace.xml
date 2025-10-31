@@ -4,69 +4,23 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="338b567e-732d-48c9-81a3-e878d3cacfb7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/DDGenerateAssetsClassConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/FlutterxFullConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/deviceManager.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_27_2025_8_22_PM_[Changes]/Cairo-Black.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_27_2025_8_22_PM_[Changes]/Cairo-Bold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_27_2025_8_22_PM_[Changes]/Cairo-ExtraBold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_27_2025_8_22_PM_[Changes]/Cairo-ExtraLight.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_27_2025_8_22_PM_[Changes]/Cairo-Light.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_27_2025_8_22_PM_[Changes]/Cairo-Medium.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_27_2025_8_22_PM_[Changes]/Cairo-SemiBold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_27_2025_8_22_PM_[Changes]/pic.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_27_2025_8_22_PM_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_27_2025_8_22_PM__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/fonts/cairo/Cairo-Black.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/fonts/cairo/Cairo-Bold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/fonts/cairo/Cairo-ExtraBold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/fonts/cairo/Cairo-ExtraLight.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/fonts/cairo/Cairo-Light.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/fonts/cairo/Cairo-Medium.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/fonts/cairo/Cairo-Regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/fonts/cairo/Cairo-SemiBold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/Element.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/Onboarding.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/pic.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/components/custom_bottom_nav_bar.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/account/view/account_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/bag/view/bag_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/home/view/ad_popover_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/home/view/catalog_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/home/view/categories_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/home/view/main_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/home/view/new_reviews_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/home/view/product_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/home/view/reviews_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/home/widgets/category_card.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/home/widgets/room_category_card.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/saved items/view/saved_items_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/generated/assets.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+    <list default="true" id="338b567e-732d-48c9-81a3-e878d3cacfb7" name="Changes" comment="readme commit">
+      <change afterPath="$PROJECT_DIR$/assets/images/surprised.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/primary_button.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/features/bag/models/bag_item.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/features/bag/models/bag_view_model.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/features/bag/view/bag_empty_view.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/features/bag/view/bag_filled_view.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/features/bag/widgets/bag_item_tile.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/features/bag/widgets/custom_button.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/features/bag/widgets/empty_bag_content.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/features/bag/widgets/promo_field.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/features/bag/widgets/total_section.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/fonts/Cairo-Regular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_27_2025_8_22_PM_[Changes]/Cairo-Regular.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/fonts/Poppins-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depi_graduation_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/depi_graduation_project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/constants/app_constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/constants/app_constants.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/core/images/app_images.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/images/app_images.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/router/route_names.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/router/route_names.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/router/router.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/router/router.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/theme/app_color/app_color_light.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/theme/app_color/app_color_light.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/theme/app_theme/app_theme_dark.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/theme/app_theme/app_theme_dark.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/theme/app_theme/app_theme_light.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/theme/app_theme/app_theme_light.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_sources/local/shared_pref.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/data_sources/local/shared_pref.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/view/home_screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/introducation/view/introducation_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/introducation/view/introducation_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/generated/l10n.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated/l10n.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/bag/view/bag_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/bag/view/bag_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/generated/assets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated/assets.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,6 +61,16 @@
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/m7md-gafarr/Nestify.git&quot;,
     &quot;accountId&quot;: &quot;9545683d-690b-40eb-998e-38f1f89632c3&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;m7md-gafarr&quot;,
+    &quot;repository&quot;: &quot;Nestify&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -137,9 +101,18 @@
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "abdelrahman-emad",
     "io.flutter.reload.alreadyRun": "true",
+    "last_opened_file_path": "D:/Nestify/lib/components",
     "show.migrate.to.gradle.popup": "false"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Nestify\lib\components" />
+      <recent name="D:\Nestify\lib\features\bag\widgets" />
+      <recent name="D:\Nestify\assets\images" />
+      <recent name="D:\Nestify\lib\features\bag\view" />
+    </key>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="338b567e-732d-48c9-81a3-e878d3cacfb7" name="Changes" comment="" />
@@ -148,6 +121,15 @@
       <option name="presentableId" value="Default" />
       <updated>1761391010111</updated>
     </task>
+    <task id="LOCAL-00001" summary="readme commit">
+      <option name="closed" value="true" />
+      <created>1761591835743</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1761591835743</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -166,5 +148,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="readme commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="readme commit" />
   </component>
 </project>

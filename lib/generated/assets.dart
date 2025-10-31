@@ -13,6 +13,7 @@ class Assets {
   static const String imagesElement = 'assets/images/Element.svg';
   static const String imagesOnboarding = 'assets/images/Onboarding.svg';
   static const String imagesPic = 'assets/images/pic.png';
+  static const String imagesSurprised = 'assets/images/surprised.png';
   static const String logoNestify = 'assets/logo/nestify.png';
 
 }
