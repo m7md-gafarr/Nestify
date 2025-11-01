@@ -1,7 +1,7 @@
-import 'package:depi_graduation_project/core/images/app_images.dart';
-import 'package:depi_graduation_project/features/home/widgets/category_list_tile_widget.dart';
 import 'package:depi_graduation_project/components/custom_app_bar_widget.dart';
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
+import 'package:depi_graduation_project/core/images/app_images.dart';
+import 'package:depi_graduation_project/features/home/widgets/category_list_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
