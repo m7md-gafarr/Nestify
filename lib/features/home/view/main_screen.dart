@@ -1,8 +1,8 @@
-import 'package:depi_graduation_project/components/custom_bottom_nav_bar.dart';
+import 'package:depi_graduation_project/components/custom_bottom_nav_bar_widget.dart';
 import 'package:depi_graduation_project/core/images/app_images.dart';
 import 'package:depi_graduation_project/features/bag/view/bag_screen.dart';
-import 'package:depi_graduation_project/features/home/widgets/category_card.dart';
-import 'package:depi_graduation_project/features/home/widgets/room_category_card.dart';
+import 'package:depi_graduation_project/features/home/widgets/category_card_widget.dart';
+import 'package:depi_graduation_project/features/home/widgets/room_category_card_widget.dart';
 import 'package:depi_graduation_project/features/saved%20items/view/saved_items_screen.dart';
 import 'package:depi_graduation_project/features/account/view/account_screen.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +45,7 @@ class _MainScreenState extends State<MainScreen> {
             },
         child: _screens[_currentIndex],
       ),
-      bottomNavigationBar: CustomBottomNavBar(
+      bottomNavigationBar: CustomBottomNavBarWidget(
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -79,7 +79,7 @@ class HomeContent extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: TextField(
               decoration: InputDecoration(
-                hintText: "Search for furniture",
+                hintText: "Search",
                 prefixIcon: Icon(Iconsax.search_normal, size: 26.sp),
               ),
             ),
@@ -96,7 +96,7 @@ class HomeContent extends StatelessWidget {
                   6,
                   (index) => Padding(
                     padding: EdgeInsets.only(right: 10.w),
-                    child: CategoryCard(
+                    child: CategoryCardWidget(
                       text: "best of\n2020",
                       imagePath: Assets.assetsImagesPic,
                     ),
@@ -112,8 +112,9 @@ class HomeContent extends StatelessWidget {
               6,
               (index) => Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-                child: RoomCategoryCard(
-                  title: "Comfortable Chair",
+
+                child: RoomCategoryCardWidget(
+                  title: "Living room",
                   imagePath: Assets.assetsImagesPic,
                 ),
               ),

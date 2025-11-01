@@ -25,20 +25,13 @@ class _BagScreenContent extends StatelessWidget {
     final vm = context.watch<BagViewModel>();
 
     if (vm.isEmpty) {
-      return BagEmptyView(
-        onStartShopping: () => _onStartShopping(context),
-      );
+      return BagEmptyView(onStartShopping: () => _onStartShopping(context));
     }
 
-    return BagFilledView(
-      viewModel: vm,
-      onCheckout: () => _onCheckout(context),
-    );
+    return BagFilledView(viewModel: vm, onCheckout: () => _onCheckout(context));
   }
 
-  void _onCheckout(BuildContext context) {
-
-  }
+  void _onCheckout(BuildContext context) {}
 
   void _onStartShopping(BuildContext context) {
     Navigator.of(context).pushReplacementNamed(AppRouteNames.homePageRoute);
