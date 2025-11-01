@@ -1,5 +1,8 @@
-import 'package:depi_graduation_project/components/custom_bottom_nav_bar.dart';
+import 'package:depi_graduation_project/components/custom_bottom_nav_bar_widget.dart';
+import 'package:depi_graduation_project/core/images/app_images.dart';
 import 'package:depi_graduation_project/features/bag/view/bag_screen.dart';
+import 'package:depi_graduation_project/features/home/widgets/category_card_widget.dart';
+import 'package:depi_graduation_project/features/home/widgets/room_category_card_widget.dart';
 import 'package:depi_graduation_project/features/saved%20items/view/saved_items_screen.dart';
 import 'package:depi_graduation_project/features/account/view/account_screen.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +45,8 @@ class _MainScreenState extends State<MainScreen> {
             },
         child: _screens[_currentIndex],
       ),
-      bottomNavigationBar: CustomBottomNavBar(
+
+      bottomNavigationBar: CustomBottomNavBarWidget(
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -59,20 +63,64 @@ class HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: Column(
         children: [
           SizedBox(height: 80.h),
-          Text("Nestify", style: Theme.of(context).textTheme.headlineLarge),
-          SizedBox(height: 30.h),
-          TextField(
-            decoration: InputDecoration(
-              hintText: "Search for furniture",
-              prefixIcon: Icon(Iconsax.search_normal, size: 26.sp),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Text(
+              "Nestify",
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
           ),
-          SizedBox(height: 50.h),
+          SizedBox(height: 30.h),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: "Search",
+                prefixIcon: Icon(Iconsax.search_normal, size: 26.sp),
+              ),
+            ),
+          ),
+          SizedBox(height: 15.h),
+
+          Padding(
+            padding: const EdgeInsets.only(left: 15.0),
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List.generate(
+                  6,
+                  (index) => Padding(
+                    padding: EdgeInsets.only(right: 10.w),
+                    child: CategoryCardWidget(
+                      text: "best of\n2020",
+                      imagePath: Assets.assetsImagesPic,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 15.h),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: List.generate(
+              6,
+              (index) => Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+
+                child: RoomCategoryCardWidget(
+                  title: "Living room",
+                  imagePath: Assets.assetsImagesPic,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
