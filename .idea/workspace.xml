@@ -5,22 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="338b567e-732d-48c9-81a3-e878d3cacfb7" name="Changes" comment="readme commit">
-      <change afterPath="$PROJECT_DIR$/assets/images/surprised.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/components/primary_button.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/bag/models/bag_item.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/bag/models/bag_view_model.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/bag/view/bag_empty_view.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/bag/view/bag_filled_view.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/bag/widgets/bag_item_tile.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/bag/widgets/custom_button.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/bag/widgets/empty_bag_content.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/bag/widgets/promo_field.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/features/bag/widgets/total_section.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/images/app_images.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/images/app_images.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/bag/view/bag_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/bag/view/bag_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/generated/assets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated/assets.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
