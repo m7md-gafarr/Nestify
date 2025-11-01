@@ -1,3 +1,4 @@
+import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:depi_graduation_project/features/bag/widgets/bag_item_tile.dart';
@@ -19,14 +20,13 @@ class BagFilledView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          padding: EdgeInsets.fromLTRB(16.w, 36.h, 16.w, 12.h),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('bag', style: Theme.of(context).textTheme.headlineMedium),
+            SizedBox(height: 60.h),
+            CustomSectionHeaderWidget(title: 'bag'),
             SizedBox(height: 20.h),
-
             ListView.separated(
               itemCount: viewModel.items.length,
               shrinkWrap: true,
@@ -44,8 +44,7 @@ class BagFilledView extends StatelessWidget {
             ),
 
             SizedBox(height: 20.h),
-            Text('promo code', style: Theme.of(context).textTheme.titleMedium),
-            SizedBox(height: 10.h),
+            CustomSectionHeaderWidget(title: 'promo code'),
 
             PromoField(
               value: viewModel.promo,
@@ -54,22 +53,13 @@ class BagFilledView extends StatelessWidget {
             ),
 
             SizedBox(height: 24.h),
-            TotalSection(
-              discount: viewModel.discount,
-              total: viewModel.total,
+            TotalSection(discount: viewModel.discount, total: viewModel.total),
+            SizedBox(height: 24.h),
+            ElevatedButton(
+              onPressed: onCheckout,
+              child: const Text('Continue'),
             ),
-            SizedBox(height: 120.h),
           ],
-        ),
-      ),
-      bottomNavigationBar: SafeArea(
-        top: false,
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 16.h),
-          child: ElevatedButton(
-            onPressed: onCheckout,
-            child: const Text('Continue'),
-          ),
         ),
       ),
     );

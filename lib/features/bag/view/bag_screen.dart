@@ -12,7 +12,10 @@ class BagScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => BagViewModel(),
-      child: const _BagScreenContent(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        child: const _BagScreenContent(),
+      ),
     );
   }
 }

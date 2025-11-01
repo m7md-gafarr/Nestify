@@ -13,5 +13,3 @@ class BagItem {
     this.quantity = 1,
   });
 }
-
-

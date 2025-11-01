@@ -1,5 +1,5 @@
+import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TotalSection extends StatelessWidget {
   final double discount;
@@ -15,21 +15,21 @@ class TotalSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('total', style: textTheme.titleMedium),
-            Text('\$${total.toStringAsFixed(2)}', style: textTheme.titleLarge),
+            CustomSectionHeaderWidget(title: 'total'),
+            CustomSectionHeaderWidget(title: '\$${total.toStringAsFixed(2)}'),
           ],
         ),
-        SizedBox(height: 6.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Promocode', style: textTheme.bodySmall),
-            Text('-\$${discount.toStringAsFixed(2)}', style: textTheme.bodySmall),
+            Text('Promocode', style: textTheme.bodyMedium),
+            Text(
+              '-\$${discount.toStringAsFixed(2)}',
+              style: textTheme.bodyMedium,
+            ),
           ],
         ),
       ],
     );
   }
 }
-
-
