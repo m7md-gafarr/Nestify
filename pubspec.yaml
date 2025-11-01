@@ -46,7 +46,6 @@ flutter:
     - assets/icons/
     - assets/sounds/
     - assets/logo/
-    - .env
 
   fonts:
     - family: Cairo

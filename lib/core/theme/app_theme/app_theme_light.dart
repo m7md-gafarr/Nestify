@@ -9,6 +9,10 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
 
   secondaryHeaderColor: AppColorLight.onPrimary,
   scaffoldBackgroundColor: AppColorLight.background,
+  appBarTheme: AppBarTheme(
+    backgroundColor: Colors.transparent,
+    surfaceTintColor: Colors.transparent,
+  ),
 
   colorScheme: ColorScheme.light(
     primary: AppColorLight.primary,
@@ -235,12 +239,11 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
   ),
 
   cardTheme: CardThemeData(
-    color: AppColorLight.card,
+    color: AppColorLight.surface,
     shadowColor: AppColorLight.shadow,
 
-    margin: EdgeInsets.all(8),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(12)),
+      borderRadius: BorderRadius.all(Radius.circular(12.r)),
     ),
   ),
 );

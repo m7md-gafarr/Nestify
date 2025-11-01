@@ -1,3 +1,4 @@
+import 'package:depi_graduation_project/core/constants/app_constants.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/features/introducation/view/introducation_screen.dart';
 import 'package:depi_graduation_project/features/home/view/main_screen.dart';
@@ -19,12 +20,33 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => IntroducationScreen());
       case AppRouteNames.homePageRoute:
         return MaterialPageRoute(builder: (context) => MainScreen());
+
       case AppRouteNames.mainScreenRoute:
         return MaterialPageRoute(builder: (context) => MainScreen());
       case AppRouteNames.categoriesScreenRoute:
         return MaterialPageRoute(builder: (context) => CategoriesScreen());
       case AppRouteNames.catalogScreenRoute:
-        return MaterialPageRoute(builder: (context) => CatalogScreen());
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const CatalogScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            final begin = isRTL(context)
+                ? const Offset(-1.0, 0.0)
+                : const Offset(1.0, 0.0);
+            const end = Offset.zero;
+            const curve = Curves.ease;
+
+            final tween = Tween(
+              begin: begin,
+              end: end,
+            ).chain(CurveTween(curve: curve));
+            final offsetAnimation = animation.drive(tween);
+
+            return SlideTransition(position: offsetAnimation, child: child);
+          },
+          transitionDuration: const Duration(milliseconds: 400),
+        );
+
       case AppRouteNames.productScreenRoute:
         return MaterialPageRoute(builder: (context) => ProductScreen());
       case AppRouteNames.reviewsScreenRoute:
@@ -33,10 +55,16 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => NewReviewsScreen());
       case AppRouteNames.adPopoverScreenRoute:
         return MaterialPageRoute(builder: (context) => AdPopoverScreen());
+
+      // Bag/Cart Screen Route
       case AppRouteNames.bagScreenRoute:
         return MaterialPageRoute(builder: (context) => BagScreen());
+
+      // Saved Items Screen Route
       case AppRouteNames.savedItemsScreenRoute:
         return MaterialPageRoute(builder: (context) => SavedItemsScreen());
+
+      // Account Screen Route
       case AppRouteNames.accountScreenRoute:
         return MaterialPageRoute(builder: (context) => AccountScreen());
       default:
