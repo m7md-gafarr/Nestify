@@ -11,7 +11,7 @@ void showFilterOptionSelectorSheet({
   showModalBottomSheet(
     context: context,
     builder: (context) => Container(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(15.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
