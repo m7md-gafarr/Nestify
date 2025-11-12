@@ -21,7 +21,15 @@ class ProductGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, AppRouteNames.productScreenRoute);
+        Navigator.pushNamed(
+          context,
+          AppRouteNames.productScreenRoute,
+          arguments: {
+            'price': price,
+            'imageAsset': imageAsset,
+            'isSaved': isSaved,
+          },
+        );
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

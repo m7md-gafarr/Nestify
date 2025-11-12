@@ -14,5 +14,7 @@ class Assets {
   /// assets/images/pic.png
   static const String assetsImagesPic = "assets/images/pic.png";
 
-  static const String assetsSurprisedPic = "assets/images/surprised.png";
+  /// Assets for assetsImagesSurprised
+  /// assets/images/surprised.png
+  static const String assetsImagesSurprised = "assets/images/surprised.png";
 }
