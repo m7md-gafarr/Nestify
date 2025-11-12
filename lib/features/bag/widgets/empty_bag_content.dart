@@ -12,7 +12,7 @@ class EmptyBagContent extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Image.asset(
-          Assets.assetsSurprisedPic,
+          Assets.assetsImagesSurprised,
           width: 160.w,
           height: 160.w,
           fit: BoxFit.cover,

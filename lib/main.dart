@@ -5,7 +5,9 @@ import 'package:depi_graduation_project/core/theme/app_theme/app_theme_light.dar
 import 'package:depi_graduation_project/core/utils/Theme/theme_provider.dart';
 import 'package:depi_graduation_project/core/utils/language/language.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
+import 'package:depi_graduation_project/features/home/logic/filter_cubit/filter_cubit_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -29,7 +31,10 @@ void main() async {
         ChangeNotifierProvider(create: (_) => LanguageProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
-      child: MyApp(appRouter: AppRouter()),
+      child: BlocProvider(
+        create: (_) => FilterCubit(),
+        child: MyApp(appRouter: AppRouter()),
+      ),
     ),
   );
 }

@@ -49,7 +49,10 @@ class AppRouter {
         );
 
       case AppRouteNames.productScreenRoute:
-        return MaterialPageRoute(builder: (context) => ProductScreen());
+        return MaterialPageRoute(
+          builder: (context) => ProductScreen(),
+          settings: settings,
+        );
       case AppRouteNames.reviewsScreenRoute:
         return MaterialPageRoute(builder: (context) => ReviewsScreen());
       case AppRouteNames.newReviewsScreenRoute:
@@ -68,6 +71,7 @@ class AppRouter {
       // Account Screen Route
       case AppRouteNames.accountScreenRoute:
         return MaterialPageRoute(builder: (context) => AccountScreen());
+
       default:
         return MaterialPageRoute(
           builder: (context) =>
