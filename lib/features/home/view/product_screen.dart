@@ -1,6 +1,5 @@
-import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
 import 'package:depi_graduation_project/core/images/app_images.dart';
-import 'package:depi_graduation_project/features/home/widgets/product_grid_item.dart';
+import 'package:depi_graduation_project/features/home/widgets/review_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
@@ -16,6 +15,8 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   int _selectedColorIndex = 0;
   int _selectedImageIndex = 0;
+  bool _expandedProductDetails = false;
+  bool _expandedReviewsDetails = false;
   static const List<String> _fallbackColors = [
     'Black',
     'White',
@@ -24,7 +25,6 @@ class _ProductScreenState extends State<ProductScreen> {
     'Beige',
     'Blue',
   ];
-
   static const Map<String, Color> _colorMap = {
     'Black': Colors.black,
     'White': Colors.white,
@@ -173,27 +173,152 @@ class _ProductScreenState extends State<ProductScreen> {
                         label: Text("Add to Cart"),
                       ),
 
-                      SizedBox(height: 20.h),
+                      SizedBox(height: 30.h),
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: CustomSectionHeaderWidget(
-                          title: "similar products",
+                        child: Text(
+                          "Product details",
+                          style: Theme.of(context).textTheme.titleLarge!
+                              .copyWith(fontWeight: FontWeight.bold),
                         ),
                       ),
-                      SizedBox(height: 10.h),
-                      GridView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: 4,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.65,
-                          crossAxisSpacing: 15.w,
-                          mainAxisSpacing: 15.w,
-                        ),
-                        itemBuilder: (_, index) =>
-                            ProductGridItem(price: index),
+                      SizedBox(height: 7.h),
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        height: _expandedProductDetails ? null : 80.h,
+                        child: _expandedProductDetails
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Measurements",
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.titleSmall,
+                                  ),
+                                  SizedBox(height: 4.h),
+                                  Row(
+                                    children: [
+                                      Expanded(child: Text("Height: 50 cm")),
+                                      Expanded(child: Text("Width: 40 cm")),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(child: Text("Depth: 35 cm")),
+                                      Expanded(child: Text("Weight: 11.7 kg")),
+                                    ],
+                                  ),
+
+                                  SizedBox(height: 16.h),
+
+                                  Text(
+                                    "Composition",
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.titleMedium,
+                                  ),
+                                  SizedBox(height: 4.h),
+                                  Text("Main material: 100% Mango tree wood"),
+                                  Text("Secondary material: 100% Chipboard"),
+                                ],
+                              )
+                            : ShaderMask(
+                                shaderCallback: (Rect bounds) {
+                                  return const LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [Colors.black, Colors.transparent],
+                                    stops: [0.2, 1.0],
+                                  ).createShader(bounds);
+                                },
+                                blendMode: BlendMode.dstIn,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Measurements",
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.titleSmall,
+                                    ),
+                                    SizedBox(height: 4.h),
+                                    Row(
+                                      children: [
+                                        Expanded(child: Text("Height: 50 cm")),
+                                        Expanded(child: Text("Width: 40 cm")),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(child: Text("Depth: 35 cm")),
+                                        Expanded(
+                                          child: Text("Weight: 11.7 kg"),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
                       ),
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            _expandedProductDetails = !_expandedProductDetails;
+                          });
+                        },
+                        child: Text(
+                          _expandedProductDetails ? "Show less" : "Show more",
+                          style: Theme.of(context).textTheme.labelLarge,
+                        ),
+                      ),
+
+                      Divider(),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Reviews",
+                          style: Theme.of(context).textTheme.titleLarge!
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(height: 7.h),
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        height: _expandedReviewsDetails ? null : 140.h,
+                        child: _expandedReviewsDetails
+                            ? Column(
+                                children: List.generate(
+                                  5,
+                                  (index) => ReviewCardWidget(),
+                                ),
+                              )
+                            : ShaderMask(
+                                shaderCallback: (Rect bounds) {
+                                  return const LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [Colors.black, Colors.transparent],
+                                    stops: [0.2, 1.0],
+                                  ).createShader(bounds);
+                                },
+                                blendMode: BlendMode.dstIn,
+                                child: ReviewCardWidget(),
+                              ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            _expandedReviewsDetails = !_expandedReviewsDetails;
+                          });
+                        },
+                        child: Text(
+                          _expandedReviewsDetails ? "Show less" : "Show more",
+                          style: Theme.of(context).textTheme.labelLarge,
+                        ),
+                      ),
+
+                      SizedBox(height: 20.h),
                     ],
                   ),
                 ),
