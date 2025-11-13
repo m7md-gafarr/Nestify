@@ -34,15 +34,18 @@ class ProductGridItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 180.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(imageAsset ?? Assets.assetsImagesPic),
-                fit: BoxFit.cover,
+          Hero(
+            tag: 'product_$price',
+            child: Container(
+              height: 180.h,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(imageAsset ?? Assets.assetsImagesPic),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(10.r),
               ),
-              borderRadius: BorderRadius.circular(10.r),
             ),
           ),
           Row(

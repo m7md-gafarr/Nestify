@@ -1,6 +1,6 @@
 import 'package:depi_graduation_project/core/constants/app_constants.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
-import 'package:depi_graduation_project/features/home/view/product_information_screen.dart';
+import 'package:depi_graduation_project/features/home/view/story_screen.dart';
 import 'package:depi_graduation_project/features/introducation/view/introducation_screen.dart';
 import 'package:depi_graduation_project/features/home/view/main_screen.dart';
 import 'package:depi_graduation_project/features/home/view/categories_screen.dart';
@@ -60,11 +60,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => NewReviewsScreen());
       case AppRouteNames.adPopoverScreenRoute:
         return MaterialPageRoute(builder: (context) => AdPopoverScreen());
-      case AppRouteNames.productInformationScreenRoute:
-        return MaterialPageRoute(
-          builder: (context) => ProductInformationScreen(),
-          settings: settings,
-        );
+      case AppRouteNames.storyScreenRoute:
+        return MaterialPageRoute(builder: (context) => StoryScreen());
 
       // Bag/Cart Screen Route
       case AppRouteNames.bagScreenRoute:

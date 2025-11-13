@@ -1,4 +1,5 @@
 import 'package:depi_graduation_project/core/images/app_images.dart';
+import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/features/home/widgets/review_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -53,28 +54,90 @@ class _ProductScreenState extends State<ProductScreen> {
       _selectedColorIndex = 0;
     }
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Column(
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
               children: [
                 SizedBox(
                   height: MediaQuery.of(context).size.width,
                   width: MediaQuery.of(context).size.width,
-                  child: PageView.builder(
-                    physics: BouncingScrollPhysics(),
-                    itemCount: 4,
-                    onPageChanged: (index) {
-                      setState(() {
-                        _selectedImageIndex = index;
-                      });
-                    },
-                    itemBuilder: (_, index) {
-                      return Image.asset(
-                        args['imageAsset'] ?? Assets.assetsImagesPic,
-                        fit: BoxFit.cover,
-                      );
-                    },
+                  child: Stack(
+                    children: [
+                      PageView.builder(
+                        physics: BouncingScrollPhysics(),
+                        itemCount: 4,
+                        onPageChanged: (index) {
+                          setState(() {
+                            _selectedImageIndex = index;
+                          });
+                        },
+                        itemBuilder: (_, index) {
+                          return Hero(
+                            tag: 'product_${args['price']}',
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  AppRouteNames.storyScreenRoute,
+                                );
+                              },
+                              child: Image.asset(
+                                args['imageAsset'] ?? Assets.assetsImagesPic,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      Positioned(
+                        top: MediaQuery.of(context).size.width - 20.h,
+                        left: 0,
+                        right: 0,
+                        child: Center(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 6.w,
+                              vertical: 2.h,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .surfaceContainerHighest
+                                  .withOpacity(0.8),
+                              borderRadius: BorderRadius.circular(20.r),
+                            ),
+                            child: AnimatedSmoothIndicator(
+                              activeIndex: _selectedImageIndex,
+                              count: 4,
+                              effect: ExpandingDotsEffect(
+                                activeDotColor: Theme.of(
+                                  context,
+                                ).colorScheme.primary,
+                                dotColor: Colors.grey,
+                                dotHeight: 7.w,
+                                dotWidth: 7.w,
+                                spacing: 4.w,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 30.h,
+                        right: 16.w,
+                        child: IconButton.filled(
+                          style: IconButton.styleFrom(
+                            backgroundColor: Theme.of(context)
+                                .colorScheme
+                                .surfaceContainerHighest
+                                .withOpacity(0.8),
+                          ),
+                          onPressed: () {},
+                          icon: Icon(Iconsax.heart),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(height: 20.h),
@@ -324,62 +387,22 @@ class _ProductScreenState extends State<ProductScreen> {
                 ),
               ],
             ),
+          ),
 
-            Positioned(
-              top: 30.h,
-              left: 16.w,
-              child: IconButton.filled(
-                onPressed: () => Navigator.pop(context),
-                style: IconButton.styleFrom(
-                  backgroundColor: Theme.of(
-                    context,
-                  ).colorScheme.surfaceContainerHighest.withOpacity(0.8),
-                ),
-                icon: Icon(Iconsax.arrow_left),
+          Positioned(
+            top: 30.h,
+            left: 16.w,
+            child: IconButton.filled(
+              onPressed: () => Navigator.pop(context),
+              style: IconButton.styleFrom(
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.surfaceContainerHighest.withOpacity(0.8),
               ),
+              icon: Icon(Iconsax.arrow_left),
             ),
-            Positioned(
-              top: 30.h,
-              right: 16.w,
-              child: IconButton.filled(
-                style: IconButton.styleFrom(
-                  backgroundColor: Theme.of(
-                    context,
-                  ).colorScheme.surfaceContainerHighest.withOpacity(0.8),
-                ),
-                onPressed: () {},
-                icon: Icon(Iconsax.heart),
-              ),
-            ),
-            Positioned(
-              top: MediaQuery.of(context).size.width - 20.h,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-                  decoration: BoxDecoration(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.surfaceContainerHighest.withOpacity(0.8),
-                    borderRadius: BorderRadius.circular(20.r),
-                  ),
-                  child: AnimatedSmoothIndicator(
-                    activeIndex: _selectedImageIndex,
-                    count: 4,
-                    effect: ExpandingDotsEffect(
-                      activeDotColor: Theme.of(context).colorScheme.primary,
-                      dotColor: Colors.grey,
-                      dotHeight: 7.w,
-                      dotWidth: 7.w,
-                      spacing: 4.w,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
