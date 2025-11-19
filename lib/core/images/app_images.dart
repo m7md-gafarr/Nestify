@@ -19,7 +19,7 @@ class Assets {
   static const String assetsImagesSad = "assets/images/sad.svg";
 
   /// Assets for assetsImagesSurprised
-  /// assets/images/surprised.png
-  static const String assetsImagesSurprised = "assets/images/surprised.png";
+  /// assets/images/surprised.svg
+  static const String assetsImagesSurprised = "assets/images/surprised.svg";
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../core/images/app_images.dart';
 
@@ -11,10 +12,10 @@ class EmptyBagContent extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset(
+        SvgPicture.asset(
           Assets.assetsImagesSurprised,
-          width: 160.w,
-          height: 160.w,
+          width: 150.w,
+          height: 150.h,
           fit: BoxFit.cover,
         ),
         SizedBox(height: 24.h),

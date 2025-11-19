@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SavedItemsScreen extends StatelessWidget {
-  const SavedItemsScreen({super.key});
+class SavedItemsEmptyScreen extends StatelessWidget {
+  const SavedItemsEmptyScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
