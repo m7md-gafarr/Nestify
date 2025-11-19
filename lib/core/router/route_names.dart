@@ -10,7 +10,7 @@ class AppRouteNames {
   static const String reviewsScreenRoute = "/reviewsScreenRoute";
   static const String newReviewsScreenRoute = "/newReviewsScreenRoute";
   static const String adPopoverScreenRoute = "/adPopoverScreenRoute";
-
+  static const String storyScreenRoute = "/storyScreenRoute";
   // Bag/Cart Feature
   static const String bagScreenRoute = "/bagScreenRoute";
 

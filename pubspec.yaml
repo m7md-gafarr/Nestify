@@ -18,6 +18,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_native_splash: ^2.4.6
+  flutter_pannable_rating_bar: ^2.7.2+1
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.0.17
   hive: ^2.2.3
