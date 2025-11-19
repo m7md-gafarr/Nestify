@@ -16,6 +16,9 @@ class _StoryScreenState extends State<StoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -28,28 +31,50 @@ class _StoryScreenState extends State<StoryScreen> {
             itemCount: 4,
             physics: BouncingScrollPhysics(),
             itemBuilder: (context, index) {
-              return Image.asset(Assets.assetsImagesPic, fit: BoxFit.cover);
+              return Hero(
+                tag: 'product_${args['price']}',
+                child: Image.asset(Assets.assetsImagesPic, fit: BoxFit.cover),
+              );
             },
           ),
-          Text("glass storage jar with golden lid"),
-          Text(
-            "Hermetic storage jar. Made of glass with a raised slogan detail and a golden screw-on lid. Available in three sizes.",
+          Positioned(
+            bottom: 140.h,
+            left: 16.w,
+            child: Text(
+              "glass storage jar with golden lid",
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                color: Theme.of(context).scaffoldBackgroundColor,
+              ),
+            ),
           ),
           Positioned(
-            top: MediaQuery.of(context).size.width - 20.h,
-            left: 0,
-            right: 0,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: AnimatedSmoothIndicator(
-                activeIndex: _selectedImageIndex,
-                count: 4,
-                effect: ExpandingDotsEffect(
-                  activeDotColor: Theme.of(context).colorScheme.primary,
-                  dotColor: Colors.grey,
-                  dotHeight: 5.w,
-                  dotWidth: MediaQuery.of(context).size.width / 5,
-                  spacing: 4.w,
+            bottom: 90.h,
+            left: 16.w,
+            right: 16.w,
+            child: Text(
+              "Hermetic storage jar. Made of glass with a raised slogan detail and a golden screw-on lid. Available in three sizes.",
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Theme.of(context).scaffoldBackgroundColor,
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 40.h,
+
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                child: AnimatedSmoothIndicator(
+                  activeIndex: _selectedImageIndex,
+                  count: 4,
+                  effect: ExpandingDotsEffect(
+                    activeDotColor: Theme.of(context).colorScheme.primary,
+                    dotColor: Colors.grey,
+                    dotHeight: 5.w,
+                    dotWidth: MediaQuery.of(context).size.width / 9,
+                    spacing: 4.w,
+                  ),
                 ),
               ),
             ),

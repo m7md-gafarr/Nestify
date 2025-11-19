@@ -61,7 +61,10 @@ class AppRouter {
       case AppRouteNames.adPopoverScreenRoute:
         return MaterialPageRoute(builder: (context) => AdPopoverScreen());
       case AppRouteNames.storyScreenRoute:
-        return MaterialPageRoute(builder: (context) => StoryScreen());
+        return MaterialPageRoute(
+          builder: (context) => StoryScreen(),
+          settings: settings,
+        );
 
       // Bag/Cart Screen Route
       case AppRouteNames.bagScreenRoute:

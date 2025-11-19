@@ -80,6 +80,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                 Navigator.pushNamed(
                                   context,
                                   AppRouteNames.storyScreenRoute,
+                                  arguments: args,
                                 );
                               },
                               child: Image.asset(
