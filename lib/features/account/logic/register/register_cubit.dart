@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:depi_graduation_project/core/utils/check_connection/check_connection_cubit.dart';
+import 'package:depi_graduation_project/data/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
@@ -20,12 +21,10 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
     emit(RegisterLoading());
     try {
-      final credential = await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      AuthService authService = AuthService();
+      final credential = await authService.register(email, password);
       await _auth.currentUser!.sendEmailVerification();
-      emit(RegisterSuccess(credential));
+      emit(RegisterSuccess(credential!));
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'weak-password':
