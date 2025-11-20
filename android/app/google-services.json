@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "713711466605",
+    "project_id": "nestify-b76e7",
+    "storage_bucket": "nestify-b76e7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713711466605:android:aec0b738ce04563e9de764",
+        "android_client_info": {
+          "package_name": "com.example.depi_graduation_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713711466605-ash8em60h1iqfrgrhlnhh0lgrf3hqf5a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPG4DNBoHEp1Az6V5BMBvsEPH3TeZ9RI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713711466605-ash8em60h1iqfrgrhlnhh0lgrf3hqf5a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "713711466605-38r2pnlf0ueil59n0d9pv8vcdbi8sa4r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.depiGraduationProject"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
