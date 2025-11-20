@@ -1,5 +1,6 @@
 import 'package:depi_graduation_project/components/custom_bottom_nav_bar_widget.dart';
 import 'package:depi_graduation_project/core/images/app_images.dart';
+import 'package:depi_graduation_project/features/account/view/login_screen.dart';
 import 'package:depi_graduation_project/features/bag/view/bag_screen.dart';
 import 'package:depi_graduation_project/features/home/widgets/category_card_widget.dart';
 import 'package:depi_graduation_project/features/home/widgets/room_category_card_widget.dart';
@@ -24,7 +25,7 @@ class _MainScreenState extends State<MainScreen> {
     const HomeContent(),
     const BagScreen(),
     const SavedItemsScreen(),
-    const AccountScreen(),
+    const LoginScreen(),
   ];
 
   @override

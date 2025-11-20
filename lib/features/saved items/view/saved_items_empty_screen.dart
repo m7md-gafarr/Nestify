@@ -24,8 +24,8 @@ class SavedItemsEmptyScreen extends StatelessWidget {
               Spacer(),
               SvgPicture.asset(
                 Assets.assetsImagesSurprised,
-                width: 150.w,
-                height: 150.h,
+                width: 120.w,
+                height: 120.w,
               ),
               Text(
                 'nothing saved...',

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class AccountScreen extends StatelessWidget {
-  const AccountScreen({super.key});
+class EmptyAccountScreen extends StatelessWidget {
+  const EmptyAccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +24,8 @@ class AccountScreen extends StatelessWidget {
               Spacer(),
               SvgPicture.asset(
                 Assets.assetsImagesSmiley,
-                width: 120.w,
-                height: 120.w,
+                width: 150.w,
+                height: 150.h,
               ),
               Text(
                 'come on in',
