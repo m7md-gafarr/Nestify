@@ -3,8 +3,11 @@ import 'package:depi_graduation_project/core/router/router.dart';
 import 'package:depi_graduation_project/core/theme/app_theme/app_theme_dark.dart';
 import 'package:depi_graduation_project/core/theme/app_theme/app_theme_light.dart';
 import 'package:depi_graduation_project/core/utils/Theme/theme_provider.dart';
+import 'package:depi_graduation_project/core/utils/check_connection/check_connection_cubit.dart';
 import 'package:depi_graduation_project/core/utils/language/language.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
+import 'package:depi_graduation_project/features/account/logic/login/login_cubit.dart';
+import 'package:depi_graduation_project/features/account/logic/register/register_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/filter_cubit/filter_cubit_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,8 +37,13 @@ void main() async {
         ChangeNotifierProvider(create: (_) => LanguageProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
-      child: BlocProvider(
-        create: (_) => FilterCubit(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => FilterCubit()),
+          BlocProvider(create: (_) => LoginCubit(CheckConnectionCubit())),
+          BlocProvider(create: (_) => RegisterCubit(CheckConnectionCubit())),
+          BlocProvider(create: (_) => CheckConnectionCubit()),
+        ],
         child: MyApp(appRouter: AppRouter()),
       ),
     ),
