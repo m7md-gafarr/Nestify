@@ -1,5 +1,11 @@
 import 'package:depi_graduation_project/core/constants/app_constants.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
+import 'package:depi_graduation_project/features/account/view/empty_account_screen.dart';
+import 'package:depi_graduation_project/features/account/view/forgot_password_screen.dart';
+import 'package:depi_graduation_project/features/account/view/login_screen.dart';
+import 'package:depi_graduation_project/features/account/view/register_screen.dart';
+
+import 'package:depi_graduation_project/features/home/view/story_screen.dart';
 import 'package:depi_graduation_project/features/introducation/view/introducation_screen.dart';
 import 'package:depi_graduation_project/features/home/view/main_screen.dart';
 import 'package:depi_graduation_project/features/home/view/categories_screen.dart';
@@ -46,15 +52,22 @@ class AppRouter {
           },
           transitionDuration: const Duration(milliseconds: 400),
         );
-
       case AppRouteNames.productScreenRoute:
-        return MaterialPageRoute(builder: (context) => ProductScreen());
+        return MaterialPageRoute(
+          builder: (context) => ProductScreen(),
+          settings: settings,
+        );
       case AppRouteNames.reviewsScreenRoute:
         return MaterialPageRoute(builder: (context) => ReviewsScreen());
       case AppRouteNames.newReviewsScreenRoute:
         return MaterialPageRoute(builder: (context) => NewReviewsScreen());
       case AppRouteNames.adPopoverScreenRoute:
         return MaterialPageRoute(builder: (context) => AdPopoverScreen());
+      case AppRouteNames.storyScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => StoryScreen(),
+          settings: settings,
+        );
 
       // Bag/Cart Screen Route
       case AppRouteNames.bagScreenRoute:
@@ -67,6 +80,15 @@ class AppRouter {
       // Account Screen Route
       case AppRouteNames.accountScreenRoute:
         return MaterialPageRoute(builder: (context) => AccountScreen());
+      case AppRouteNames.emptyAccountScreenRoute:
+        return MaterialPageRoute(builder: (context) => EmptyAccountScreen());
+      case AppRouteNames.loginScreenRoute:
+        return MaterialPageRoute(builder: (context) => LoginScreen());
+      case AppRouteNames.registerScreenRoute:
+        return MaterialPageRoute(builder: (context) => RegisterScreen());
+      case AppRouteNames.forgotPasswordScreenRoute:
+        return MaterialPageRoute(builder: (context) => ForgotPasswordScreen());
+
       default:
         return MaterialPageRoute(
           builder: (context) =>

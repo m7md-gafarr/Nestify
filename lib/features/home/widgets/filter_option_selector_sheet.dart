@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -8,10 +10,11 @@ void showFilterOptionSelectorSheet({
   required String selectedOption,
   required Function(String) onOptionSelected,
 }) {
+  log('showing filter option selector sheet for $selectedOption');
   showModalBottomSheet(
     context: context,
     builder: (context) => Container(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(15.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,6 +50,7 @@ void showFilterOptionSelectorSheet({
                         ),
                   onTap: () {
                     onOptionSelected(option);
+
                     Navigator.pop(context);
                   },
                 );
