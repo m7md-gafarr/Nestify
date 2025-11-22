@@ -21,20 +21,31 @@ class ProductGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, AppRouteNames.productScreenRoute);
+        Navigator.pushNamed(
+          context,
+          AppRouteNames.productScreenRoute,
+          arguments: {
+            'price': price,
+            'imageAsset': imageAsset,
+            'isSaved': isSaved,
+          },
+        );
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 180.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(imageAsset ?? Assets.assetsImagesPic),
-                fit: BoxFit.cover,
+          Hero(
+            tag: 'product_$price',
+            child: Container(
+              height: 180.h,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(imageAsset ?? Assets.assetsImagesPic),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(10.r),
               ),
-              borderRadius: BorderRadius.circular(10.r),
             ),
           ),
           Row(

@@ -13,4 +13,16 @@ class Assets {
   /// Assets for assetsImagesPic
   /// assets/images/pic.png
   static const String assetsImagesPic = "assets/images/pic.png";
+
+  /// Assets for assetsImagesSad
+  /// assets/images/sad.svg
+  static const String assetsImagesSad = "assets/images/sad.svg";
+
+  /// Assets for assetsImagesSmiley
+  /// assets/images/smiley.svg
+  static const String assetsImagesSmiley = "assets/images/smiley.svg";
+
+  /// Assets for assetsImagesSurprised
+  /// assets/images/surprised.svg
+  static const String assetsImagesSurprised = "assets/images/surprised.svg";
 }

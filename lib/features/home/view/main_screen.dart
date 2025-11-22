@@ -1,11 +1,14 @@
 import 'package:depi_graduation_project/components/custom_bottom_nav_bar_widget.dart';
 import 'package:depi_graduation_project/core/images/app_images.dart';
+import 'package:depi_graduation_project/core/utils/check_connection/check_connection_cubit.dart';
 import 'package:depi_graduation_project/features/bag/view/bag_screen.dart';
 import 'package:depi_graduation_project/features/home/widgets/category_card_widget.dart';
 import 'package:depi_graduation_project/features/home/widgets/room_category_card_widget.dart';
+import 'package:depi_graduation_project/features/no_internet/view/no_internet_screen.dart';
 import 'package:depi_graduation_project/features/saved%20items/view/saved_items_screen.dart';
 import 'package:depi_graduation_project/features/account/view/account_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:animations/animations.dart';
@@ -30,20 +33,28 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageTransitionSwitcher(
-        transitionBuilder:
-            (
-              Widget child,
-              Animation<double> primaryAnimation,
-              Animation<double> secondaryAnimation,
-            ) {
-              return FadeThroughTransition(
-                animation: primaryAnimation,
-                secondaryAnimation: secondaryAnimation,
-                child: child,
-              );
-            },
-        child: _screens[_currentIndex],
+      body: BlocBuilder<CheckConnectionCubit, CheckConnectionState>(
+        builder: (context, state) {
+          if (state is CheckConnectionHasInternet) {
+            return PageTransitionSwitcher(
+              transitionBuilder:
+                  (
+                    Widget child,
+                    Animation<double> primaryAnimation,
+                    Animation<double> secondaryAnimation,
+                  ) {
+                    return FadeThroughTransition(
+                      animation: primaryAnimation,
+                      secondaryAnimation: secondaryAnimation,
+                      child: child,
+                    );
+                  },
+              child: _screens[_currentIndex],
+            );
+          } else {
+            return const NoInternetScreen();
+          }
+        },
       ),
 
       bottomNavigationBar: CustomBottomNavBarWidget(

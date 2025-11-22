@@ -15,12 +15,6 @@ class CatalogScreen extends StatefulWidget {
 
 class _CatalogScreenState extends State<CatalogScreen> {
   int selectedSortIndex = 0;
-  RangeValues _priceRange = const RangeValues(200, 900);
-
-  String selectedProductType = "All";
-  String selectedColor = "All";
-  String selectedSize = "All";
-  String selectedQuality = "All";
 
   @override
   Widget build(BuildContext context) {
@@ -68,48 +62,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
                 Expanded(
                   child: OutlinedButton.icon(
                     onPressed: () {
-                      showMainFilterSheet(
-                        context: context,
-                        priceRange: _priceRange,
-                        selectedProductType: selectedProductType,
-                        selectedColor: selectedColor,
-                        selectedSize: selectedSize,
-                        selectedQuality: selectedQuality,
-                        onPriceRangeChanged: (values) {
-                          setState(() {
-                            _priceRange = values;
-                          });
-                        },
-                        onClearFilters: () {
-                          setState(() {
-                            _priceRange = const RangeValues(0, 1000);
-                            selectedProductType = "All";
-                            selectedColor = "All";
-                            selectedSize = "All";
-                            selectedQuality = "All";
-                          });
-                        },
-                        onProductTypeSelected: (value) {
-                          setState(() {
-                            selectedProductType = value;
-                          });
-                        },
-                        onColorSelected: (value) {
-                          setState(() {
-                            selectedColor = value;
-                          });
-                        },
-                        onSizeSelected: (value) {
-                          setState(() {
-                            selectedSize = value;
-                          });
-                        },
-                        onQualitySelected: (value) {
-                          setState(() {
-                            selectedQuality = value;
-                          });
-                        },
-                      );
+                      showMainFilterSheet(context: context);
                     },
                     icon: const Icon(Iconsax.filter),
                     label: const Text("Filter"),

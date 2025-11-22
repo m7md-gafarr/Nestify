@@ -10,13 +10,19 @@ class AppRouteNames {
   static const String reviewsScreenRoute = "/reviewsScreenRoute";
   static const String newReviewsScreenRoute = "/newReviewsScreenRoute";
   static const String adPopoverScreenRoute = "/adPopoverScreenRoute";
-
+  static const String storyScreenRoute = "/storyScreenRoute";
   // Bag/Cart Feature
   static const String bagScreenRoute = "/bagScreenRoute";
 
   // Saved Items Feature
   static const String savedItemsScreenRoute = "/savedItemsScreenRoute";
+  static const String savedItemsEmptyScreenRoute =
+      "/savedItemsEmptyScreenRoute";
 
   // Account Feature
   static const String accountScreenRoute = "/accountScreenRoute";
+  static const String emptyAccountScreenRoute = "/emptyAccountScreenRoute";
+  static const String loginScreenRoute = "/loginScreenRoute";
+  static const String registerScreenRoute = "/registerScreenRoute";
+  static const String forgotPasswordScreenRoute = "/forgotPasswordScreenRoute";
 }
