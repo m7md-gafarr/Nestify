@@ -1,45 +1,96 @@
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
-import 'package:depi_graduation_project/core/images/app_images.dart';
+import 'package:depi_graduation_project/features/home/widgets/main_filter_sheet.dart';
+import 'package:depi_graduation_project/features/home/widgets/sort_bottom_sheet.dart';
+import 'package:depi_graduation_project/features/saved%20items/widgets/save_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:iconsax/iconsax.dart';
 
-class SavedItemsScreen extends StatelessWidget {
+class SavedItemsScreen extends StatefulWidget {
   const SavedItemsScreen({super.key});
+
+  @override
+  State<SavedItemsScreen> createState() => _SavedItemsScreenState();
+}
+
+class _SavedItemsScreenState extends State<SavedItemsScreen> {
+  int selectedSortIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Center(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+
             children: [
               SizedBox(height: 60.h),
-              Align(
-                alignment: AlignmentGeometry.centerLeft,
-                child: CustomSectionHeaderWidget(title: 'saved items'),
-              ),
+              CustomSectionHeaderWidget(title: 'saved items'),
+              SizedBox(height: 20.h),
 
-              Spacer(),
-              SvgPicture.asset(
-                Assets.assetsImagesSurprised,
-                width: 150.w,
-                height: 150.h,
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "Search for furniture",
+                  prefixIcon: Icon(Iconsax.search_normal, size: 26.sp),
+                ),
               ),
-              Text(
-                'nothing saved...',
-                style: Theme.of(context).textTheme.headlineSmall,
-                textAlign: TextAlign.center,
+              SizedBox(height: 15.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        showSortBottomSheet(
+                          context: context,
+                          selectedSortIndex: selectedSortIndex,
+                          onSortSelected: (index) {
+                            setState(() {
+                              selectedSortIndex = index;
+                            });
+                          },
+                        );
+                      },
+                      icon: const Icon(Iconsax.sort),
+                      label: const Text("Sort"),
+                      style: Theme.of(context).outlinedButtonTheme.style
+                          ?.copyWith(
+                            fixedSize: WidgetStateProperty.all<Size>(
+                              Size(150.w, 30.h),
+                            ),
+                          ),
+                    ),
+                  ),
+                  SizedBox(width: 15.w),
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        showMainFilterSheet(context: context);
+                      },
+                      icon: const Icon(Iconsax.filter),
+                      label: const Text("Filter"),
+                      style: Theme.of(context).outlinedButtonTheme.style
+                          ?.copyWith(
+                            fixedSize: WidgetStateProperty.all<Size>(
+                              Size(150.w, 30.h),
+                            ),
+                          ),
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(height: 20.h),
-              Text(
-                '... no worries. Start saving as you shop by clicking the little heart',
-                style: Theme.of(context).textTheme.bodyLarge,
-                textAlign: TextAlign.center,
+              SizedBox(height: 15.h),
+              ListView.separated(
+                itemCount: 2,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                separatorBuilder: (_, __) => SizedBox(height: 16.h),
+                itemBuilder: (_, i) {
+                  return SaveItemWidget();
+                },
               ),
-              Spacer(),
-              ElevatedButton(onPressed: () {}, child: Text("Start shopping")),
-              SizedBox(height: 20.h),
             ],
           ),
         ),

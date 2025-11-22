@@ -1,21 +1,9 @@
-import 'package:depi_graduation_project/features/bag/models/bag_item.dart';
+import 'package:depi_graduation_project/core/images/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'custom_button.dart';
 
-class BagItemTile extends StatelessWidget {
-  final BagItem item;
-  final VoidCallback onRemove;
-  final VoidCallback onIncrement;
-  final VoidCallback onDecrement;
-
-  const BagItemTile({
-    super.key,
-    required this.item,
-    required this.onRemove,
-    required this.onIncrement,
-    required this.onDecrement,
-  });
+class SaveItemWidget extends StatelessWidget {
+  const SaveItemWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +15,9 @@ class BagItemTile extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(12.r),
             child: Image.asset(
-              item.imagePath,
+              Assets.assetsImagesPic,
               width: 96.w,
-              height: 96.w,
+              height: 115.h,
               fit: BoxFit.cover,
             ),
           ),
@@ -43,7 +31,7 @@ class BagItemTile extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        '\$${item.price.toStringAsFixed(2)}',
+                        '\$150.00',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
@@ -56,31 +44,23 @@ class BagItemTile extends StatelessWidget {
                       ),
                       child: IconButton(
                         padding: EdgeInsets.zero,
-                        onPressed: onRemove,
+                        onPressed: () {},
                         icon: const Icon(Icons.close, size: 16),
                       ),
                     ),
                   ],
                 ),
                 Text(
-                  item.title,
+                  "Wooden bedside table featuring a raised design",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 SizedBox(height: 8.h),
-                Row(
-                  children: [
-                    CustomButton(icon: Icons.remove, onTap: onDecrement),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12.w),
-                      child: Text(
-                        '${item.quantity}',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ),
-                    CustomButton(icon: Icons.add, onTap: onIncrement),
-                  ],
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(fixedSize: Size(130.w, 36.h)),
+                  child: Text("Move to bag", textAlign: TextAlign.center),
                 ),
               ],
             ),
