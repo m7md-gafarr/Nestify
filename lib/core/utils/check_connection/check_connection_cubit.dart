@@ -25,7 +25,8 @@ class CheckConnectionCubit extends Cubit<CheckConnectionState> {
   }
 
   Future<void> checkFullConnectivity(
-      ConnectivityResult connectivityResult) async {
+    ConnectivityResult connectivityResult,
+  ) async {
     if (connectivityResult == ConnectivityResult.none) {
       emit(CheckConnectionNoInternet());
       return;

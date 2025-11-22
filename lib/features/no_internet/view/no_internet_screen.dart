@@ -1,7 +1,11 @@
 import 'package:depi_graduation_project/core/images/app_images.dart';
+
+import 'package:depi_graduation_project/core/utils/check_connection/check_connection_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class NoInternetScreen extends StatelessWidget {
   const NoInternetScreen({super.key});
@@ -34,7 +38,27 @@ class NoInternetScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               Spacer(),
-              ElevatedButton(onPressed: () {}, child: Text("Retry")),
+
+              ElevatedButton(
+                onPressed: () {
+                  context
+                      .read<CheckConnectionCubit>()
+                      .checkInitialConnectivity();
+                },
+                child: BlocBuilder<CheckConnectionCubit, CheckConnectionState>(
+                  builder: (context, state) {
+                    if (state is CheckConnectionLoading) {
+                      return CircularProgressIndicator(
+                        color: Colors.white,
+                        strokeWidth: 2.w,
+                      );
+                    } else {
+                      return Text('try again');
+                    }
+                  },
+                ),
+              ),
+
               SizedBox(height: 20.h),
             ],
           ),

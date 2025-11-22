@@ -1,11 +1,12 @@
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
 import 'package:depi_graduation_project/core/images/app_images.dart';
+import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SavedItemsEmptyScreen extends StatelessWidget {
-  const SavedItemsEmptyScreen({super.key});
+class EmptyAccountScreen extends StatelessWidget {
+  const EmptyAccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,29 +19,33 @@ class SavedItemsEmptyScreen extends StatelessWidget {
               SizedBox(height: 60.h),
               Align(
                 alignment: AlignmentGeometry.centerLeft,
-                child: CustomSectionHeaderWidget(title: 'saved items'),
+                child: CustomSectionHeaderWidget(title: 'my account'),
               ),
 
               Spacer(),
               SvgPicture.asset(
-                Assets.assetsImagesSurprised,
-
-                width: 120.w,
-                height: 120.w,
+                Assets.assetsImagesSmiley,
+                width: 150.w,
+                height: 150.h,
               ),
               Text(
-                'nothing saved...',
+                'come on in',
                 style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 20.h),
               Text(
-                '... no worries. Start saving as you shop by clicking the little heart',
+                'view orders and update your details by logging into your account',
                 style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),
               Spacer(),
-              ElevatedButton(onPressed: () {}, child: Text("Start shopping")),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRouteNames.loginScreenRoute);
+                },
+                child: Text("Continue with Email"),
+              ),
               SizedBox(height: 20.h),
             ],
           ),
