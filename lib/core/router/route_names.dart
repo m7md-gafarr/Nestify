@@ -26,4 +26,13 @@ class AppRouteNames {
   static const String forgotPasswordScreenRoute = "/forgotPasswordScreenRoute";
   static const String completeAddDataScreenRoute =
       "/completeAddDataScreenRoute";
+  static const String myDetailsScreenRoute = "/myDetailsScreenRoute";
+  static const String myOrdersScreenRoute = "/myOrdersScreenRoute";
+  static const String orderDetailsScreenRoute = "/orderDetailsScreenRoute";
+  static const String addressBookScreenRoute = "/addressBookScreenRoute";
+  static const String editAddressScreenRoute = "/editAddressScreenRoute";
+  static const String paymentMethodsScreenRoute = "/paymentMethodsScreenRoute";
+
+  // Settings Feature
+  static const String settingsScreenRoute = "/settingsScreenRoute";
 }

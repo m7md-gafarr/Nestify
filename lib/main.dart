@@ -8,8 +8,10 @@ import 'package:depi_graduation_project/core/utils/language/language.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
 import 'package:depi_graduation_project/data/services/user_firestore_service.dart';
 import 'package:depi_graduation_project/features/account/logic/complete_add_data/complete_add_data_cubit.dart';
+import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/logic/login/login_cubit.dart';
 import 'package:depi_graduation_project/features/account/logic/register/register_cubit.dart';
+import 'package:depi_graduation_project/features/account/logic/update_user_data/update_data_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/filter_cubit/filter_cubit_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,6 +64,18 @@ void main() async {
 
           BlocProvider(
             create: (context) => CompleteAddDataCubit(
+              context.read<CheckConnectionCubit>(),
+              UserFirestoreService(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => UpdateDataCubit(
+              context.read<CheckConnectionCubit>(),
+              UserFirestoreService(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => GetUserDataCubit(
               context.read<CheckConnectionCubit>(),
               UserFirestoreService(),
             ),

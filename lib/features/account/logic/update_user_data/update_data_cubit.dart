@@ -4,27 +4,29 @@ import 'package:depi_graduation_project/data/services/user_firestore_service.dar
 import 'package:depi_graduation_project/features/account/models/user_model.dart';
 import 'package:meta/meta.dart';
 
-part 'complete_add_data_state.dart';
+part 'update_data_state.dart';
 
-class CompleteAddDataCubit extends Cubit<CompleteAddDataState> {
+class UpdateDataCubit extends Cubit<UpdateDataState> {
   final CheckConnectionCubit connectionCubit;
   final UserFirestoreService userFirestoreService;
 
-  CompleteAddDataCubit(this.connectionCubit, this.userFirestoreService)
-    : super(CompleteAddDataInitial());
+  UpdateDataCubit(this.connectionCubit, this.userFirestoreService)
+    : super(UpdateDataInitial());
 
-  completeAddData(UserModel model) async {
+  Future<void> updateUserData(UserModel userData) async {
     if (connectionCubit.state is CheckConnectionNoInternet) {
-      emit(CompleteAddDataNoInternet());
+      emit(UpdateDataNoInternet());
       return;
     }
 
-    emit(CompleteAddDataLoading());
+    emit(UpdateDataLoading());
+
     try {
-      await userFirestoreService.saveUserData(model);
-      emit(CompleteAddDataSuccess());
+      await userFirestoreService.updateUserData(userData);
+
+      emit(UpdateDataSuccess());
     } catch (e) {
-      emit(CompleteAddDataFailure('Failed to complete adding data: $e'));
+      emit(UpdateDataFailure("Failed to update user: $e"));
     }
   }
 }

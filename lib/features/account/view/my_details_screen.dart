@@ -1,9 +1,8 @@
-import 'package:depi_graduation_project/core/utils/dialog/dialog_helper.dart';
-import 'package:depi_graduation_project/core/utils/snakbar/snackebar_helper.dart';
+import 'package:depi_graduation_project/components/custom_app_bar_widget.dart';
 import 'package:depi_graduation_project/core/utils/validation_utils.dart';
-import 'package:depi_graduation_project/features/account/logic/complete_add_data/complete_add_data_cubit.dart';
+import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
+import 'package:depi_graduation_project/features/account/logic/update_user_data/update_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/models/user_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,93 +10,142 @@ import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-class CompleteAddDataScreen extends StatefulWidget {
-  const CompleteAddDataScreen({super.key});
+class MyDetailsScreen extends StatefulWidget {
+  const MyDetailsScreen({super.key});
 
   @override
-  State<CompleteAddDataScreen> createState() => _CompleteAddDataScreenState();
+  State<MyDetailsScreen> createState() => _MyDetailsScreenState();
 }
 
-class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
+class _MyDetailsScreenState extends State<MyDetailsScreen> {
+  UserModel? user;
+
+  late TextEditingController nameController = TextEditingController();
+  late TextEditingController phoneController = TextEditingController();
+  late TextEditingController emailController = TextEditingController();
+  late TextEditingController dobController = TextEditingController();
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  int _age = 0;
   final ImagePicker _picker = ImagePicker();
   XFile? _selectedImage;
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TextEditingController fullNameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController dobController = TextEditingController();
-  int _age = 0;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
-    fullNameController.dispose();
+    nameController.dispose();
     phoneController.dispose();
-    addressController.dispose();
+    emailController.dispose();
     dobController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final credential =
-        ModalRoute.of(context)!.settings.arguments as UserCredential;
+    arguments() {
+      final args = ModalRoute.of(context)!.settings.arguments;
+      if (args != null && args is UserModel) {
+        user = args;
+        nameController.text = user!.fullName;
+        emailController.text = user!.email;
+        phoneController.text = user!.phoneNumber;
+        dobController.text = user!.dateOfBirth;
+      }
+    }
+
+    arguments();
     return Scaffold(
+      appBar: CustomAppBarWidget(
+        title: "My Details",
+        actions: [
+          TextButton(
+            onPressed: () {
+              formKey.currentState!.save();
+              if (formKey.currentState!.validate()) {
+                context.read<UpdateDataCubit>().updateUserData(
+                  UserModel(
+                    userId: user!.userId,
+                    fullName: nameController.text.trim(),
+                    email: user!.email,
+                    phoneNumber: phoneController.text.trim(),
+                    address: user!.address,
+                    dateOfBirth: dobController.text.trim(),
+                  ),
+                );
+              }
+            },
+            child: BlocConsumer<UpdateDataCubit, UpdateDataState>(
+              listener: (context, state) {
+                if (state is UpdateDataSuccess) {
+                  context.read<GetUserDataCubit>().getUserData();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "Profile updated successfully",
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium!.copyWith(color: Colors.white),
+                      ),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+                  Navigator.pop(context);
+                } else if (state is UpdateDataFailure) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        state.errorMessage,
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium!.copyWith(color: Colors.white),
+                      ),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                  Navigator.pop(context);
+                }
+              },
+              builder: (context, state) {
+                if (state is UpdateDataLoading) {
+                  return SizedBox(
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      strokeWidth: 2.w,
+                    ),
+                  );
+                } else {
+                  return Text(
+                    "Save",
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  );
+                }
+              },
+            ),
+          ),
+        ],
+      ),
       body: Form(
         key: formKey,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 50.h),
+                SizedBox(height: 30.h),
+                _buildProfileImage(),
+                SizedBox(height: 10.h),
                 Text(
-                  'Set up your profile',
-                  style: Theme.of(context).textTheme.titleLarge,
-                  textAlign: TextAlign.center,
+                  "Change Profile Picture",
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 SizedBox(height: 30.h),
-
-                GestureDetector(
-                  onTap: () {
-                    _showImagePickerSheet(context);
-                  },
-
-                  child: Container(
-                    height: 70.w,
-                    width: 70.w,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(100.r),
-                    ),
-                    child: _selectedImage == null
-                        ? Icon(
-                            Iconsax.user,
-                            size: 30.sp,
-                            color: Colors.grey[700],
-                          )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(100.r),
-                            child: Image.file(
-                              File(_selectedImage!.path),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                  ),
-                ),
-                SizedBox(height: 10.h),
-                _selectedImage == null
-                    ? Text(
-                        'Upload or take a photo',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        textAlign: TextAlign.center,
-                      )
-                    : SizedBox.shrink(),
-                SizedBox(height: 40.h),
                 TextFormField(
-                  controller: fullNameController,
-                  keyboardType: TextInputType.name,
+                  controller: nameController,
                   validator: ValidationUtils.fullNameValidator,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
@@ -111,9 +159,10 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                 SizedBox(height: 20.h),
                 TextFormField(
                   readOnly: true,
-
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    hintText: credential.user!.email,
+                    hintText: 'Email',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.r),
                     ),
@@ -135,19 +184,7 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20.h),
-                TextFormField(
-                  controller: addressController,
-                  keyboardType: TextInputType.streetAddress,
-                  validator: ValidationUtils.addressValidator,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: InputDecoration(
-                    hintText: 'Address',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.r),
-                    ),
-                  ),
-                ),
+
                 SizedBox(height: 20.h),
                 TextFormField(
                   controller: dobController,
@@ -197,65 +234,49 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 40.h),
-
-                ElevatedButton(
-                  onPressed: () {
-                    formKey.currentState!.save();
-                    if (formKey.currentState!.validate()) {
-                      context.read<CompleteAddDataCubit>().completeAddData(
-                        UserModel(
-                          userId: credential.user!.uid,
-                          fullName: fullNameController.text.trim(),
-                          email: credential.user!.email!,
-                          phoneNumber: phoneController.text.trim(),
-                          address: addressController.text.trim(),
-                          dateOfBirth: dobController.text.trim(),
-                          profileImageUrl: _selectedImage?.path ?? '',
-                        ),
-                      );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 50.0,
-                      vertical: 15.0,
-                    ),
-                    textStyle: TextStyle(fontSize: 18),
-                  ),
-                  child:
-                      BlocConsumer<CompleteAddDataCubit, CompleteAddDataState>(
-                        listener: (context, state) {
-                          if (state is CompleteAddDataSuccess) {
-                            Navigator.pop(context);
-                          } else if (state is CompleteAddDataFailure) {
-                            SnackbarHelper.showError(
-                              context,
-                              title: state.errorMessage,
-                            );
-                          } else if (state is CompleteAddDataNoInternet) {
-                            DialogHelper(context).showNoInternetDialog(
-                              message: "No Internet Connection",
-                            );
-                          }
-                        },
-                        builder: (context, state) {
-                          if (state is CompleteAddDataLoading) {
-                            return SizedBox(
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                                strokeWidth: 2.0,
-                              ),
-                            );
-                          }
-                          return Text('Complete Setup');
-                        },
-                      ),
-                ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildProfileImage() {
+    if (_selectedImage != null) {
+      return GestureDetector(
+        onTap: () {
+          _showImagePickerSheet(context);
+        },
+        child: CircleAvatar(
+          radius: 50.r,
+          backgroundImage: FileImage(File(_selectedImage!.path)),
+        ),
+      );
+    }
+
+    if (user != null &&
+        user!.profileImageUrl != null &&
+        user!.profileImageUrl!.isNotEmpty) {
+      return GestureDetector(
+        onTap: () {
+          _showImagePickerSheet(context);
+        },
+        child: CircleAvatar(
+          radius: 50.r,
+          backgroundImage: NetworkImage(user!.profileImageUrl!),
+        ),
+      );
+    }
+
+    return GestureDetector(
+      onTap: () {
+        _showImagePickerSheet(context);
+      },
+      child: CircleAvatar(
+        radius: 50.r,
+        backgroundColor: Colors.grey[300],
+        child: Icon(Iconsax.user, size: 40.sp, color: Colors.white),
       ),
     );
   }

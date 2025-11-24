@@ -1,4 +1,4 @@
-class CompleteAddDataModel {
+class UserModel {
   final String userId;
   final String fullName;
   final String email;
@@ -7,7 +7,7 @@ class CompleteAddDataModel {
   final String dateOfBirth;
   final String? profileImageUrl;
 
-  CompleteAddDataModel({
+  UserModel({
     required this.userId,
     required this.fullName,
     required this.email,
@@ -29,8 +29,8 @@ class CompleteAddDataModel {
     };
   }
 
-  factory CompleteAddDataModel.fromMap(Map<String, dynamic> map) {
-    return CompleteAddDataModel(
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
       userId: map["userId"] ?? "",
       fullName: map["fullName"] ?? "",
       email: map["email"] ?? "",
@@ -41,7 +41,7 @@ class CompleteAddDataModel {
     );
   }
 
-  CompleteAddDataModel copyWith({
+  UserModel copyWith({
     String? userId,
     String? fullName,
     String? email,
@@ -50,7 +50,7 @@ class CompleteAddDataModel {
     String? dateOfBirth,
     String? profileImageUrl,
   }) {
-    return CompleteAddDataModel(
+    return UserModel(
       userId: userId ?? this.userId,
       fullName: fullName ?? this.fullName,
       email: email ?? this.email,
