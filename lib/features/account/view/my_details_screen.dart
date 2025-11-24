@@ -62,20 +62,24 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
         title: "My Details",
         actions: [
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               formKey.currentState!.save();
-              if (formKey.currentState!.validate()) {
-                context.read<UpdateDataCubit>().updateUserData(
-                  UserModel(
-                    userId: user!.userId,
-                    fullName: nameController.text.trim(),
-                    email: user!.email,
-                    phoneNumber: phoneController.text.trim(),
-                    address: user!.address,
-                    dateOfBirth: dobController.text.trim(),
-                  ),
-                );
-              }
+
+              if (!formKey.currentState!.validate()) return;
+
+              String? imageUrl;
+
+              context.read<UpdateDataCubit>().updateUserData(
+                UserModel(
+                  userId: user!.userId,
+                  fullName: nameController.text.trim(),
+                  email: user!.email,
+                  phoneNumber: phoneController.text.trim(),
+                  address: user!.address,
+                  dateOfBirth: dobController.text.trim(),
+                  profileImageUrl: imageUrl ?? user!.profileImageUrl,
+                ),
+              );
             },
             child: BlocConsumer<UpdateDataCubit, UpdateDataState>(
               listener: (context, state) {

@@ -1,3 +1,4 @@
+import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/core/utils/dialog/dialog_helper.dart';
 import 'package:depi_graduation_project/core/utils/snakbar/snackebar_helper.dart';
 import 'package:depi_graduation_project/core/utils/validation_utils.dart';
@@ -227,7 +228,11 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                       BlocConsumer<CompleteAddDataCubit, CompleteAddDataState>(
                         listener: (context, state) {
                           if (state is CompleteAddDataSuccess) {
-                            Navigator.pop(context);
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              AppRouteNames.homePageRoute,
+                              (route) => false,
+                            );
                           } else if (state is CompleteAddDataFailure) {
                             SnackbarHelper.showError(
                               context,
