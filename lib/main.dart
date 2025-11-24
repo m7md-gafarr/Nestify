@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/core/router/router.dart';
 import 'package:depi_graduation_project/core/theme/app_theme/app_theme_dark.dart';
@@ -14,6 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'generated/l10n.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -22,15 +25,19 @@ String? _initialRoute;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Supabase.initialize(
+    url: 'https://tmlanamjmwvkaneawpte.supabase.co',
+    anonKey: 'sb_publishable_1eBzOrW0fSoFFWu5B8CJ-w_WMh9abOi',
+  );
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await ScreenUtil.ensureScreenSize();
 
   SharedPreferencesService pref = SharedPreferencesService();
   await pref.init();
-  bool? seen = await pref.loadOnboardingStatus();
-  bool? isLoggedIn = await pref.loadUserLoginStatus();
-  _initialRoute = seen == true
-      ? (isLoggedIn == true
+  bool seen = await pref.loadOnboardingStatus() ?? false;
+  bool isLoggedIn = await pref.loadUserLoginStatus() ?? false;
+  _initialRoute = seen
+      ? (isLoggedIn
             ? AppRouteNames.homePageRoute
             : AppRouteNames.loginScreenRoute)
       : AppRouteNames.introducationPageRoute;

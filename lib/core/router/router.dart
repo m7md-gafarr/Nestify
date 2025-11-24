@@ -1,10 +1,10 @@
 import 'package:depi_graduation_project/core/constants/app_constants.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
+import 'package:depi_graduation_project/features/account/view/complete_add_data_screen.dart';
 import 'package:depi_graduation_project/features/account/view/empty_account_screen.dart';
 import 'package:depi_graduation_project/features/account/view/forgot_password_screen.dart';
 import 'package:depi_graduation_project/features/account/view/login_screen.dart';
 import 'package:depi_graduation_project/features/account/view/register_screen.dart';
-
 import 'package:depi_graduation_project/features/home/view/story_screen.dart';
 import 'package:depi_graduation_project/features/introducation/view/introducation_screen.dart';
 import 'package:depi_graduation_project/features/home/view/main_screen.dart';
@@ -89,6 +89,9 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => RegisterScreen());
       case AppRouteNames.forgotPasswordScreenRoute:
         return MaterialPageRoute(builder: (context) => ForgotPasswordScreen());
+
+      case AppRouteNames.completeAddDataScreenRoute:
+        return MaterialPageRoute(builder: (context) => CompleteAddDataScreen());
 
       default:
         return MaterialPageRoute(

@@ -159,6 +159,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             AppRouteNames.homePageRoute,
                             (route) => false,
                           );
+                        } else if (state is NotCompleteAddData) {
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            AppRouteNames.completeAddDataScreenRoute,
+                            (route) => false,
+                            arguments: state.credential,
+                          );
                         }
                       },
                       builder: (context, state) {

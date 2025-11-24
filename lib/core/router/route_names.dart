@@ -25,4 +25,6 @@ class AppRouteNames {
   static const String loginScreenRoute = "/loginScreenRoute";
   static const String registerScreenRoute = "/registerScreenRoute";
   static const String forgotPasswordScreenRoute = "/forgotPasswordScreenRoute";
+  static const String completeAddDataScreenRoute =
+      "/completeAddDataScreenRoute";
 }

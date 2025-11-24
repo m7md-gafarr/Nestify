@@ -16,4 +16,9 @@ final class LoginSuccess extends LoginState {
   LoginSuccess();
 }
 
+final class NotCompleteAddData extends LoginState {
+  UserCredential credential;
+  NotCompleteAddData(this.credential);
+}
+
 final class LoginNoInternet extends LoginState {}
