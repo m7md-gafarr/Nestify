@@ -48,8 +48,6 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/icons/
-    - assets/sounds/
     - assets/logo/
 
   fonts:

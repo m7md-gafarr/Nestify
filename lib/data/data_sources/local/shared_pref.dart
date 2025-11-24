@@ -4,6 +4,8 @@ class SharedPreferencesService {
   static const String LANGUAGE = "language";
   static const String THEME = "theme";
   static const String ONBOARDING = "onboarding";
+  static const String ISUSERLOGIN = "is_user_login";
+  static const String USER_UID = "user_uid";
 
   static final SharedPreferencesService _instance =
       SharedPreferencesService._internal();
@@ -42,5 +44,19 @@ class SharedPreferencesService {
 
   Future<void> saveOnboardingStatus(bool isCompleted) async {
     await _prefs.setBool(ONBOARDING, isCompleted);
+  }
+
+  Future<bool?> loadUserLoginStatus() async {
+    return _prefs.getBool(ISUSERLOGIN);
+  }
+
+  Future<void> saveUserLoginStatus(String uid) async {
+    await _prefs.setBool(ISUSERLOGIN, true);
+    await _prefs.setString(USER_UID, uid);
+  }
+
+  Future<void> logoutUserLoginStatus() async {
+    await _prefs.setBool(ISUSERLOGIN, false);
+    await _prefs.remove(USER_UID);
   }
 }

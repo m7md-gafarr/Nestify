@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:depi_graduation_project/core/utils/check_connection/check_connection_cubit.dart';
+import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
 import 'package:depi_graduation_project/data/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
@@ -24,7 +25,11 @@ class LoginCubit extends Cubit<LoginState> {
         emit(LoginFailure('Please verify your email before logging in.'));
         return;
       }
-      emit(LoginSuccess(credential));
+
+      SharedPreferencesService pref = SharedPreferencesService();
+      pref.saveUserLoginStatus(credential.user!.uid);
+
+      emit(LoginSuccess());
     } on FirebaseAuthException catch (e) {
       if (e.code == "invalid-credential") {
         emit(LoginFailure("Invalid email or password."));

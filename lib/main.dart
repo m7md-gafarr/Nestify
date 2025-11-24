@@ -28,8 +28,11 @@ void main() async {
   SharedPreferencesService pref = SharedPreferencesService();
   await pref.init();
   bool? seen = await pref.loadOnboardingStatus();
+  bool? isLoggedIn = await pref.loadUserLoginStatus();
   _initialRoute = seen == true
-      ? AppRouteNames.homePageRoute
+      ? (isLoggedIn == true
+            ? AppRouteNames.homePageRoute
+            : AppRouteNames.loginScreenRoute)
       : AppRouteNames.introducationPageRoute;
   runApp(
     MultiProvider(
