@@ -9,23 +9,28 @@ class SupabaseStorageService {
     required File file,
     required String userId,
   }) async {
-    final bucket = _client.storage.from(FirebaseCollection.users);
+    try {
+      final fileExt = file.path.split('.').last;
+      final fileName =
+          "$userId-${DateTime.now().millisecondsSinceEpoch}.$fileExt";
+      final filePath = fileName;
 
-    final filePath =
-        'profiles/$userId-${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final fileBytes = await file.readAsBytes();
 
-    final uploadResult = await bucket.upload(
-      filePath,
-      file,
-      fileOptions: const FileOptions(upsert: true),
-    );
+      await Supabase.instance.client.storage
+          .from(FirebaseCollection.users)
+          .uploadBinary(
+            filePath,
+            fileBytes,
+            fileOptions: FileOptions(contentType: "image/$fileExt"),
+          );
 
-    if (uploadResult.isNotEmpty) {
-      final publicUrl = bucket.getPublicUrl(filePath);
-      return publicUrl;
+      return Supabase.instance.client.storage
+          .from(FirebaseCollection.users)
+          .getPublicUrl(filePath);
+    } catch (e) {
+      return null;
     }
-
-    return null;
   }
 
   Future<bool> deleteImage(String filePath) async {
