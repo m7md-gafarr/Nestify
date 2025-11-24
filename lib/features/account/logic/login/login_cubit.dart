@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:depi_graduation_project/core/constants/firebase_collection.dart';
 import 'package:depi_graduation_project/core/utils/check_connection/check_connection_cubit.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
 import 'package:depi_graduation_project/data/services/auth_service.dart';
@@ -26,10 +28,18 @@ class LoginCubit extends Cubit<LoginState> {
         return;
       }
 
-      SharedPreferencesService pref = SharedPreferencesService();
-      pref.saveUserLoginStatus(credential.user!.uid);
+      final doc = await FirebaseFirestore.instance
+          .collection(FirebaseCollection.users)
+          .doc(credential.user!.uid)
+          .get();
 
-      emit(LoginSuccess());
+      if (doc.exists) {
+        SharedPreferencesService pref = SharedPreferencesService();
+        pref.saveUserLoginStatus(credential.user!.uid);
+        emit(LoginSuccess());
+      } else {
+        emit(NotCompleteAddData(credential));
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == "invalid-credential") {
         emit(LoginFailure("Invalid email or password."));

@@ -49,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
                       child: child,
                     );
                   },
-              child: _screens[_currentIndex],
+              child: IndexedStack(index: _currentIndex, children: _screens),
             );
           } else {
             return const NoInternetScreen();

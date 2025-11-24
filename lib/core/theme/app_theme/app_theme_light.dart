@@ -245,6 +245,34 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
       borderRadius: BorderRadius.all(Radius.circular(12.r)),
     ),
   ),
+
+  datePickerTheme: DatePickerThemeData(
+    confirmButtonStyle: ButtonStyle(
+      foregroundColor: const WidgetStatePropertyAll(AppColorLight.onPrimary),
+
+      textStyle: WidgetStatePropertyAll(
+        TextStyle(
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w600,
+          fontFamily: font,
+        ),
+      ),
+    ),
+    cancelButtonStyle: ButtonStyle(
+      foregroundColor: const WidgetStatePropertyAll(AppColorLight.error),
+      textStyle: WidgetStatePropertyAll(
+        TextStyle(
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w600,
+          fontFamily: font,
+        ),
+      ),
+    ),
+    backgroundColor: AppColorLight.background,
+    headerBackgroundColor: AppColorLight.primary,
+    headerForegroundColor: AppColorLight.onPrimary,
+    dayForegroundColor: WidgetStateProperty.all(AppColorLight.textPrimary),
+  ),
 );
 
 TextStyle _getTextStyle(

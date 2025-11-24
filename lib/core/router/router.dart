@@ -1,10 +1,13 @@
 import 'package:depi_graduation_project/core/constants/app_constants.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
-import 'package:depi_graduation_project/features/account/view/empty_account_screen.dart';
+import 'package:depi_graduation_project/features/Settings/view/settings_screen.dart';
+import 'package:depi_graduation_project/features/account/view/address_book_screen.dart';
+import 'package:depi_graduation_project/features/account/view/complete_add_data_screen.dart';
 import 'package:depi_graduation_project/features/account/view/forgot_password_screen.dart';
 import 'package:depi_graduation_project/features/account/view/login_screen.dart';
+import 'package:depi_graduation_project/features/account/view/my_details_screen.dart';
+import 'package:depi_graduation_project/features/account/view/my_orders_screen.dart';
 import 'package:depi_graduation_project/features/account/view/register_screen.dart';
-
 import 'package:depi_graduation_project/features/home/view/story_screen.dart';
 import 'package:depi_graduation_project/features/introducation/view/introducation_screen.dart';
 import 'package:depi_graduation_project/features/home/view/main_screen.dart';
@@ -81,14 +84,46 @@ class AppRouter {
       // Account Screen Route
       case AppRouteNames.accountScreenRoute:
         return MaterialPageRoute(builder: (context) => AccountScreen());
-      case AppRouteNames.emptyAccountScreenRoute:
-        return MaterialPageRoute(builder: (context) => EmptyAccountScreen());
+
       case AppRouteNames.loginScreenRoute:
         return MaterialPageRoute(builder: (context) => LoginScreen());
       case AppRouteNames.registerScreenRoute:
         return MaterialPageRoute(builder: (context) => RegisterScreen());
       case AppRouteNames.forgotPasswordScreenRoute:
         return MaterialPageRoute(builder: (context) => ForgotPasswordScreen());
+
+      case AppRouteNames.completeAddDataScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => CompleteAddDataScreen(),
+          settings: settings,
+        );
+
+      case AppRouteNames.myDetailsScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => MyDetailsScreen(),
+          settings: settings,
+        );
+
+      case AppRouteNames.myOrdersScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => MyOrdersScreen(),
+          settings: settings,
+        );
+      case AppRouteNames.orderDetailsScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => MyOrdersScreen(),
+          settings: settings,
+        );
+
+      case AppRouteNames.addressBookScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => AddressBookScreen(),
+          settings: settings,
+        );
+
+      // Settings Screen Route
+      case AppRouteNames.settingsScreenRoute:
+        return MaterialPageRoute(builder: (context) => SettingsScreen());
 
       default:
         return MaterialPageRoute(

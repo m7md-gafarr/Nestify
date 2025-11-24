@@ -19,4 +19,12 @@ class AuthService {
     );
     return credential;
   }
+
+  Future<void> logout() async {
+    await _auth.signOut();
+  }
+
+  User? getCurrentUser() {
+    return _auth.currentUser;
+  }
 }

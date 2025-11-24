@@ -6,14 +6,19 @@ import 'package:depi_graduation_project/core/utils/Theme/theme_provider.dart';
 import 'package:depi_graduation_project/core/utils/check_connection/check_connection_cubit.dart';
 import 'package:depi_graduation_project/core/utils/language/language.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
+import 'package:depi_graduation_project/data/services/user_firestore_service.dart';
+import 'package:depi_graduation_project/features/account/logic/complete_add_data/complete_add_data_cubit.dart';
+import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/logic/login/login_cubit.dart';
 import 'package:depi_graduation_project/features/account/logic/register/register_cubit.dart';
+import 'package:depi_graduation_project/features/account/logic/update_user_data/update_data_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/filter_cubit/filter_cubit_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'generated/l10n.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -22,15 +27,19 @@ String? _initialRoute;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Supabase.initialize(
+    url: 'https://tmlanamjmwvkaneawpte.supabase.co',
+    anonKey: 'sb_publishable_1eBzOrW0fSoFFWu5B8CJ-w_WMh9abOi',
+  );
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await ScreenUtil.ensureScreenSize();
 
   SharedPreferencesService pref = SharedPreferencesService();
   await pref.init();
-  bool? seen = await pref.loadOnboardingStatus();
-  bool? isLoggedIn = await pref.loadUserLoginStatus();
-  _initialRoute = seen == true
-      ? (isLoggedIn == true
+  bool seen = await pref.loadOnboardingStatus() ?? false;
+  bool isLoggedIn = await pref.loadUserLoginStatus() ?? false;
+  _initialRoute = seen
+      ? (isLoggedIn
             ? AppRouteNames.homePageRoute
             : AppRouteNames.loginScreenRoute)
       : AppRouteNames.introducationPageRoute;
@@ -42,10 +51,35 @@ void main() async {
       ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (_) => FilterCubit()),
-          BlocProvider(create: (_) => LoginCubit(CheckConnectionCubit())),
-          BlocProvider(create: (_) => RegisterCubit(CheckConnectionCubit())),
           BlocProvider(create: (_) => CheckConnectionCubit()),
+          BlocProvider(create: (_) => FilterCubit()),
+          BlocProvider(
+            create: (context) =>
+                LoginCubit(context.read<CheckConnectionCubit>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                RegisterCubit(context.read<CheckConnectionCubit>()),
+          ),
+
+          BlocProvider(
+            create: (context) => CompleteAddDataCubit(
+              context.read<CheckConnectionCubit>(),
+              UserFirestoreService(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => UpdateDataCubit(
+              context.read<CheckConnectionCubit>(),
+              UserFirestoreService(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => GetUserDataCubit(
+              context.read<CheckConnectionCubit>(),
+              UserFirestoreService(),
+            ),
+          ),
         ],
         child: MyApp(appRouter: AppRouter()),
       ),
