@@ -18,10 +18,12 @@ class SharedPreferencesService {
 
   SharedPreferencesService._internal();
 
+  // Initialize SharedPreferences instance
   Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
   }
 
+  // Language Methods
   Future<String?> loadSavedLanguage() async {
     return _prefs.getString(LANGUAGE);
   }
@@ -30,6 +32,7 @@ class SharedPreferencesService {
     await _prefs.setString(LANGUAGE, languageCode);
   }
 
+  // Theme Methods
   Future<String?> loadSavedTheme() async {
     return _prefs.getString(THEME);
   }
@@ -38,6 +41,7 @@ class SharedPreferencesService {
     await _prefs.setString(THEME, themeMode);
   }
 
+  // Onboarding Methods
   Future<bool?> loadOnboardingStatus() async {
     return _prefs.getBool(ONBOARDING);
   }
@@ -46,6 +50,7 @@ class SharedPreferencesService {
     await _prefs.setBool(ONBOARDING, isCompleted);
   }
 
+  // User Login Status Methods
   Future<bool?> loadUserLoginStatus() async {
     return _prefs.getBool(ISUSERLOGIN);
   }
