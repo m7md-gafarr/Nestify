@@ -34,9 +34,13 @@ class AppRouter {
       case AppRouteNames.mainScreenRoute:
         return MaterialPageRoute(builder: (context) => MainScreen());
       case AppRouteNames.categoriesScreenRoute:
-        return MaterialPageRoute(builder: (context) => CategoriesScreen());
+        return MaterialPageRoute(
+          builder: (context) => CategoriesScreen(),
+          settings: settings,
+        );
       case AppRouteNames.catalogScreenRoute:
         return PageRouteBuilder(
+          settings: settings,
           pageBuilder: (context, animation, secondaryAnimation) =>
               const CatalogScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {

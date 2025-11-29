@@ -1,8 +1,7 @@
 class FirebaseCollection {
   static const String users = "users";
-  static const String posts = "posts";
-  static const String comments = "comments";
-  static const String likes = "likes";
-  static const String followers = "followers";
-  static const String following = "following";
+  static const String bestCategories = "best_categories";
+  static const String rooms = "rooms";
+  static const String roomCategories = "room_categories";
+  static const String products = "products";
 }

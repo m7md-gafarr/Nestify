@@ -6,13 +6,18 @@ import 'package:depi_graduation_project/core/utils/Theme/theme_provider.dart';
 import 'package:depi_graduation_project/core/utils/check_connection/check_connection_cubit.dart';
 import 'package:depi_graduation_project/core/utils/language/language.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
+import 'package:depi_graduation_project/data/services/supabase_storage_service.dart';
 import 'package:depi_graduation_project/data/services/user_firestore_service.dart';
 import 'package:depi_graduation_project/features/account/logic/complete_add_data/complete_add_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/logic/login/login_cubit.dart';
 import 'package:depi_graduation_project/features/account/logic/register/register_cubit.dart';
-import 'package:depi_graduation_project/features/account/logic/update_user_data/update_data_cubit.dart';
+import 'package:depi_graduation_project/features/account/logic/update_user_data/update_user_data_cubit.dart';
+import 'package:depi_graduation_project/features/home/logic/best_category/best_category_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/filter_cubit/filter_cubit_cubit.dart';
+import 'package:depi_graduation_project/features/home/logic/product/product_cubit.dart';
+import 'package:depi_graduation_project/features/home/logic/room_category/room_category_cubit.dart';
+import 'package:depi_graduation_project/features/home/logic/rooms/rooms_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -69,9 +74,10 @@ void main() async {
             ),
           ),
           BlocProvider(
-            create: (context) => UpdateDataCubit(
+            create: (context) => UpdateUserDataCubit(
               context.read<CheckConnectionCubit>(),
               UserFirestoreService(),
+              SupabaseStorageService(),
             ),
           ),
           BlocProvider(
@@ -80,6 +86,10 @@ void main() async {
               UserFirestoreService(),
             ),
           ),
+          BlocProvider(create: (context) => BestCategoryCubit()),
+          BlocProvider(create: (context) => RoomsCubit()),
+          BlocProvider(create: (context) => RoomCategoryCubit()),
+          BlocProvider(create: (context) => ProductCubit()),
         ],
         child: MyApp(appRouter: AppRouter()),
       ),

@@ -74,7 +74,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         },
                         itemBuilder: (_, index) {
                           return Hero(
-                            tag: 'product_${args['price']}',
+                            tag: 'product_${args['id']}',
                             child: GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(

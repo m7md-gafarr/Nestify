@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:depi_graduation_project/components/custom_app_bar_widget.dart';
 import 'package:depi_graduation_project/core/utils/validation_utils.dart';
 import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
-import 'package:depi_graduation_project/features/account/logic/update_user_data/update_data_cubit.dart';
+import 'package:depi_graduation_project/features/account/logic/update_user_data/update_user_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,9 +31,43 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
   int _age = 0;
   final ImagePicker _picker = ImagePicker();
   XFile? _selectedImage;
+
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final args = ModalRoute.of(context)!.settings.arguments;
+      if (args != null && args is UserModel) {
+        user = args;
+
+        nameController.text = user!.fullName;
+        emailController.text = user!.email;
+        phoneController.text = user!.phoneNumber;
+        dobController.text = user!.dateOfBirth;
+
+        if (user!.dateOfBirth.isNotEmpty) {
+          try {
+            final dob = DateTime.parse(user!.dateOfBirth);
+            _age = _calculateAgeFromDate(dob);
+          } catch (e) {
+            _age = 0;
+          }
+        }
+
+        setState(() {});
+      }
+    });
     super.initState();
+  }
+
+  int _calculateAgeFromDate(DateTime birthDate) {
+    final today = DateTime.now();
+    int age = today.year - birthDate.year;
+
+    if (today.month < birthDate.month ||
+        (today.month == birthDate.month && today.day < birthDate.day)) {
+      age--;
+    }
+    return age;
   }
 
   @override
@@ -45,18 +81,6 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    arguments() {
-      final args = ModalRoute.of(context)!.settings.arguments;
-      if (args != null && args is UserModel) {
-        user = args;
-        nameController.text = user!.fullName;
-        emailController.text = user!.email;
-        phoneController.text = user!.phoneNumber;
-        dobController.text = user!.dateOfBirth;
-      }
-    }
-
-    arguments();
     return Scaffold(
       appBar: CustomAppBarWidget(
         title: "My Details",
@@ -67,23 +91,24 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
 
               if (!formKey.currentState!.validate()) return;
 
-              String? imageUrl;
-
-              context.read<UpdateDataCubit>().updateUserData(
-                UserModel(
+              context.read<UpdateUserDataCubit>().updateUserData(
+                user: UserModel(
                   userId: user!.userId,
                   fullName: nameController.text.trim(),
                   email: user!.email,
                   phoneNumber: phoneController.text.trim(),
                   address: user!.address,
                   dateOfBirth: dobController.text.trim(),
-                  profileImageUrl: imageUrl ?? user!.profileImageUrl,
+                  profileImageUrl: user!.profileImageUrl,
                 ),
+                newImageFile: _selectedImage != null
+                    ? File(_selectedImage!.path)
+                    : null,
               );
             },
-            child: BlocConsumer<UpdateDataCubit, UpdateDataState>(
+            child: BlocConsumer<UpdateUserDataCubit, UpdateUserDataState>(
               listener: (context, state) {
-                if (state is UpdateDataSuccess) {
+                if (state is UpdateUserDataSuccess) {
                   context.read<GetUserDataCubit>().getUserData();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -97,7 +122,8 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
                     ),
                   );
                   Navigator.pop(context);
-                } else if (state is UpdateDataFailure) {
+                } else if (state is UpdateUserDataFailure) {
+                  log(state.errorMessage);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
@@ -113,7 +139,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
                 }
               },
               builder: (context, state) {
-                if (state is UpdateDataLoading) {
+                if (state is UpdateUserDataLoading) {
                   return SizedBox(
                     child: CircularProgressIndicator(
                       color: Theme.of(context).scaffoldBackgroundColor,

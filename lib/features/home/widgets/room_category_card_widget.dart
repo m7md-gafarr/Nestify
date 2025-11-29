@@ -7,16 +7,22 @@ class RoomCategoryCardWidget extends StatelessWidget {
     super.key,
     required this.title,
     required this.imagePath,
+    required this.categoryId,
   });
 
   final String title;
   final String imagePath;
+  final String categoryId;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, AppRouteNames.categoriesScreenRoute);
+        Navigator.pushNamed(
+          context,
+          AppRouteNames.categoriesScreenRoute,
+          arguments: categoryId,
+        );
       },
       child: Card(
         child: Container(
@@ -45,7 +51,7 @@ class RoomCategoryCardWidget extends StatelessWidget {
                   topRight: Radius.circular(12.r),
                   bottomRight: Radius.circular(12.r),
                 ),
-                child: Image.asset(
+                child: Image.network(
                   imagePath,
                   height: 100.h,
                   width: 100.h,

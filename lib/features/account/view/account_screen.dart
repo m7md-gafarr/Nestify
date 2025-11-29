@@ -4,8 +4,10 @@ import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart
 import 'package:depi_graduation_project/data/services/auth_service.dart';
 
 import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
-import 'package:depi_graduation_project/features/account/models/user_model.dart';
 import 'package:depi_graduation_project/features/account/widgets/empty_account_widget.dart';
+import 'package:depi_graduation_project/features/admin/AddProductScreen.dart';
+import 'package:depi_graduation_project/features/admin/AddRoomCategoryScreen.dart';
+import 'package:depi_graduation_project/features/admin/AddRoomScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -235,6 +237,54 @@ class _AccountScreenState extends State<AccountScreen> {
                               ),
                             ],
                           ),
+                        ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: Icon(Iconsax.add, size: 24.sp),
+                    title: Text(
+                      'Add products ',
+                      style: Theme.of(context).textTheme.titleSmall!,
+                    ),
+                    onTap: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddProductScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: Icon(Iconsax.add, size: 24.sp),
+                    title: Text(
+                      'Add rooms ',
+                      style: Theme.of(context).textTheme.titleSmall!,
+                    ),
+                    onTap: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddRoomScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: Icon(Iconsax.add, size: 24.sp),
+                    title: Text(
+                      'Add rooms categories ',
+                      style: Theme.of(context).textTheme.titleSmall!,
+                    ),
+                    onTap: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddRoomCategoryScreen(),
                         ),
                       );
                     },

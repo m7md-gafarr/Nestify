@@ -1,7 +1,8 @@
 import 'package:depi_graduation_project/components/custom_bottom_nav_bar_widget.dart';
-import 'package:depi_graduation_project/core/images/app_images.dart';
 import 'package:depi_graduation_project/core/utils/check_connection/check_connection_cubit.dart';
 import 'package:depi_graduation_project/features/bag/view/bag_screen.dart';
+import 'package:depi_graduation_project/features/home/logic/best_category/best_category_cubit.dart';
+import 'package:depi_graduation_project/features/home/logic/rooms/rooms_cubit.dart';
 import 'package:depi_graduation_project/features/home/widgets/category_card_widget.dart';
 import 'package:depi_graduation_project/features/home/widgets/room_category_card_widget.dart';
 import 'package:depi_graduation_project/features/no_internet/view/no_internet_screen.dart';
@@ -29,6 +30,13 @@ class _MainScreenState extends State<MainScreen> {
     const SavedItemsScreen(),
     const AccountScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<BestCategoryCubit>().listenToBestCategories();
+    context.read<RoomsCubit>().listenToRooms();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,37 +107,85 @@ class HomeContent extends StatelessWidget {
 
           Padding(
             padding: const EdgeInsets.only(left: 15.0),
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: List.generate(
-                  6,
-                  (index) => Padding(
-                    padding: EdgeInsets.only(right: 10.w),
-                    child: CategoryCardWidget(
-                      text: "best of\n2020",
-                      imagePath: Assets.assetsImagesPic,
+            child: BlocBuilder<BestCategoryCubit, BestCategoryState>(
+              builder: (context, state) {
+                if (state is BestCategoryLoading) {
+                  return SizedBox(
+                    height: 150,
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                }
+
+                if (state is BestCategoryError) {
+                  return SizedBox(
+                    height: 150,
+                    child: Center(child: Text("Error loading categories")),
+                  );
+                }
+
+                if (state is BestCategorySuccess) {
+                  final list = state.list;
+
+                  return SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: List.generate(
+                        list.length,
+                        (index) => Padding(
+                          padding: EdgeInsets.only(right: 10.w),
+                          child: CategoryCardWidget(
+                            text: list[index].title,
+                            imagePath: list[index].imageUrl,
+                            list: list,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
+                  );
+                }
+
+                return SizedBox();
+              },
             ),
           ),
-          SizedBox(height: 15.h),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: List.generate(
-              6,
-              (index) => Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
 
-                child: RoomCategoryCardWidget(
-                  title: "Living room",
-                  imagePath: Assets.assetsImagesPic,
-                ),
-              ),
-            ),
+          SizedBox(height: 15.h),
+          BlocBuilder<RoomsCubit, RoomsState>(
+            builder: (context, state) {
+              if (state is RoomsLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              if (state is RoomsError) {
+                return Center(child: Text(state.message));
+              }
+
+              if (state is RoomsSuccess) {
+                final rooms = state.list;
+
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: List.generate(rooms.length, (index) {
+                    final room = rooms[index];
+
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 15.w,
+                        vertical: 5.h,
+                      ),
+                      child: RoomCategoryCardWidget(
+                        title: room.name,
+                        imagePath: room.imageUrl,
+                        categoryId: room.id,
+                      ),
+                    );
+                  }),
+                );
+              }
+
+              return const SizedBox();
+            },
           ),
         ],
       ),
