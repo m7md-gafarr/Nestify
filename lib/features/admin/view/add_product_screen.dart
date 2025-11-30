@@ -1,12 +1,12 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:depi_graduation_project/core/constants/firebase_collection.dart';
-import 'package:depi_graduation_project/data/services/firestore_home_service.dart';
+import 'package:depi_graduation_project/data/services/home_service/product_service.dart';
 import 'package:depi_graduation_project/data/services/supabase_storage_service.dart';
-import 'package:depi_graduation_project/features/home/model/product_model.dart';
-import 'package:depi_graduation_project/features/home/model/room_model.dart';
-import 'package:depi_graduation_project/features/home/model/room_category_model.dart';
+import 'package:depi_graduation_project/features/home/model/product/product_color_model.dart';
+import 'package:depi_graduation_project/features/home/model/product/product_model.dart';
+import 'package:depi_graduation_project/features/home/model/rooms/room_model.dart';
+import 'package:depi_graduation_project/features/home/model/categories/room_category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -42,6 +42,25 @@ class _AddProductScreenState extends State<AddProductScreen> {
   void initState() {
     super.initState();
     loadRooms();
+  }
+
+  List<ProductColor> parseColors(String input) {
+    if (input.trim().isEmpty) return [];
+
+    return input.split(",").map((part) {
+      final data = part.trim().split(":");
+      if (data.length != 2) {
+        return ProductColor(name: "", color: Colors.black);
+      }
+
+      final name = data[0].trim();
+      final hex = data[1].trim();
+
+      return ProductColor(
+        name: name,
+        color: Color(int.parse(hex.replaceFirst("#", "0xff"))),
+      );
+    }).toList();
   }
 
   Future<void> loadRooms() async {
@@ -101,15 +120,18 @@ class _AddProductScreenState extends State<AddProductScreen> {
       /// Upload Image
       final imageUrl = await SupabaseStorageService().uploadImage(
         file: pickedImage!,
-        folder: FirebaseCollection.products, // اخلقها في constants
+        folder: FirebaseCollection.products,
         name: nameController.text.trim(),
       );
 
-      /// Generate ID from Firestore
+      /// Generate Firestore ID
       final id = FirebaseFirestore.instance
           .collection(FirebaseCollection.products)
           .doc()
           .id;
+
+      /// Parse Colors
+      final parsedColors = parseColors(colorController.text.trim());
 
       final model = ProductModel(
         id: id,
@@ -119,7 +141,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         imageUrl: imageUrl ?? "",
         categoryId: selectedCategoryId!,
         roomId: selectedRoomId!,
-        color: colorController.text.trim(),
+        colors: parsedColors,
         productType: typeController.text.trim(),
         quality: qualityController.text.trim(),
         size: sizeController.text.trim(),
@@ -128,9 +150,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
         isFeatured: false,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
+        details: null,
+        reviews: [],
       );
 
-      await FirestoreHomeService().addProductsByCategoryWithId(model);
+      await ProductService().addProductsByCategoryWithId(model);
 
       Navigator.pop(context);
     } catch (e) {
@@ -150,7 +174,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            /// IMAGE PICKER
             GestureDetector(
               onTap: pickImage,
               child: pickedImage == null
@@ -173,41 +196,30 @@ class _AddProductScreenState extends State<AddProductScreen> {
             ),
             const SizedBox(height: 20),
 
-            /// NAME
             buildInput(nameController, "Product Name"),
-
-            /// DESCRIPTION
             buildInput(descController, "Description", maxLines: 3),
-
-            /// PRICE
             buildInput(
               priceController,
               "Price",
               keyboard: TextInputType.number,
             ),
-
-            /// STOCK
             buildInput(
               stockController,
               "Stock",
               keyboard: TextInputType.number,
             ),
 
-            /// COLOR
-            buildInput(colorController, "Color"),
+            buildInput(
+              colorController,
+              "Colors (ex: Red:#ff0000, Blue:#0000ff)",
+            ),
 
-            /// TYPE
             buildInput(typeController, "Product Type"),
-
-            /// QUALITY
             buildInput(qualityController, "Quality"),
-
-            /// SIZE
             buildInput(sizeController, "Size"),
 
             const SizedBox(height: 20),
 
-            /// ROOM DROPDOWN
             rooms.isEmpty
                 ? const CircularProgressIndicator()
                 : DropdownButtonFormField<String>(
@@ -225,20 +237,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         )
                         .toList(),
                     onChanged: (value) {
-                      setState(() {
-                        selectedRoomId = value;
-                      });
+                      setState(() => selectedRoomId = value);
                       loadCategories(value!);
                     },
                   ),
 
             const SizedBox(height: 20),
 
-            /// CATEGORY DROPDOWN
             selectedRoomId == null
                 ? const SizedBox()
                 : categories.isEmpty
-                ? const Center(child: Text("No categories yet"))
+                ? const Text("No categories yet")
                 : DropdownButtonFormField<String>(
                     decoration: const InputDecoration(
                       labelText: "Select Category",
@@ -253,9 +262,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           ),
                         )
                         .toList(),
-                    onChanged: (value) {
-                      setState(() => selectedCategoryId = value);
-                    },
+                    onChanged: (value) =>
+                        setState(() => selectedCategoryId = value),
                   ),
 
             const SizedBox(height: 30),
@@ -277,7 +285,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   Widget buildInput(
-    TextEditingController c,
+    TextEditingController controller,
     String label, {
     int maxLines = 1,
     TextInputType keyboard = TextInputType.text,
@@ -285,7 +293,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: TextField(
-        controller: c,
+        controller: controller,
         keyboardType: keyboard,
         maxLines: maxLines,
         decoration: InputDecoration(

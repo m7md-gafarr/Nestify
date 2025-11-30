@@ -1,4 +1,4 @@
-import 'package:depi_graduation_project/features/home/model/best_categories_model.dart';
+import 'package:depi_graduation_project/features/home/model/categories/best_categories_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:depi_graduation_project/data/services/firestore_home_service.dart';
-import 'package:depi_graduation_project/features/home/model/room_category_model.dart';
+import 'package:depi_graduation_project/data/services/home_service/room_category_service.dart';
+import 'package:depi_graduation_project/features/home/model/categories/room_category_model.dart';
 import 'package:meta/meta.dart';
 
 part 'room_category_state.dart';
@@ -15,7 +15,7 @@ class RoomCategoryCubit extends Cubit<RoomCategoryState> {
   void listenToRoomCategories({required String roomId}) {
     emit(RoomCategoryLoading());
 
-    _subscription = FirestoreHomeService()
+    _subscription = RoomCategoryService()
         .getRoomCategoriesStream(roomId)
         .listen(
           (roomCategories) {

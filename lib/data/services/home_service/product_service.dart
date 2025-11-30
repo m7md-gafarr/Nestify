@@ -1,102 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:depi_graduation_project/core/constants/firebase_collection.dart';
-import 'package:depi_graduation_project/features/home/model/best_categories_model.dart';
-import 'package:depi_graduation_project/features/home/model/product_model.dart';
-import 'package:depi_graduation_project/features/home/model/room_category_model.dart';
-import 'package:depi_graduation_project/features/home/model/room_model.dart';
+import 'package:depi_graduation_project/features/home/model/product/product_model.dart';
 
-class FirestoreHomeService {
+class ProductService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  // Best categories stream
-  Stream<List<BestCategoryModel>> getBestCategoriesStream() {
-    return _db
-        .collection(FirebaseCollection.bestCategories)
-        .where('isActive', isEqualTo: true)
-        .orderBy('order')
-        .snapshots()
-        .map(
-          (snap) => snap.docs
-              .map((d) => BestCategoryModel.fromJson(d.data(), d.id))
-              .toList(),
-        );
-  }
-
-  Future<void> addBestCategoryWithId(BestCategoryModel model) async {
-    await _db
-        .collection(FirebaseCollection.bestCategories)
-        .doc(model.id)
-        .set(model.toJson());
-  }
-
-  Future<void> updateBestCategory(BestCategoryModel model) async {
-    final updatedModel = model.copyWith(updatedAt: DateTime.now());
-
-    await _db
-        .collection(FirebaseCollection.bestCategories)
-        .doc(model.id)
-        .update(updatedModel.toJsonForUpdate());
-  }
-
-  Future<void> addProductToBestCategory(String bestId, String productId) async {
-    await _db.collection(FirebaseCollection.bestCategories).doc(bestId).update({
-      'products': FieldValue.arrayUnion([productId]),
-      'updatedAt': DateTime.now(),
-    });
-  }
-
-  // Rooms stream
-  Stream<List<RoomModel>> getRoomsStream() {
-    return _db
-        .collection(FirebaseCollection.rooms)
-        .where('isActive', isEqualTo: true)
-        .orderBy('order')
-        .snapshots()
-        .map(
-          (snap) =>
-              snap.docs.map((d) => RoomModel.fromJson(d.data(), d.id)).toList(),
-        );
-  }
-
-  Future<void> addRoomsWithId(RoomModel model) async {
-    await _db
-        .collection(FirebaseCollection.rooms)
-        .doc(model.id)
-        .set(model.toJson());
-  }
-
-  Future<void> updateRoom(RoomModel model) async {
-    final updatedModel = model.copyWith(updatedAt: DateTime.now());
-
-    await _db
-        .collection(FirebaseCollection.rooms)
-        .doc(model.id)
-        .update(updatedModel.toJsonForUpdate());
-  }
-
-  // Room categories for a given room
-  Stream<List<RoomCategoryModel>> getRoomCategoriesStream(String roomId) {
-    return _db
-        .collection(FirebaseCollection.roomCategories)
-        .where('roomId', isEqualTo: roomId)
-        .where('isActive', isEqualTo: true)
-        .orderBy('order')
-        .snapshots()
-        .map(
-          (snap) => snap.docs
-              .map((d) => RoomCategoryModel.fromJson(d.data(), d.id))
-              .toList(),
-        );
-  }
-
-  Future<void> addRoomCategoriesWithId(RoomCategoryModel model) async {
-    await _db
-        .collection(FirebaseCollection.roomCategories)
-        .doc(model.id)
-        .set(model.toJson());
-  }
-
-  // Products by category (stream)
   Stream<List<ProductModel>> getProductsByCategoryStream(String categoryId) {
     return _db
         .collection(FirebaseCollection.products)
@@ -190,7 +98,6 @@ class FirestoreHomeService {
   //   return items;
   // }
 
-  // CRUD helpers (add / update / delete)
   Future<void> addProduct(ProductModel product) async {
     final docRef = _db.collection(FirebaseCollection.products).doc(product.id);
     await docRef.set(product.toJson());

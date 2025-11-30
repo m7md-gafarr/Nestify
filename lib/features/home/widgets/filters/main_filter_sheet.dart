@@ -1,7 +1,7 @@
 import 'package:depi_graduation_project/features/home/logic/filter_cubit/filter_cubit_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/filter_cubit/filter_cubit_state.dart';
-import 'package:depi_graduation_project/features/home/widgets/filter_option_selector_sheet.dart';
-import 'package:depi_graduation_project/features/home/widgets/filter_option_tile.dart';
+import 'package:depi_graduation_project/features/home/widgets/filters/filter_option_selector_sheet.dart';
+import 'package:depi_graduation_project/features/home/widgets/filters/filter_option_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

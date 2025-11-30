@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:depi_graduation_project/core/constants/firebase_collection.dart';
-import 'package:depi_graduation_project/core/utils/check_connection/check_connection_cubit.dart';
+import 'package:depi_graduation_project/features/no_internet/logic/check_connection/check_connection_cubit.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
-import 'package:depi_graduation_project/data/services/auth_service.dart';
+import 'package:depi_graduation_project/data/services/account_service/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 

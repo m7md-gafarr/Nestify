@@ -1,7 +1,7 @@
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
-import 'package:depi_graduation_project/features/home/widgets/main_filter_sheet.dart';
-import 'package:depi_graduation_project/features/home/widgets/sort_bottom_sheet.dart';
-import 'package:depi_graduation_project/features/saved%20items/widgets/save_item_widget.dart';
+import 'package:depi_graduation_project/features/home/widgets/filters/main_filter_sheet.dart';
+import 'package:depi_graduation_project/features/home/widgets/sorting/sort_bottom_sheet.dart';
+import 'package:depi_graduation_project/features/saved_items/widgets/save_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';

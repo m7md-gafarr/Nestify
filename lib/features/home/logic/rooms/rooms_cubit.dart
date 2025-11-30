@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:depi_graduation_project/data/services/firestore_home_service.dart';
-import 'package:depi_graduation_project/features/home/model/room_model.dart';
+import 'package:depi_graduation_project/data/services/home_service/room_service.dart';
+import 'package:depi_graduation_project/features/home/model/rooms/room_model.dart';
 
 part 'rooms_state.dart';
 
@@ -14,7 +14,7 @@ class RoomsCubit extends Cubit<RoomsState> {
   void listenToRooms() {
     emit(RoomsLoading());
 
-    _subscription = FirestoreHomeService().getRoomsStream().listen(
+    _subscription = RoomService().getRoomsStream().listen(
       (rooms) {
         emit(RoomsSuccess(rooms));
       },

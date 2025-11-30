@@ -18,7 +18,7 @@ import 'package:depi_graduation_project/features/home/view/reviews_screen.dart';
 import 'package:depi_graduation_project/features/home/view/new_reviews_screen.dart';
 import 'package:depi_graduation_project/features/home/view/ad_popover_screen.dart';
 import 'package:depi_graduation_project/features/bag/view/bag_screen.dart';
-import 'package:depi_graduation_project/features/saved%20items/view/saved_items_screen.dart';
+import 'package:depi_graduation_project/features/saved_items/view/saved_items_screen.dart';
 import 'package:depi_graduation_project/features/account/view/account_screen.dart';
 import 'package:flutter/material.dart';
 

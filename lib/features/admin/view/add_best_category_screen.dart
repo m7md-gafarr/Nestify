@@ -1,46 +1,44 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:depi_graduation_project/core/constants/firebase_collection.dart';
-import 'package:depi_graduation_project/data/services/firestore_home_service.dart';
+import 'package:depi_graduation_project/data/services/home_service/best_category_service.dart';
 import 'package:depi_graduation_project/data/services/supabase_storage_service.dart';
-import 'package:depi_graduation_project/features/home/model/room_model.dart';
+import 'package:depi_graduation_project/features/home/model/categories/best_categories_model.dart';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AddRoomScreen extends StatefulWidget {
-  const AddRoomScreen({super.key});
+class AddBestCategoryScreen extends StatefulWidget {
+  const AddBestCategoryScreen({super.key});
 
   @override
-  State<AddRoomScreen> createState() => _AddRoomScreenState();
+  State<AddBestCategoryScreen> createState() => _AddBestCategoryScreenState();
 }
 
-class _AddRoomScreenState extends State<AddRoomScreen> {
-  final TextEditingController nameController = TextEditingController();
+class _AddBestCategoryScreenState extends State<AddBestCategoryScreen> {
+  final TextEditingController titleController = TextEditingController();
   final TextEditingController orderController = TextEditingController();
 
   File? _pickedImage;
+
   final ImagePicker _picker = ImagePicker();
+
   bool isLoading = false;
 
   Future<void> pickImage() async {
     final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
     if (file != null) {
-      setState(() => _pickedImage = File(file.path));
+      setState(() {
+        _pickedImage = File(file.path);
+      });
     }
   }
 
-  Future<void> saveRoom() async {
-    if (nameController.text.isEmpty || orderController.text.isEmpty) {
+  Future<void> saveCategory() async {
+    if (titleController.text.isEmpty || orderController.text.isEmpty) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text("Please fill all fields")));
-      return;
-    }
-
-    if (_pickedImage == null) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Please select an image")));
       return;
     }
 
@@ -49,26 +47,25 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
     try {
       final imageUrl = await SupabaseStorageService().uploadImage(
         file: _pickedImage!,
-        name: nameController.text.trim(),
-        folder: FirebaseCollection.rooms,
+        name: titleController.text.trim(),
+        folder: FirebaseCollection.bestCategories,
       );
 
-      final id = FirebaseFirestore.instance
-          .collection(FirebaseCollection.rooms)
-          .doc()
-          .id;
-
-      final model = RoomModel(
-        id: id,
-        name: nameController.text.trim(),
+      final model = BestCategoryModel(
+        id: FirebaseFirestore.instance
+            .collection(FirebaseCollection.bestCategories)
+            .doc()
+            .id,
+        title: titleController.text.trim(),
         imageUrl: imageUrl ?? "",
         order: int.tryParse(orderController.text) ?? 0,
+        products: [],
         isActive: true,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       );
 
-      await FirestoreHomeService().addRoomsWithId(model);
+      await BestCategoryService().addBestCategoryWithId(model);
 
       Navigator.pop(context);
     } catch (e) {
@@ -83,7 +80,7 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Add Room')),
+      appBar: AppBar(title: const Text("Add Best Category")),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
@@ -110,16 +107,14 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
                       ),
               ),
               const SizedBox(height: 20),
-
               TextField(
-                controller: nameController,
+                controller: titleController,
                 decoration: const InputDecoration(
-                  labelText: "Room Name",
+                  labelText: "Title",
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 20),
-
               TextField(
                 controller: orderController,
                 keyboardType: TextInputType.number,
@@ -129,12 +124,11 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
                 ),
               ),
               const SizedBox(height: 30),
-
               SizedBox(
                 width: double.infinity,
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: isLoading ? null : saveRoom,
+                  onPressed: isLoading ? null : saveCategory,
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
                       : const Text("Save"),

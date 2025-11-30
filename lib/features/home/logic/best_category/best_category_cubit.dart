@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:depi_graduation_project/data/services/firestore_home_service.dart';
-import 'package:depi_graduation_project/features/home/model/best_categories_model.dart';
+import 'package:depi_graduation_project/data/services/home_service/best_category_service.dart';
+import 'package:depi_graduation_project/features/home/model/categories/best_categories_model.dart';
 import 'package:meta/meta.dart';
 
 part 'best_category_state.dart';
@@ -15,7 +15,7 @@ class BestCategoryCubit extends Cubit<BestCategoryState> {
   void listenToBestCategories() {
     emit(BestCategoryLoading());
 
-    _subscription = FirestoreHomeService().getBestCategoriesStream().listen(
+    _subscription = BestCategoryService().getBestCategoriesStream().listen(
       (bestCategories) {
         emit(BestCategorySuccess(bestCategories));
       },

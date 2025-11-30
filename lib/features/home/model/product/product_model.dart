@@ -1,4 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:depi_graduation_project/features/home/model/product/product_color_model.dart';
+import 'package:depi_graduation_project/features/home/model/product/product_details_model.dart';
+import 'package:depi_graduation_project/features/home/model/product/review_model.dart';
 
 class ProductModel {
   final String id;
@@ -8,7 +11,9 @@ class ProductModel {
   final String imageUrl;
   final String categoryId;
   final String roomId;
-  final String color;
+  final List<ProductColor> colors;
+  final ProductDetails? details;
+  final List<ReviewModel> reviews;
   final String productType;
   final String quality;
   final String size;
@@ -26,7 +31,7 @@ class ProductModel {
     required this.imageUrl,
     required this.categoryId,
     required this.roomId,
-    required this.color,
+    required this.colors,
     required this.productType,
     required this.quality,
     required this.size,
@@ -35,6 +40,8 @@ class ProductModel {
     required this.isFeatured,
     required this.createdAt,
     required this.updatedAt,
+    required this.details,
+    required this.reviews,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json, String docId) {
@@ -46,42 +53,53 @@ class ProductModel {
       imageUrl: json['imageUrl'] ?? '',
       categoryId: json['categoryId'] ?? '',
       roomId: json['roomId'] ?? '',
-      color: json['color'] ?? '',
+      colors:
+          (json['colors'] as List<dynamic>?)
+              ?.map((e) => ProductColor.fromJson(e))
+              .toList() ??
+          [],
       productType: json['productType'] ?? '',
       quality: json['quality'] ?? '',
       size: json['size'] ?? '',
-      stock: (json['stock'] ?? 0) is int
-          ? json['stock']
-          : (json['stock'] ?? 0).toInt(),
+      stock: (json['stock'] ?? 0),
       isActive: json['isActive'] ?? true,
       isFeatured: json['isFeatured'] ?? false,
       createdAt: (json['createdAt'] is Timestamp)
           ? (json['createdAt'] as Timestamp).toDate()
-          : DateTime.tryParse(json['createdAt'] ?? '') ?? DateTime.now(),
+          : DateTime.now(),
       updatedAt: (json['updatedAt'] is Timestamp)
           ? (json['updatedAt'] as Timestamp).toDate()
-          : DateTime.tryParse(json['updatedAt'] ?? '') ?? DateTime.now(),
+          : DateTime.now(),
+      details: json['details'] != null
+          ? ProductDetails.fromJson(json['details'])
+          : null,
+      reviews:
+          (json['reviews'] as List<dynamic>?)
+              ?.map((e) => ReviewModel.fromJson(e))
+              .toList() ??
+          [],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'name': name,
       'description': description,
       'price': price,
       'imageUrl': imageUrl,
       'categoryId': categoryId,
       'roomId': roomId,
-      'color': color,
+      'colors': colors.map((c) => c.toJson()).toList(),
       'productType': productType,
       'quality': quality,
       'size': size,
       'stock': stock,
       'isActive': isActive,
       'isFeatured': isFeatured,
-      'createdAt': createdAt,
-      'updatedAt': updatedAt,
+      'createdAt': Timestamp.fromDate(createdAt),
+      'updatedAt': Timestamp.fromDate(updatedAt),
+      'details': details?.toJson(),
+      'reviews': reviews.map((e) => e.toJson()).toList(),
     };
   }
 }

@@ -1,10 +1,10 @@
-import 'package:depi_graduation_project/core/images/app_images.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
-import 'package:depi_graduation_project/features/home/widgets/review_card_widget.dart';
+import 'package:depi_graduation_project/features/home/widgets/review/review_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:depi_graduation_project/features/home/model/product/product_model.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
@@ -40,11 +40,10 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final args = ModalRoute.of(context)!.settings.arguments as ProductModel;
 
     final List<String> colorNames =
-        (args['colors'] as List?)
+        (args.colors as List?)
             ?.map((e) => e.toString())
             .toList()
             .cast<String>() ??
@@ -74,7 +73,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         },
                         itemBuilder: (_, index) {
                           return Hero(
-                            tag: 'product_${args['id']}',
+                            tag: 'product_${args.id}',
                             child: GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(
@@ -83,8 +82,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                   arguments: args,
                                 );
                               },
-                              child: Image.asset(
-                                args['imageAsset'] ?? Assets.assetsImagesPic,
+                              child: Image.network(
+                                args.imageUrl,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -150,14 +149,14 @@ class _ProductScreenState extends State<ProductScreen> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          '\$${(args['price'] + 1) * 50}',
+                          '\$${args.price}',
                           style: Theme.of(context).textTheme.headlineSmall!
                               .copyWith(fontWeight: FontWeight.bold),
                         ),
                       ),
                       SizedBox(height: 10.h),
                       Text(
-                        'This is a detailed description of the furniture item. It provides information about the design, materials used, dimensions, and other relevant details that help the customer make an informed decision.',
+                        args.description,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       SizedBox(height: 10.h),

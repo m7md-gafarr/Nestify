@@ -1,13 +1,13 @@
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
-import 'package:depi_graduation_project/data/services/auth_service.dart';
+import 'package:depi_graduation_project/data/services/account_service/auth_service.dart';
 
 import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/widgets/empty_account_widget.dart';
-import 'package:depi_graduation_project/features/admin/AddProductScreen.dart';
-import 'package:depi_graduation_project/features/admin/AddRoomCategoryScreen.dart';
-import 'package:depi_graduation_project/features/admin/AddRoomScreen.dart';
+import 'package:depi_graduation_project/features/admin/view/add_product_screen.dart';
+import 'package:depi_graduation_project/features/admin/view/add_room_category_screen.dart';
+import 'package:depi_graduation_project/features/admin/view/add_room_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

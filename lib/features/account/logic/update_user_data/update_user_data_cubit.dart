@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:depi_graduation_project/core/constants/firebase_collection.dart';
-import 'package:depi_graduation_project/core/utils/check_connection/check_connection_cubit.dart';
-import 'package:depi_graduation_project/data/services/user_firestore_service.dart';
+import 'package:depi_graduation_project/features/no_internet/logic/check_connection/check_connection_cubit.dart';
+import 'package:depi_graduation_project/data/services/account_service/user_firestore_service.dart';
 import 'package:depi_graduation_project/data/services/supabase_storage_service.dart';
 import 'package:depi_graduation_project/features/account/models/user_model.dart';
 import 'package:meta/meta.dart';

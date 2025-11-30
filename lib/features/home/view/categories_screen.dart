@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:depi_graduation_project/components/custom_app_bar_widget.dart';
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
 import 'package:depi_graduation_project/features/home/logic/room_category/room_category_cubit.dart';
-import 'package:depi_graduation_project/features/home/widgets/category_list_tile_widget.dart';
+import 'package:depi_graduation_project/features/home/widgets/categories/category_list_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

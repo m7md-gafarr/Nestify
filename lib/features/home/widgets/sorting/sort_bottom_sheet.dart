@@ -1,4 +1,4 @@
-import 'package:depi_graduation_project/features/home/widgets/sort_option_tile.dart';
+import 'package:depi_graduation_project/features/home/widgets/sorting/sort_option_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

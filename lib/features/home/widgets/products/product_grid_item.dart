@@ -1,5 +1,5 @@
 import 'package:depi_graduation_project/core/router/route_names.dart';
-import 'package:depi_graduation_project/features/home/model/product_model.dart';
+import 'package:depi_graduation_project/features/home/model/product/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
@@ -15,11 +15,7 @@ class ProductGridItem extends StatelessWidget {
         Navigator.pushNamed(
           context,
           AppRouteNames.productScreenRoute,
-          arguments: {
-            'price': product.price,
-            'imageUrl': product.imageUrl,
-            'isSaved': false,
-          },
+          arguments: product,
         );
       },
       child: Column(
