@@ -3,10 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:depi_graduation_project/core/constants/firebase_collection.dart';
 import 'package:depi_graduation_project/data/services/home_service/product_service.dart';
 import 'package:depi_graduation_project/data/services/supabase_storage_service.dart';
-import 'package:depi_graduation_project/features/home/model/product/product_color_model.dart';
-import 'package:depi_graduation_project/features/home/model/product/product_model.dart';
-import 'package:depi_graduation_project/features/home/model/rooms/room_model.dart';
-import 'package:depi_graduation_project/features/home/model/categories/room_category_model.dart';
+import 'package:depi_graduation_project/features/home/models/product/product_color_model.dart';
+import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
+import 'package:depi_graduation_project/features/home/models/rooms/room_model.dart';
+import 'package:depi_graduation_project/features/home/models/categories/room_category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 

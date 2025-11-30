@@ -1,5 +1,5 @@
 import 'package:depi_graduation_project/core/router/route_names.dart';
-import 'package:depi_graduation_project/features/home/model/product/product_model.dart';
+import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';

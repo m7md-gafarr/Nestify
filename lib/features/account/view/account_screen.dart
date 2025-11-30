@@ -5,9 +5,9 @@ import 'package:depi_graduation_project/data/services/account_service/auth_servi
 
 import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/widgets/empty_account_widget.dart';
-import 'package:depi_graduation_project/features/admin/view/add_product_screen.dart';
-import 'package:depi_graduation_project/features/admin/view/add_room_category_screen.dart';
-import 'package:depi_graduation_project/features/admin/view/add_room_screen.dart';
+import 'package:depi_graduation_project/features/home/view/dashboard/add_product_screen.dart';
+import 'package:depi_graduation_project/features/home/view/dashboard/add_room_category_screen.dart';
+import 'package:depi_graduation_project/features/home/view/dashboard/add_room_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

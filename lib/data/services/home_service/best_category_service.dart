@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:depi_graduation_project/core/constants/firebase_collection.dart';
-import 'package:depi_graduation_project/features/home/model/categories/best_categories_model.dart';
+import 'package:depi_graduation_project/features/home/models/categories/best_categories_model.dart';
 
 class BestCategoryService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;

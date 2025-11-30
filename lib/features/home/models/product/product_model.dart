@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:depi_graduation_project/features/home/model/product/product_color_model.dart';
-import 'package:depi_graduation_project/features/home/model/product/product_details_model.dart';
-import 'package:depi_graduation_project/features/home/model/product/review_model.dart';
+import 'package:depi_graduation_project/features/home/models/product/product_color_model.dart';
+import 'package:depi_graduation_project/features/home/models/product/product_details_model.dart';
+import 'package:depi_graduation_project/features/home/models/product/review_model.dart';
 
 class ProductModel {
   final String id;

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:depi_graduation_project/data/services/home_service/room_service.dart';
-import 'package:depi_graduation_project/features/home/model/rooms/room_model.dart';
+import 'package:depi_graduation_project/features/home/models/rooms/room_model.dart';
 
 part 'rooms_state.dart';
 

@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:depi_graduation_project/core/constants/firebase_collection.dart';
 import 'package:depi_graduation_project/data/services/home_service/best_category_service.dart';
 import 'package:depi_graduation_project/data/services/supabase_storage_service.dart';
-import 'package:depi_graduation_project/features/home/model/categories/best_categories_model.dart';
+import 'package:depi_graduation_project/features/home/models/categories/best_categories_model.dart';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';

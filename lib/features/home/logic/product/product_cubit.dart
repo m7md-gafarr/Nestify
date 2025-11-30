@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:depi_graduation_project/data/services/home_service/product_service.dart';
-import 'package:depi_graduation_project/features/home/model/product/product_model.dart';
+import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
 import 'package:meta/meta.dart';
 
 part 'product_state.dart';

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:depi_graduation_project/core/constants/firebase_collection.dart';
-import 'package:depi_graduation_project/features/home/model/categories/room_category_model.dart';
+import 'package:depi_graduation_project/features/home/models/categories/room_category_model.dart';
 
 class RoomCategoryService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;

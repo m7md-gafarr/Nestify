@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:depi_graduation_project/core/constants/firebase_collection.dart';
-import 'package:depi_graduation_project/features/home/model/product/product_model.dart';
+import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
 
 class ProductService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:depi_graduation_project/features/home/model/product/product_model.dart';
+import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
