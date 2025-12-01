@@ -7,14 +7,17 @@ import 'package:meta/meta.dart';
 part 'best_category_state.dart';
 
 class BestCategoryCubit extends Cubit<BestCategoryState> {
+  final BestCategoryService service;
   StreamSubscription? _subscription;
 
-  BestCategoryCubit() : super(BestCategoryLoading());
+  BestCategoryCubit({required this.service}) : super(BestCategoryLoading());
 
   void listenToBestCategories() {
     emit(BestCategoryLoading());
 
-    _subscription = BestCategoryService().getBestCategoriesStream().listen(
+    _subscription?.cancel();
+
+    _subscription = service.getBestCategoriesStream().listen(
       (bestCategories) {
         emit(BestCategorySuccess(bestCategories));
       },
@@ -22,6 +25,16 @@ class BestCategoryCubit extends Cubit<BestCategoryState> {
         emit(BestCategoryError('Failed to load best categories: $error'));
       },
     );
+  }
+
+  Future<void> addBestCategory(BestCategoryModel model) async {
+    try {
+      await service.addBestCategoryWithId(model);
+      emit(BestCategoryAdded());
+      listenToBestCategories();
+    } catch (e) {
+      emit(BestCategoryError('Failed to add best category: $e'));
+    }
   }
 
   @override

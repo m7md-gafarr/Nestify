@@ -1,14 +1,17 @@
 import 'package:depi_graduation_project/components/custom_bottom_nav_bar_widget.dart';
+import 'package:depi_graduation_project/features/home/widgets/categories/shimmer/category_card_widget_shimmer.dart';
+import 'package:depi_graduation_project/features/home/widgets/rooms/room_category_card_widget.dart';
+import 'package:depi_graduation_project/features/home/widgets/rooms/shimmer/room_category_card_widget_shimmer.dart';
 import 'package:depi_graduation_project/features/no_internet/logic/check_connection/check_connection_cubit.dart';
 import 'package:depi_graduation_project/features/bag/view/bag_screen.dart';
 import 'package:depi_graduation_project/features/home/logic/best_category/best_category_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/rooms/rooms_cubit.dart';
 import 'package:depi_graduation_project/features/home/widgets/categories/category_card_widget.dart';
-import 'package:depi_graduation_project/features/home/widgets/rooms/room_category_card_widget.dart';
 import 'package:depi_graduation_project/features/no_internet/view/no_internet_screen.dart';
 import 'package:depi_graduation_project/features/saved_items/view/saved_items_screen.dart';
 import 'package:depi_graduation_project/features/account/view/account_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
@@ -32,37 +35,36 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   @override
-  void initState() {
-    super.initState();
-    context.read<BestCategoryCubit>().listenToBestCategories();
-    context.read<RoomsCubit>().listenToRooms();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<CheckConnectionCubit, CheckConnectionState>(
-        builder: (context, state) {
-          if (state is CheckConnectionHasInternet) {
-            return PageTransitionSwitcher(
-              transitionBuilder:
-                  (
-                    Widget child,
-                    Animation<double> primaryAnimation,
-                    Animation<double> secondaryAnimation,
-                  ) {
-                    return FadeThroughTransition(
-                      animation: primaryAnimation,
-                      secondaryAnimation: secondaryAnimation,
-                      child: child,
-                    );
-                  },
-              child: IndexedStack(index: _currentIndex, children: _screens),
-            );
-          } else {
-            return const NoInternetScreen();
-          }
+      body: WillPopScope(
+        onWillPop: () async {
+          SystemNavigator.pop();
+          return false;
         },
+        child: BlocBuilder<CheckConnectionCubit, CheckConnectionState>(
+          builder: (context, state) {
+            if (state is CheckConnectionHasInternet) {
+              return PageTransitionSwitcher(
+                transitionBuilder:
+                    (
+                      Widget child,
+                      Animation<double> primaryAnimation,
+                      Animation<double> secondaryAnimation,
+                    ) {
+                      return FadeThroughTransition(
+                        animation: primaryAnimation,
+                        secondaryAnimation: secondaryAnimation,
+                        child: child,
+                      );
+                    },
+                child: IndexedStack(index: _currentIndex, children: _screens),
+              );
+            } else {
+              return const NoInternetScreen();
+            }
+          },
+        ),
       ),
       bottomNavigationBar: CustomBottomNavBarWidget(
         currentIndex: _currentIndex,
@@ -81,51 +83,40 @@ class HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          SizedBox(height: 80.h),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Text(
-              "Nestify",
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-          ),
-          SizedBox(height: 30.h),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: "Search",
-                prefixIcon: Icon(Iconsax.search_normal, size: 26.sp),
+    return RefreshIndicator(
+      onRefresh: () async {
+        context.read<BestCategoryCubit>().listenToBestCategories();
+        context.read<RoomsCubit>().listenToRooms();
+      },
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Column(
+          children: [
+            SizedBox(height: 80.h),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Text(
+                "Nestify",
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
             ),
-          ),
-          SizedBox(height: 15.h),
+            SizedBox(height: 30.h),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: "Search",
+                  prefixIcon: Icon(Iconsax.search_normal, size: 26.sp),
+                ),
+              ),
+            ),
+            SizedBox(height: 15.h),
 
-          Padding(
-            padding: const EdgeInsets.only(left: 15.0),
-            child: BlocBuilder<BestCategoryCubit, BestCategoryState>(
+            BlocConsumer<BestCategoryCubit, BestCategoryState>(
+              listener: (context, state) {},
               builder: (context, state) {
-                if (state is BestCategoryLoading) {
-                  return SizedBox(
-                    height: 150,
-                    child: Center(child: CircularProgressIndicator()),
-                  );
-                }
-
-                if (state is BestCategoryError) {
-                  return SizedBox(
-                    height: 150,
-                    child: Center(child: Text("Error loading categories")),
-                  );
-                }
-
                 if (state is BestCategorySuccess) {
                   final list = state.list;
-
                   return SingleChildScrollView(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
@@ -133,7 +124,10 @@ class HomeContent extends StatelessWidget {
                       children: List.generate(
                         list.length,
                         (index) => Padding(
-                          padding: EdgeInsets.only(right: 10.w),
+                          padding: EdgeInsets.only(
+                            right: 10.w,
+                            left: index == 0 ? 15 : 0,
+                          ),
                           child: CategoryCardWidget(
                             text: list[index].title,
                             imagePath: list[index].imageUrl,
@@ -143,51 +137,66 @@ class HomeContent extends StatelessWidget {
                       ),
                     ),
                   );
+                } else {
+                  return SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: List.generate(
+                        5,
+                        (index) => Padding(
+                          padding: EdgeInsets.only(right: 10.w),
+                          child: CategoryCardWidgetShimmer(),
+                        ),
+                      ),
+                    ),
+                  );
                 }
-
-                return SizedBox();
               },
             ),
-          ),
 
-          SizedBox(height: 15.h),
-          BlocBuilder<RoomsCubit, RoomsState>(
-            builder: (context, state) {
-              if (state is RoomsLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
+            SizedBox(height: 15.h),
+            BlocBuilder<RoomsCubit, RoomsState>(
+              builder: (context, state) {
+                if (state is RoomsSuccess) {
+                  final rooms = state.list;
 
-              if (state is RoomsError) {
-                return Center(child: Text(state.message));
-              }
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: List.generate(rooms.length, (index) {
+                      final room = rooms[index];
 
-              if (state is RoomsSuccess) {
-                final rooms = state.list;
-
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: List.generate(rooms.length, (index) {
-                    final room = rooms[index];
-
-                    return Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 15.w,
-                        vertical: 5.h,
-                      ),
-                      child: RoomCategoryCardWidget(
-                        title: room.name,
-                        imagePath: room.imageUrl,
-                        categoryId: room.id,
-                      ),
-                    );
-                  }),
-                );
-              }
-
-              return const SizedBox();
-            },
-          ),
-        ],
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 15.w,
+                          vertical: 5.h,
+                        ),
+                        child: RoomCategoryCardWidget(
+                          title: room.name,
+                          imagePath: room.imageUrl,
+                          categoryId: room.id,
+                        ),
+                      );
+                    }),
+                  );
+                } else {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: List.generate(3, (index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 15.w,
+                          vertical: 5.h,
+                        ),
+                        child: RoomCategoryCardWidgetShimmer(),
+                      );
+                    }),
+                  );
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

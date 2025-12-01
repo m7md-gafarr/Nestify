@@ -27,8 +27,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController qualityController = TextEditingController();
   final TextEditingController sizeController = TextEditingController();
 
-  File? pickedImage;
   final ImagePicker picker = ImagePicker();
+
+  List<File> pickedImages = [];
 
   bool isLoading = false;
 
@@ -94,11 +95,29 @@ class _AddProductScreenState extends State<AddProductScreen> {
     setState(() {});
   }
 
-  Future<void> pickImage() async {
-    final XFile? file = await picker.pickImage(source: ImageSource.gallery);
-    if (file != null) {
-      setState(() => pickedImage = File(file.path));
+  Future<void> pickImages() async {
+    final List<XFile> files = await picker.pickMultiImage();
+    if (files.isNotEmpty) {
+      setState(() {
+        pickedImages = files.map((x) => File(x.path)).toList();
+      });
     }
+  }
+
+  Future<List<String>> uploadAllImages(List<File> images) async {
+    List<String> urls = [];
+
+    for (var img in images) {
+      final url = await SupabaseStorageService().uploadImage(
+        file: img,
+        folder: FirebaseCollection.products,
+        name: "product_${DateTime.now().millisecondsSinceEpoch}",
+      );
+
+      if (url != null) urls.add(url);
+    }
+
+    return urls;
   }
 
   Future<void> saveProduct() async {
@@ -107,7 +126,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         priceController.text.isEmpty ||
         selectedRoomId == null ||
         selectedCategoryId == null ||
-        pickedImage == null) {
+        pickedImages.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Please fill all required fields")),
       );
@@ -117,12 +136,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
     setState(() => isLoading = true);
 
     try {
-      /// Upload Image
-      final imageUrl = await SupabaseStorageService().uploadImage(
-        file: pickedImage!,
-        folder: FirebaseCollection.products,
-        name: nameController.text.trim(),
-      );
+      /// Upload Multiple Images
+      final urls = await uploadAllImages(pickedImages);
 
       /// Generate Firestore ID
       final id = FirebaseFirestore.instance
@@ -133,12 +148,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
       /// Parse Colors
       final parsedColors = parseColors(colorController.text.trim());
 
+      /// Create Product Model
       final model = ProductModel(
         id: id,
         name: nameController.text.trim(),
         description: descController.text.trim(),
         price: double.tryParse(priceController.text.trim()) ?? 0,
-        imageUrl: imageUrl ?? "",
+        imageUrl: urls,
         categoryId: selectedCategoryId!,
         roomId: selectedRoomId!,
         colors: parsedColors,
@@ -175,8 +191,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
         child: Column(
           children: [
             GestureDetector(
-              onTap: pickImage,
-              child: pickedImage == null
+              onTap: pickImages,
+              child: pickedImages.isEmpty
                   ? Container(
                       height: 150,
                       width: 150,
@@ -184,16 +200,23 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       alignment: Alignment.center,
                       child: const Icon(Icons.add_a_photo, size: 40),
                     )
-                  : ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.file(
-                        pickedImage!,
-                        height: 150,
-                        width: 150,
-                        fit: BoxFit.cover,
-                      ),
+                  : Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: pickedImages.map((img) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.file(
+                            img,
+                            height: 120,
+                            width: 120,
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      }).toList(),
                     ),
             ),
+
             const SizedBox(height: 20),
 
             buildInput(nameController, "Product Name"),
@@ -208,12 +231,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
               "Stock",
               keyboard: TextInputType.number,
             ),
-
             buildInput(
               colorController,
               "Colors (ex: Red:#ff0000, Blue:#0000ff)",
             ),
-
             buildInput(typeController, "Product Type"),
             buildInput(qualityController, "Quality"),
             buildInput(sizeController, "Size"),
@@ -237,34 +258,32 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         )
                         .toList(),
                     onChanged: (value) {
-                      setState(() => selectedRoomId = value);
+                      selectedRoomId = value;
                       loadCategories(value!);
                     },
                   ),
 
             const SizedBox(height: 20),
 
-            selectedRoomId == null
-                ? const SizedBox()
-                : categories.isEmpty
-                ? const Text("No categories yet")
-                : DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(
-                      labelText: "Select Category",
-                      border: OutlineInputBorder(),
+            if (selectedRoomId != null)
+              categories.isEmpty
+                  ? const Text("No categories yet")
+                  : DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        labelText: "Select Category",
+                        border: OutlineInputBorder(),
+                      ),
+                      initialValue: selectedCategoryId,
+                      items: categories
+                          .map(
+                            (c) => DropdownMenuItem(
+                              value: c.id,
+                              child: Text(c.name),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (value) => selectedCategoryId = value,
                     ),
-                    initialValue: selectedCategoryId,
-                    items: categories
-                        .map(
-                          (c) => DropdownMenuItem(
-                            value: c.id,
-                            child: Text(c.name),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) =>
-                        setState(() => selectedCategoryId = value),
-                  ),
 
             const SizedBox(height: 30),
 
@@ -294,8 +313,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
       padding: const EdgeInsets.only(bottom: 15),
       child: TextField(
         controller: controller,
-        keyboardType: keyboard,
         maxLines: maxLines,
+        keyboardType: keyboard,
         decoration: InputDecoration(
           labelText: label,
           border: const OutlineInputBorder(),

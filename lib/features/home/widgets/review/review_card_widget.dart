@@ -1,10 +1,12 @@
 import 'package:depi_graduation_project/core/images/app_images.dart';
+import 'package:depi_graduation_project/features/home/models/product/review_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pannable_rating_bar/flutter_pannable_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReviewCardWidget extends StatelessWidget {
-  const ReviewCardWidget({super.key});
+  const ReviewCardWidget({super.key, required this.review});
+  final ReviewModel review;
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +28,14 @@ class ReviewCardWidget extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "Ali Mohamed",
+                        review.username,
                         style: Theme.of(
                           context,
                         ).textTheme.titleMedium!.copyWith(fontSize: 14.sp),
                       ),
                       SizedBox(width: 5.w),
                       Text(
-                        "June, 2025",
+                        review.date,
                         style: Theme.of(context).textTheme.labelSmall,
                       ),
                     ],
@@ -41,12 +43,12 @@ class ReviewCardWidget extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "(4.5)",
+                        "(${review.rating})",
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       SizedBox(width: 5.w),
                       PannableRatingBar(
-                        rate: 4.5,
+                        rate: review.rating,
                         items: List.generate(
                           5,
                           (index) => RatingWidget(
@@ -63,10 +65,7 @@ class ReviewCardWidget extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10.h),
-          Text(
-            "This is a great way to experience the Grand Canyon from Phoenix. I could never have done this trip on my own... Read More",
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
+          Text(review.comment, style: Theme.of(context).textTheme.bodySmall),
         ],
       ),
     );

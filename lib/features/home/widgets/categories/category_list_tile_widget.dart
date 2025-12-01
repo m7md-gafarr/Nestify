@@ -22,7 +22,7 @@ class CategoryListTileWidget extends StatelessWidget {
         Navigator.pushNamed(
           context,
           AppRouteNames.catalogScreenRoute,
-          arguments: categoryId,
+          arguments: [categoryId, categoryName],
         );
       },
       child: ListTile(

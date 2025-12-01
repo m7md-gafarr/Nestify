@@ -17,9 +17,7 @@ class CategoryCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // Handle category tap if needed
-      },
+      onTap: () {},
       child: SizedBox(
         height: 88.w,
         width: 88.w,
@@ -55,7 +53,6 @@ class CategoryCardWidget extends StatelessWidget {
                 width: 72.w,
                 child: Text(
                   text,
-
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: Colors.white,
                     fontSize: 13.sp,

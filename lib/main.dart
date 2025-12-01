@@ -3,6 +3,7 @@ import 'package:depi_graduation_project/core/router/router.dart';
 import 'package:depi_graduation_project/core/theme/app_theme/app_theme_dark.dart';
 import 'package:depi_graduation_project/core/theme/app_theme/app_theme_light.dart';
 import 'package:depi_graduation_project/core/utils/theme/theme_provider.dart';
+import 'package:depi_graduation_project/data/services/home_service/best_category_service.dart';
 import 'package:depi_graduation_project/features/no_internet/logic/check_connection/check_connection_cubit.dart';
 import 'package:depi_graduation_project/core/utils/language/language.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
@@ -86,8 +87,12 @@ void main() async {
               UserFirestoreService(),
             ),
           ),
-          BlocProvider(create: (context) => BestCategoryCubit()),
-          BlocProvider(create: (context) => RoomsCubit()),
+          BlocProvider(
+            create: (_) =>
+                BestCategoryCubit(service: BestCategoryService())
+                  ..listenToBestCategories(),
+          ),
+          BlocProvider(create: (context) => RoomsCubit()..listenToRooms()),
           BlocProvider(create: (context) => RoomCategoryCubit()),
           BlocProvider(create: (context) => ProductCubit()),
         ],

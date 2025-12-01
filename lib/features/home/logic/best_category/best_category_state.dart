@@ -10,6 +10,8 @@ class BestCategorySuccess extends BestCategoryState {
   BestCategorySuccess(this.list);
 }
 
+class BestCategoryAdded extends BestCategoryState {}
+
 class BestCategoryError extends BestCategoryState {
   final String message;
   BestCategoryError(this.message);

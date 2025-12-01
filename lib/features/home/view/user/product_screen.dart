@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/features/home/widgets/review/review_card_widget.dart';
 import 'package:flutter/material.dart';
@@ -18,40 +20,11 @@ class _ProductScreenState extends State<ProductScreen> {
   int _selectedImageIndex = 0;
   bool _expandedProductDetails = false;
   bool _expandedReviewsDetails = false;
-  static const List<String> _fallbackColors = [
-    'Black',
-    'White',
-    'Brown',
-    'Gray',
-    'Beige',
-    'Blue',
-  ];
-  static const Map<String, Color> _colorMap = {
-    'Black': Colors.black,
-    'White': Colors.white,
-    'Brown': Colors.brown,
-    'Gray': Colors.grey,
-    'Beige': Color(0xFFF5F5DC),
-    'Blue': Colors.blue,
-    'Red': Colors.red,
-    'Green': Colors.green,
-    'Yellow': Colors.yellow,
-  };
 
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ProductModel;
 
-    final List<String> colorNames =
-        (args.colors as List?)
-            ?.map((e) => e.toString())
-            .toList()
-            .cast<String>() ??
-        _fallbackColors;
-
-    if (_selectedColorIndex >= colorNames.length) {
-      _selectedColorIndex = 0;
-    }
     return Scaffold(
       body: Stack(
         children: [
@@ -65,7 +38,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     children: [
                       PageView.builder(
                         physics: BouncingScrollPhysics(),
-                        itemCount: 4,
+                        itemCount: args.imageUrl.length,
                         onPageChanged: (index) {
                           setState(() {
                             _selectedImageIndex = index;
@@ -83,7 +56,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                 );
                               },
                               child: Image.network(
-                                args.imageUrl,
+                                args.imageUrl[index],
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -109,7 +82,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             ),
                             child: AnimatedSmoothIndicator(
                               activeIndex: _selectedImageIndex,
-                              count: 4,
+                              count: args.imageUrl.length,
                               effect: ExpandingDotsEffect(
                                 activeDotColor: Theme.of(
                                   context,
@@ -133,7 +106,10 @@ class _ProductScreenState extends State<ProductScreen> {
                                 .surfaceContainerHighest
                                 .withOpacity(0.8),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            log(args.id);
+                            log(args.details?.composition.mainMaterial ?? '');
+                          },
                           icon: Icon(Iconsax.heart),
                         ),
                       ),
@@ -155,9 +131,12 @@ class _ProductScreenState extends State<ProductScreen> {
                         ),
                       ),
                       SizedBox(height: 10.h),
-                      Text(
-                        args.description,
-                        style: Theme.of(context).textTheme.bodyLarge,
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          args.description,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
                       ),
                       SizedBox(height: 10.h),
                       Align(
@@ -165,22 +144,9 @@ class _ProductScreenState extends State<ProductScreen> {
                         child: Wrap(
                           spacing: 8.w,
                           runSpacing: 8.h,
-                          children: List.generate(colorNames.length, (index) {
-                            final name = colorNames[index];
-                            final Color dotColor =
-                                _colorMap[name] ??
-                                (() {
-                                  try {
-                                    if (name.startsWith('#')) {
-                                      final value = int.parse(
-                                        name.substring(1),
-                                        radix: 16,
-                                      );
-                                      return Color(0xFF000000 | value);
-                                    }
-                                  } catch (_) {}
-                                  return Colors.grey;
-                                })();
+                          children: List.generate(args.colors.length, (index) {
+                            final name = args.colors[index].name;
+                            final Color dotColor = args.colors[index].color;
                             final bool selected = _selectedColorIndex == index;
                             return ChoiceChip(
                               label: Row(
@@ -262,14 +228,30 @@ class _ProductScreenState extends State<ProductScreen> {
                                   SizedBox(height: 4.h),
                                   Row(
                                     children: [
-                                      Expanded(child: Text("Height: 50 cm")),
-                                      Expanded(child: Text("Width: 40 cm")),
+                                      Expanded(
+                                        child: Text(
+                                          "Height: ${args.details?.measurements.height ?? ""} cm",
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          "Width: ${args.details?.measurements.width ?? ""} cm",
+                                        ),
+                                      ),
                                     ],
                                   ),
                                   Row(
                                     children: [
-                                      Expanded(child: Text("Depth: 35 cm")),
-                                      Expanded(child: Text("Weight: 11.7 kg")),
+                                      Expanded(
+                                        child: Text(
+                                          "Depth: ${args.details?.measurements.depth ?? ''} cm",
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          "Weight: ${args.details?.measurements.weight ?? ''} kg",
+                                        ),
+                                      ),
                                     ],
                                   ),
 
@@ -282,8 +264,12 @@ class _ProductScreenState extends State<ProductScreen> {
                                     ).textTheme.titleMedium,
                                   ),
                                   SizedBox(height: 4.h),
-                                  Text("Main material: 100% Mango tree wood"),
-                                  Text("Secondary material: 100% Chipboard"),
+                                  Text(
+                                    "Main material: ${args.details?.composition.mainMaterial ?? ''}",
+                                  ),
+                                  Text(
+                                    "Secondary material:   ${args.details?.composition.secondaryMaterial ?? ''}",
+                                  ),
                                 ],
                               )
                             : ShaderMask(
@@ -308,15 +294,29 @@ class _ProductScreenState extends State<ProductScreen> {
                                     SizedBox(height: 4.h),
                                     Row(
                                       children: [
-                                        Expanded(child: Text("Height: 50 cm")),
-                                        Expanded(child: Text("Width: 40 cm")),
+                                        Expanded(
+                                          child: Text(
+                                            "Height: ${args.details?.measurements.height ?? ""} cm",
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            "Width: ${args.details?.measurements.width ?? ""} cm",
+                                          ),
+                                        ),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Expanded(child: Text("Depth: 35 cm")),
                                         Expanded(
-                                          child: Text("Weight: 11.7 kg"),
+                                          child: Text(
+                                            "Depth: ${args.details?.measurements.depth ?? ""} cm",
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            "Weight: ${args.details?.measurements.weight ?? ""} kg",
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -349,11 +349,15 @@ class _ProductScreenState extends State<ProductScreen> {
                       AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
                         height: _expandedReviewsDetails ? null : 140.h,
-                        child: _expandedReviewsDetails
+                        child: args.reviews.isEmpty
+                            ? Text("No reviews yet.")
+                            : _expandedReviewsDetails
                             ? Column(
                                 children: List.generate(
-                                  5,
-                                  (index) => ReviewCardWidget(),
+                                  args.reviews.length,
+                                  (index) => ReviewCardWidget(
+                                    review: args.reviews[index],
+                                  ),
                                 ),
                               )
                             : ShaderMask(
@@ -366,22 +370,31 @@ class _ProductScreenState extends State<ProductScreen> {
                                   ).createShader(bounds);
                                 },
                                 blendMode: BlendMode.dstIn,
-                                child: ReviewCardWidget(),
+                                child: ReviewCardWidget(
+                                  review: args.reviews[0],
+                                ),
                               ),
                       ),
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            _expandedReviewsDetails = !_expandedReviewsDetails;
-                          });
-                        },
-                        child: Text(
-                          _expandedReviewsDetails ? "Show less" : "Show more",
-                          style: Theme.of(context).textTheme.labelLarge,
-                        ),
-                      ),
+                      args.reviews.isEmpty
+                          ? SizedBox.shrink()
+                          : TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  _expandedReviewsDetails =
+                                      !_expandedReviewsDetails;
+                                });
+                              },
+                              child: Text(
+                                _expandedReviewsDetails
+                                    ? "Show less"
+                                    : "Show more",
+                                style: Theme.of(context).textTheme.labelLarge,
+                              ),
+                            ),
 
-                      SizedBox(height: 20.h),
+                      args.reviews.isEmpty
+                          ? SizedBox.shrink()
+                          : SizedBox(height: 20.h),
                     ],
                   ),
                 ),

@@ -21,7 +21,7 @@ class RoomCategoryCardWidget extends StatelessWidget {
         Navigator.pushNamed(
           context,
           AppRouteNames.categoriesScreenRoute,
-          arguments: categoryId,
+          arguments: [categoryId, title],
         );
       },
       child: Card(

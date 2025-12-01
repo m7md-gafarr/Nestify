@@ -19,6 +19,8 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
     error: AppColorLight.error,
     outline: AppColorLight.border,
     primaryContainer: AppColorLight.primaryContainer,
+    surfaceContainerLow: AppColorLight.shimmerBase,
+    surfaceContainerHighest: AppColorLight.shimmerHighlight.withOpacity(.65),
   ),
 
   iconTheme: IconThemeData(color: AppColorLight.iconPrimary, size: 27.sp),

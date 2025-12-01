@@ -8,7 +8,7 @@ class ProductModel {
   final String name;
   final String description;
   final double price;
-  final String imageUrl;
+  final List<String> imageUrl;
   final String categoryId;
   final String roomId;
   final List<ProductColor> colors;
@@ -50,7 +50,11 @@ class ProductModel {
       name: json['name'] ?? '',
       description: json['description'] ?? '',
       price: (json['price'] ?? 0).toDouble(),
-      imageUrl: json['imageUrl'] ?? '',
+      imageUrl:
+          (json['imageUrl'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          [],
       categoryId: json['categoryId'] ?? '',
       roomId: json['roomId'] ?? '',
       colors:
@@ -86,7 +90,7 @@ class ProductModel {
       'name': name,
       'description': description,
       'price': price,
-      'imageUrl': imageUrl,
+      'imageUrl': imageUrl.toList(),
       'categoryId': categoryId,
       'roomId': roomId,
       'colors': colors.map((c) => c.toJson()).toList(),
