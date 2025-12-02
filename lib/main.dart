@@ -5,6 +5,7 @@ import 'package:depi_graduation_project/core/theme/app_theme/app_theme_light.dar
 import 'package:depi_graduation_project/core/utils/theme/theme_provider.dart';
 import 'package:depi_graduation_project/data/services/home_service/best_category_service.dart';
 import 'package:depi_graduation_project/features/home/logic/new_review/new_review_cubit.dart';
+import 'package:depi_graduation_project/features/home/logic/subscribes/subscribes_cubit.dart';
 import 'package:depi_graduation_project/features/no_internet/logic/check_connection/check_connection_cubit.dart';
 import 'package:depi_graduation_project/core/utils/language/language.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
@@ -97,6 +98,7 @@ void main() async {
           BlocProvider(create: (context) => RoomCategoryCubit()),
           BlocProvider(create: (context) => ProductCubit()),
           BlocProvider(create: (context) => NewReviewCubit()),
+          BlocProvider(create: (context) => SubscribesCubit()),
         ],
 
         child: MyApp(appRouter: AppRouter()),

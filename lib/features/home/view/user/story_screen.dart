@@ -1,4 +1,3 @@
-import 'package:depi_graduation_project/core/images/app_images.dart';
 import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

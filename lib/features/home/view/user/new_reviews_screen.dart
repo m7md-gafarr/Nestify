@@ -1,7 +1,12 @@
+import 'dart:developer';
+
 import 'package:depi_graduation_project/components/custom_app_bar_widget.dart';
+
 import 'package:depi_graduation_project/data/services/account_service/user_firestore_service.dart';
+import 'package:depi_graduation_project/data/services/home_service/subscribe_service.dart';
 import 'package:depi_graduation_project/features/home/logic/new_review/new_review_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/product/product_cubit.dart';
+import 'package:depi_graduation_project/features/home/logic/subscribes/subscribes_cubit.dart';
 import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
 import 'package:depi_graduation_project/features/home/models/product/review_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -112,12 +117,115 @@ class _NewReviewsScreenState extends State<NewReviewsScreen> {
                   }
                 },
                 child: BlocConsumer<NewReviewCubit, NewReviewState>(
-                  listener: (context, state) {
+                  listener: (context, state) async {
                     if (state is NewReviewSuccess) {
+                      final currentUser = FirebaseAuth.instance.currentUser!;
+                      final isSubscribed = await SubscribeService()
+                          .isUserSubscribed(currentUser.uid);
+                      if (!isSubscribed) {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) => AlertDialog(
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(height: 10.h),
+
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.network(
+                                    args.imageUrl[0],
+                                    width: double.maxFinite,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                SizedBox(height: 20.h),
+                                Text(
+                                  "subscribe to our newsletter",
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.headlineLarge,
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(height: 10.h),
+
+                                Text(
+                                  "Only useful content no ad",
+                                  style: Theme.of(context).textTheme.bodyLarge,
+
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(height: 20.h),
+
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    final user = await UserFirestoreService()
+                                        .getUserData(
+                                          FirebaseAuth
+                                              .instance
+                                              .currentUser!
+                                              .uid,
+                                        );
+
+                                    context.read<SubscribesCubit>().newReview(
+                                      userId: user!.userId,
+                                      email: user.email,
+                                    );
+                                  },
+                                  child:
+                                      BlocConsumer<
+                                        SubscribesCubit,
+                                        SubscribesState
+                                      >(
+                                        listener: (context, state) {
+                                          if (state is SubscribesSuccess) {
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                          } else if (state
+                                              is SubscribesFailure) {
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Failed to subscribe: ${state.errorMessage}',
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                        },
+
+                                        builder: (context, state) {
+                                          if (state is SubscribesLoading) {
+                                            return CircularProgressIndicator(
+                                              color: Colors.white,
+                                            );
+                                          } else {
+                                            return Text("Subscribe");
+                                          }
+                                        },
+                                      ),
+                                ),
+                                SizedBox(height: 10.h),
+
+                                OutlinedButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("Maybe later"),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      } else {
+                        Navigator.pop(context);
+                      }
                       context.read<ProductCubit>().listenToProducts(
                         args.categoryId,
                       );
-                      Navigator.pop(context);
                     } else if (state is NewReviewFailure) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
