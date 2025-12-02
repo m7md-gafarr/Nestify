@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:depi_graduation_project/data/services/home_service/product_service.dart';
@@ -20,13 +19,22 @@ class ProductCubit extends Cubit<ProductState> {
         .getProductsByCategoryStream(categoryId)
         .listen(
           (products) {
-            log('Products loaded: ${products.length}');
             emit(ProductSuccess(products));
           },
           onError: (error) {
             emit(ProductError('Failed to load products: $error'));
           },
         );
+  }
+
+  Future<void> uploadProducts(ProductModel product) async {
+    try {
+      await ProductService().addProductsByCategoryWithId(product);
+      emit(ProductUploaded());
+      listenToProducts(product.categoryId);
+    } on Exception catch (e) {
+      emit(ProductError('Failed to upload product: $e'));
+    }
   }
 
   @override

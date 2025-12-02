@@ -1,5 +1,6 @@
 import 'package:depi_graduation_project/components/custom_bottom_nav_bar_widget.dart';
 import 'package:depi_graduation_project/features/home/widgets/categories/shimmer/category_card_widget_shimmer.dart';
+import 'package:depi_graduation_project/features/home/widgets/filters/no_results_widget.dart';
 import 'package:depi_graduation_project/features/home/widgets/rooms/room_category_card_widget.dart';
 import 'package:depi_graduation_project/features/home/widgets/rooms/shimmer/room_category_card_widget_shimmer.dart';
 import 'package:depi_graduation_project/features/no_internet/logic/check_connection/check_connection_cubit.dart';
@@ -28,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    const HomeContent(),
+    HomeContent(),
     const BagScreen(),
     const SavedItemsScreen(),
     const AccountScreen(),
@@ -78,8 +79,15 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-class HomeContent extends StatelessWidget {
+class HomeContent extends StatefulWidget {
   const HomeContent({super.key});
+
+  @override
+  State<HomeContent> createState() => _HomeContentState();
+}
+
+class _HomeContentState extends State<HomeContent> {
+  String searchQuery = "";
 
   @override
   Widget build(BuildContext context) {
@@ -104,8 +112,13 @@ class HomeContent extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: TextField(
+                onChanged: (value) {
+                  setState(() {
+                    searchQuery = value.toLowerCase().trim();
+                  });
+                },
                 decoration: InputDecoration(
-                  hintText: "Search",
+                  hintText: "Search for rooms",
                   prefixIcon: Icon(Iconsax.search_normal, size: 26.sp),
                 ),
               ),
@@ -155,16 +168,28 @@ class HomeContent extends StatelessWidget {
               },
             ),
 
-            SizedBox(height: 15.h),
             BlocBuilder<RoomsCubit, RoomsState>(
               builder: (context, state) {
                 if (state is RoomsSuccess) {
                   final rooms = state.list;
 
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: List.generate(rooms.length, (index) {
-                      final room = rooms[index];
+                  final filtered = rooms.where((room) {
+                    return room.name.toLowerCase().contains(searchQuery);
+                  }).toList();
+
+                  if (filtered.isEmpty) {
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      child: NoResultsWidget(message: "No rooms found"),
+                    );
+                  }
+
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: filtered.length,
+                    itemBuilder: (context, index) {
+                      final room = filtered[index];
 
                       return Padding(
                         padding: EdgeInsets.symmetric(
@@ -177,7 +202,7 @@ class HomeContent extends StatelessWidget {
                           categoryId: room.id,
                         ),
                       );
-                    }),
+                    },
                   );
                 } else {
                   return Column(

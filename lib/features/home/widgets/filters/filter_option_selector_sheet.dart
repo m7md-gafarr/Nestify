@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,7 +8,6 @@ void showFilterOptionSelectorSheet({
   required String selectedOption,
   required Function(String) onOptionSelected,
 }) {
-  log('showing filter option selector sheet for $selectedOption');
   showModalBottomSheet(
     context: context,
     builder: (context) => Container(

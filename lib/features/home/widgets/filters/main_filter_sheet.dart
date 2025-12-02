@@ -1,5 +1,5 @@
-import 'package:depi_graduation_project/features/home/logic/filter_cubit/filter_cubit_cubit.dart';
-import 'package:depi_graduation_project/features/home/logic/filter_cubit/filter_cubit_state.dart';
+import 'package:depi_graduation_project/features/home/logic/filter_and_sort/filter_and_sort_cubit.dart';
+import 'package:depi_graduation_project/features/home/logic/filter_and_sort/filter_and_sort_state.dart';
 import 'package:depi_graduation_project/features/home/widgets/filters/filter_option_selector_sheet.dart';
 import 'package:depi_graduation_project/features/home/widgets/filters/filter_option_tile.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +10,10 @@ void showMainFilterSheet({required BuildContext context}) {
   showModalBottomSheet(
     context: context,
     builder: (context) {
-      return BlocBuilder<FilterCubit, FilterState>(
+      return BlocBuilder<FilterAndSortCubit, FilterAndSortState>(
         builder: (context, state) {
-          final cubit = context.read<FilterCubit>();
+          final cubit = context.read<FilterAndSortCubit>();
+
           return Padding(
             padding: const EdgeInsets.all(15.0),
             child: Column(
@@ -51,14 +52,14 @@ void showMainFilterSheet({required BuildContext context}) {
                 ),
                 RangeSlider(
                   values: state.priceRange,
-                  min: 0,
-                  max: 1000,
-                  divisions: 100,
+                  min: state.minPrice,
+                  max: state.maxPrice,
+                  divisions: (state.maxPrice - state.minPrice).round(),
                   labels: RangeLabels(
                     '\$${state.priceRange.start.round()}',
                     '\$${state.priceRange.end.round()}',
                   ),
-                  onChanged: cubit.changePrice,
+                  onChanged: (range) => cubit.updatePriceRange(range),
                 ),
                 FilterOptionTile(
                   title: "Product type",

@@ -1,8 +1,11 @@
 import 'dart:developer';
 
 import 'package:depi_graduation_project/core/router/route_names.dart';
+import 'package:depi_graduation_project/features/home/logic/product/product_cubit.dart';
+import 'package:depi_graduation_project/features/home/widgets/review/no_reviews_widget.dart';
 import 'package:depi_graduation_project/features/home/widgets/review/review_card_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -21,401 +24,466 @@ class _ProductScreenState extends State<ProductScreen> {
   bool _expandedProductDetails = false;
   bool _expandedReviewsDetails = false;
 
+  navigatorToNewReviews(BuildContext context, ProductModel args) {
+    Navigator.pushNamed(
+      context,
+      AppRouteNames.newReviewsScreenRoute,
+      arguments: args,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ProductModel;
 
     return Scaffold(
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.width,
-                  width: MediaQuery.of(context).size.width,
-                  child: Stack(
-                    children: [
-                      PageView.builder(
-                        physics: BouncingScrollPhysics(),
-                        itemCount: args.imageUrl.length,
-                        onPageChanged: (index) {
-                          setState(() {
-                            _selectedImageIndex = index;
-                          });
-                        },
-                        itemBuilder: (_, index) {
-                          return Hero(
-                            tag: 'product_${args.id}',
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  AppRouteNames.storyScreenRoute,
-                                  arguments: args,
+      body: BlocBuilder<ProductCubit, ProductState>(
+        builder: (context, state) {
+          ProductModel product = args;
+          if (state is ProductSuccess) {
+            try {
+              product = state.products.firstWhere((p) => p.id == args.id);
+            } catch (_) {}
+          }
+          return Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.width,
+                      width: MediaQuery.of(context).size.width,
+                      child: Stack(
+                        children: [
+                          PageView.builder(
+                            physics: BouncingScrollPhysics(),
+                            itemCount: args.imageUrl.length,
+                            onPageChanged: (index) {
+                              setState(() {
+                                _selectedImageIndex = index;
+                              });
+                            },
+                            itemBuilder: (_, index) {
+                              return Hero(
+                                tag: 'product_${args.id}',
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      AppRouteNames.storyScreenRoute,
+                                      arguments: args,
+                                    );
+                                  },
+                                  child: Image.network(
+                                    product.imageUrl[index],
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                          Positioned(
+                            top: MediaQuery.of(context).size.width - 20.h,
+                            left: 0,
+                            right: 0,
+                            child: Center(
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 6.w,
+                                  vertical: 2.h,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .surfaceContainerHighest
+                                      .withOpacity(0.8),
+                                  borderRadius: BorderRadius.circular(20.r),
+                                ),
+                                child: AnimatedSmoothIndicator(
+                                  activeIndex: _selectedImageIndex,
+                                  count: args.imageUrl.length,
+                                  effect: ExpandingDotsEffect(
+                                    activeDotColor: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                    dotColor: Colors.grey,
+                                    dotHeight: 7.w,
+                                    dotWidth: 7.w,
+                                    spacing: 4.w,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 30.h,
+                            right: 16.w,
+                            child: IconButton.filled(
+                              style: IconButton.styleFrom(
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .surfaceContainerHighest
+                                    .withOpacity(0.8),
+                              ),
+                              onPressed: () {},
+                              icon: Icon(Iconsax.heart),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20.h),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              '\$${product.price}',
+                              style: Theme.of(context).textTheme.headlineSmall!
+                                  .copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          SizedBox(height: 10.h),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              product.description,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ),
+                          SizedBox(height: 10.h),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Wrap(
+                              spacing: 8.w,
+                              runSpacing: 8.h,
+                              children: List.generate(product.colors.length, (
+                                index,
+                              ) {
+                                final name = product.colors[index].name;
+                                final Color dotColor =
+                                    product.colors[index].color;
+                                final bool selected =
+                                    _selectedColorIndex == index;
+                                return ChoiceChip(
+                                  label: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        width: 18.sp,
+                                        height: 18.sp,
+                                        decoration: BoxDecoration(
+                                          color: dotColor,
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: Colors.black12,
+                                            width: 0.5,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 6.w),
+                                      Text(name),
+                                    ],
+                                  ),
+                                  selected: selected,
+                                  onSelected: (_) {
+                                    setState(() {
+                                      _selectedColorIndex = index;
+                                    });
+                                  },
+                                  selectedColor: Theme.of(
+                                    context,
+                                  ).colorScheme.primary.withOpacity(0.12),
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .surfaceContainerHighest
+                                      .withOpacity(0.4),
+                                  shape: StadiumBorder(
+                                    side: BorderSide(
+                                      color: selected
+                                          ? Theme.of(
+                                              context,
+                                            ).colorScheme.primary
+                                          : Theme.of(context).dividerColor,
+                                    ),
+                                  ),
+                                  labelStyle: Theme.of(
+                                    context,
+                                  ).textTheme.labelLarge,
                                 );
-                              },
-                              child: Image.network(
-                                args.imageUrl[index],
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                      Positioned(
-                        top: MediaQuery.of(context).size.width - 20.h,
-                        left: 0,
-                        right: 0,
-                        child: Center(
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 6.w,
-                              vertical: 2.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surfaceContainerHighest
-                                  .withOpacity(0.8),
-                              borderRadius: BorderRadius.circular(20.r),
-                            ),
-                            child: AnimatedSmoothIndicator(
-                              activeIndex: _selectedImageIndex,
-                              count: args.imageUrl.length,
-                              effect: ExpandingDotsEffect(
-                                activeDotColor: Theme.of(
-                                  context,
-                                ).colorScheme.primary,
-                                dotColor: Colors.grey,
-                                dotHeight: 7.w,
-                                dotWidth: 7.w,
-                                spacing: 4.w,
-                              ),
+                              }),
                             ),
                           ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 30.h,
-                        right: 16.w,
-                        child: IconButton.filled(
-                          style: IconButton.styleFrom(
-                            backgroundColor: Theme.of(context)
-                                .colorScheme
-                                .surfaceContainerHighest
-                                .withOpacity(0.8),
+                          SizedBox(height: 20.h),
+                          ElevatedButton.icon(
+                            onPressed: () {},
+                            icon: Icon(Icons.add_shopping_cart),
+                            label: Text("Add to Cart"),
                           ),
-                          onPressed: () {
-                            log(args.id);
-                            log(args.details?.composition.mainMaterial ?? '');
-                          },
-                          icon: Icon(Iconsax.heart),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 20.h),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          '\$${args.price}',
-                          style: Theme.of(context).textTheme.headlineSmall!
-                              .copyWith(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(height: 10.h),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          args.description,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                      ),
-                      SizedBox(height: 10.h),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Wrap(
-                          spacing: 8.w,
-                          runSpacing: 8.h,
-                          children: List.generate(args.colors.length, (index) {
-                            final name = args.colors[index].name;
-                            final Color dotColor = args.colors[index].color;
-                            final bool selected = _selectedColorIndex == index;
-                            return ChoiceChip(
-                              label: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Container(
-                                    width: 18.sp,
-                                    height: 18.sp,
-                                    decoration: BoxDecoration(
-                                      color: dotColor,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: Colors.black12,
-                                        width: 0.5,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: 6.w),
-                                  Text(name),
-                                ],
-                              ),
-                              selected: selected,
-                              onSelected: (_) {
-                                setState(() {
-                                  _selectedColorIndex = index;
-                                });
-                              },
-                              selectedColor: Theme.of(
-                                context,
-                              ).colorScheme.primary.withOpacity(0.12),
-                              backgroundColor: Theme.of(context)
-                                  .colorScheme
-                                  .surfaceContainerHighest
-                                  .withOpacity(0.4),
-                              shape: StadiumBorder(
-                                side: BorderSide(
-                                  color: selected
-                                      ? Theme.of(context).colorScheme.primary
-                                      : Theme.of(context).dividerColor,
-                                ),
-                              ),
-                              labelStyle: Theme.of(
-                                context,
-                              ).textTheme.labelLarge,
-                            );
-                          }),
-                        ),
-                      ),
-                      SizedBox(height: 20.h),
-                      ElevatedButton.icon(
-                        onPressed: () {},
-                        icon: Icon(Icons.add_shopping_cart),
-                        label: Text("Add to Cart"),
-                      ),
 
-                      SizedBox(height: 30.h),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Product details",
-                          style: Theme.of(context).textTheme.titleLarge!
-                              .copyWith(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(height: 7.h),
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        height: _expandedProductDetails ? null : 80.h,
-                        child: _expandedProductDetails
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Measurements",
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.titleSmall,
-                                  ),
-                                  SizedBox(height: 4.h),
-                                  Row(
+                          SizedBox(height: 30.h),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Product details",
+                              style: Theme.of(context).textTheme.titleLarge!
+                                  .copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          SizedBox(height: 7.h),
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            height: _expandedProductDetails ? null : 80.h,
+                            child: _expandedProductDetails
+                                ? Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Expanded(
-                                        child: Text(
-                                          "Height: ${args.details?.measurements.height ?? ""} cm",
-                                        ),
+                                      Text(
+                                        "Measurements",
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.titleSmall,
                                       ),
-                                      Expanded(
-                                        child: Text(
-                                          "Width: ${args.details?.measurements.width ?? ""} cm",
-                                        ),
+                                      SizedBox(height: 4.h),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              "Height: ${product.details?.measurements.height ?? ""} cm",
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              "Width: ${product.details?.measurements.width ?? ""} cm",
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          "Depth: ${args.details?.measurements.depth ?? ''} cm",
-                                        ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              "Depth: ${product.details?.measurements.depth ?? ''} cm",
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              "Weight: ${product.details?.measurements.weight ?? ''} kg",
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      Expanded(
-                                        child: Text(
-                                          "Weight: ${args.details?.measurements.weight ?? ''} kg",
-                                        ),
-                                      ),
-                                    ],
-                                  ),
 
-                                  SizedBox(height: 16.h),
+                                      SizedBox(height: 16.h),
 
-                                  Text(
-                                    "Composition",
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.titleMedium,
-                                  ),
-                                  SizedBox(height: 4.h),
-                                  Text(
-                                    "Main material: ${args.details?.composition.mainMaterial ?? ''}",
-                                  ),
-                                  Text(
-                                    "Secondary material:   ${args.details?.composition.secondaryMaterial ?? ''}",
-                                  ),
-                                ],
-                              )
-                            : ShaderMask(
-                                shaderCallback: (Rect bounds) {
-                                  return const LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [Colors.black, Colors.transparent],
-                                    stops: [0.2, 1.0],
-                                  ).createShader(bounds);
-                                },
-                                blendMode: BlendMode.dstIn,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Measurements",
-                                      style: Theme.of(
-                                        context,
-                                      ).textTheme.titleSmall,
-                                    ),
-                                    SizedBox(height: 4.h),
-                                    Row(
+                                      Text(
+                                        "Composition",
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.titleMedium,
+                                      ),
+                                      SizedBox(height: 4.h),
+                                      Text(
+                                        "Main material: ${product.details?.composition.mainMaterial ?? ''}",
+                                      ),
+                                      product
+                                                  .details
+                                                  ?.composition
+                                                  .secondaryMaterial
+                                                  .isEmpty ??
+                                              true
+                                          ? SizedBox.shrink()
+                                          : Text(
+                                              "Secondary material:   ${product.details?.composition.secondaryMaterial ?? ''}",
+                                            ),
+                                    ],
+                                  )
+                                : ShaderMask(
+                                    shaderCallback: (Rect bounds) {
+                                      return const LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Colors.black,
+                                          Colors.transparent,
+                                        ],
+                                        stops: [0.2, 1.0],
+                                      ).createShader(bounds);
+                                    },
+                                    blendMode: BlendMode.dstIn,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Expanded(
-                                          child: Text(
-                                            "Height: ${args.details?.measurements.height ?? ""} cm",
-                                          ),
+                                        Text(
+                                          "Measurements",
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.titleSmall,
                                         ),
-                                        Expanded(
-                                          child: Text(
-                                            "Width: ${args.details?.measurements.width ?? ""} cm",
-                                          ),
+                                        SizedBox(height: 4.h),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                "Height: ${product.details?.measurements.height ?? ""} cm",
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                "Width: ${product.details?.measurements.width ?? ""} cm",
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                "Depth: ${product.details?.measurements.depth ?? ""} cm",
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                "Weight: ${product.details?.measurements.weight ?? ""} kg",
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            "Depth: ${args.details?.measurements.depth ?? ""} cm",
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            "Weight: ${args.details?.measurements.weight ?? ""} kg",
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                  ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                _expandedProductDetails =
+                                    !_expandedProductDetails;
+                              });
+                            },
+                            child: Text(
+                              _expandedProductDetails
+                                  ? "Show less"
+                                  : "Show more",
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                          ),
+
+                          Divider(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Reviews",
+                                style: Theme.of(context).textTheme.titleLarge!
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              TextButton(
+                                onPressed: () =>
+                                    navigatorToNewReviews(context, product),
+                                child: Text(
+                                  "Add Review",
+                                  style: Theme.of(context).textTheme.labelLarge!
+                                      .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.primary,
+                                      ),
                                 ),
                               ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            _expandedProductDetails = !_expandedProductDetails;
-                          });
-                        },
-                        child: Text(
-                          _expandedProductDetails ? "Show less" : "Show more",
-                          style: Theme.of(context).textTheme.labelLarge,
-                        ),
-                      ),
-
-                      Divider(),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Reviews",
-                          style: Theme.of(context).textTheme.titleLarge!
-                              .copyWith(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(height: 7.h),
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        height: _expandedReviewsDetails ? null : 140.h,
-                        child: args.reviews.isEmpty
-                            ? Text("No reviews yet.")
-                            : _expandedReviewsDetails
-                            ? Column(
-                                children: List.generate(
-                                  args.reviews.length,
-                                  (index) => ReviewCardWidget(
-                                    review: args.reviews[index],
+                            ],
+                          ),
+                          SizedBox(height: 7.h),
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            height: _expandedReviewsDetails
+                                ? null
+                                : (product.reviews.isEmpty)
+                                ? 222.h
+                                : 122.h,
+                            child: product.reviews.isEmpty
+                                ? noReviewsWidget(
+                                    onPressed: () =>
+                                        navigatorToNewReviews(context, product),
+                                  )
+                                : _expandedReviewsDetails
+                                ? Column(
+                                    children: List.generate(
+                                      product.reviews.length,
+                                      (index) => ReviewCardWidget(
+                                        review: product.reviews[index],
+                                      ),
+                                    ),
+                                  )
+                                : ShaderMask(
+                                    shaderCallback: (Rect bounds) {
+                                      return const LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Colors.black,
+                                          Colors.transparent,
+                                        ],
+                                        stops: [0.2, 1.0],
+                                      ).createShader(bounds);
+                                    },
+                                    blendMode: BlendMode.dstIn,
+                                    child: ReviewCardWidget(
+                                      review: product.reviews[0],
+                                      maxLines: 2,
+                                    ),
+                                  ),
+                          ),
+                          product.reviews.isEmpty
+                              ? SizedBox.shrink()
+                              : TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _expandedReviewsDetails =
+                                          !_expandedReviewsDetails;
+                                    });
+                                  },
+                                  child: Text(
+                                    _expandedReviewsDetails
+                                        ? "Show less"
+                                        : "Show more",
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.labelLarge,
                                   ),
                                 ),
-                              )
-                            : ShaderMask(
-                                shaderCallback: (Rect bounds) {
-                                  return const LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [Colors.black, Colors.transparent],
-                                    stops: [0.2, 1.0],
-                                  ).createShader(bounds);
-                                },
-                                blendMode: BlendMode.dstIn,
-                                child: ReviewCardWidget(
-                                  review: args.reviews[0],
-                                ),
-                              ),
+
+                          product.reviews.isEmpty
+                              ? SizedBox.shrink()
+                              : SizedBox(height: 20.h),
+                        ],
                       ),
-                      args.reviews.isEmpty
-                          ? SizedBox.shrink()
-                          : TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  _expandedReviewsDetails =
-                                      !_expandedReviewsDetails;
-                                });
-                              },
-                              child: Text(
-                                _expandedReviewsDetails
-                                    ? "Show less"
-                                    : "Show more",
-                                style: Theme.of(context).textTheme.labelLarge,
-                              ),
-                            ),
-
-                      args.reviews.isEmpty
-                          ? SizedBox.shrink()
-                          : SizedBox(height: 20.h),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-
-          Positioned(
-            top: 30.h,
-            left: 16.w,
-            child: IconButton.filled(
-              onPressed: () => Navigator.pop(context),
-              style: IconButton.styleFrom(
-                backgroundColor: Theme.of(
-                  context,
-                ).colorScheme.surfaceContainerHighest.withOpacity(0.8),
               ),
-              icon: Icon(Iconsax.arrow_left),
-            ),
-          ),
-        ],
+
+              Positioned(
+                top: 30.h,
+                left: 16.w,
+                child: IconButton.filled(
+                  onPressed: () => Navigator.pop(context),
+                  style: IconButton.styleFrom(
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.surfaceContainerHighest.withOpacity(0.8),
+                  ),
+                  icon: Icon(Iconsax.arrow_left),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

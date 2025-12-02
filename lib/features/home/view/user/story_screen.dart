@@ -1,4 +1,5 @@
 import 'package:depi_graduation_project/core/images/app_images.dart';
+import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
@@ -16,8 +17,7 @@ class _StoryScreenState extends State<StoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final args = ModalRoute.of(context)!.settings.arguments as ProductModel;
 
     return Scaffold(
       body: Stack(
@@ -28,12 +28,14 @@ class _StoryScreenState extends State<StoryScreen> {
                 _selectedImageIndex = index;
               });
             },
-            itemCount: 4,
+            itemCount: args.imageUrl.length,
             physics: BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               return Hero(
-                tag: 'product_${args['price']}',
-                child: Image.asset(Assets.assetsImagesPic, fit: BoxFit.cover),
+                tag: 'product_${args.id}',
+                child: InteractiveViewer(
+                  child: Image.network(args.imageUrl[index], fit: BoxFit.cover),
+                ),
               );
             },
           ),
@@ -41,7 +43,7 @@ class _StoryScreenState extends State<StoryScreen> {
             bottom: 140.h,
             left: 16.w,
             child: Text(
-              "glass storage jar with golden lid",
+              args.name,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 color: Theme.of(context).scaffoldBackgroundColor,
               ),
@@ -52,7 +54,7 @@ class _StoryScreenState extends State<StoryScreen> {
             left: 16.w,
             right: 16.w,
             child: Text(
-              "Hermetic storage jar. Made of glass with a raised slogan detail and a golden screw-on lid. Available in three sizes.",
+              args.description,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 color: Theme.of(context).scaffoldBackgroundColor,
               ),
@@ -67,7 +69,7 @@ class _StoryScreenState extends State<StoryScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 15.w),
                 child: AnimatedSmoothIndicator(
                   activeIndex: _selectedImageIndex,
-                  count: 4,
+                  count: args.imageUrl.length,
                   effect: ExpandingDotsEffect(
                     activeDotColor: Theme.of(context).colorScheme.primary,
                     dotColor: Colors.grey,

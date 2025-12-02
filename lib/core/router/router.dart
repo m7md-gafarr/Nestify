@@ -14,7 +14,6 @@ import 'package:depi_graduation_project/features/introducation/view/introducatio
 import 'package:depi_graduation_project/features/home/view/user/categories_screen.dart';
 import 'package:depi_graduation_project/features/home/view/user/catalog_screen.dart';
 import 'package:depi_graduation_project/features/home/view/user/product_screen.dart';
-import 'package:depi_graduation_project/features/home/view/user/reviews_screen.dart';
 import 'package:depi_graduation_project/features/home/view/user/new_reviews_screen.dart';
 import 'package:depi_graduation_project/features/home/view/user/ad_popover_screen.dart';
 import 'package:depi_graduation_project/features/bag/view/bag_screen.dart';
@@ -65,10 +64,12 @@ class AppRouter {
           builder: (context) => ProductScreen(),
           settings: settings,
         );
-      case AppRouteNames.reviewsScreenRoute:
-        return MaterialPageRoute(builder: (context) => ReviewsScreen());
+
       case AppRouteNames.newReviewsScreenRoute:
-        return MaterialPageRoute(builder: (context) => NewReviewsScreen());
+        return MaterialPageRoute(
+          builder: (context) => NewReviewsScreen(),
+          settings: settings,
+        );
       case AppRouteNames.adPopoverScreenRoute:
         return MaterialPageRoute(builder: (context) => AdPopoverScreen());
       case AppRouteNames.storyScreenRoute:

@@ -13,6 +13,8 @@ final class ProductSuccess extends ProductState {
   ProductSuccess(this.products);
 }
 
+final class ProductUploaded extends ProductState {}
+
 final class ProductError extends ProductState {
   final String message;
 

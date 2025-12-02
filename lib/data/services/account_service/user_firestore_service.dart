@@ -24,7 +24,7 @@ class UserFirestoreService {
 
   Future<void> updateUserData(UserModel model) async {
     await _firestore
-        .collection("users")
+        .collection(FirebaseCollection.users)
         .doc(model.userId)
         .update(model.toMap());
   }

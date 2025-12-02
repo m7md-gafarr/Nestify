@@ -24,7 +24,6 @@ class _SavedItemsScreenState extends State<SavedItemsScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: [
               SizedBox(height: 60.h),
               CustomSectionHeaderWidget(title: 'saved items'),
@@ -43,15 +42,7 @@ class _SavedItemsScreenState extends State<SavedItemsScreen> {
                   Expanded(
                     child: OutlinedButton.icon(
                       onPressed: () {
-                        showSortBottomSheet(
-                          context: context,
-                          selectedSortIndex: selectedSortIndex,
-                          onSortSelected: (index) {
-                            setState(() {
-                              selectedSortIndex = index;
-                            });
-                          },
-                        );
+                        showSortBottomSheet(context: context);
                       },
                       icon: const Icon(Iconsax.sort),
                       label: const Text("Sort"),

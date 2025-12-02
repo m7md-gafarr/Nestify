@@ -26,6 +26,10 @@ class ProductService {
         .set(model.toJson());
   }
 
+  Future<String> addProductId() async {
+    return _db.collection(FirebaseCollection.products).doc().id;
+  }
+
   // Get products for a best category (batch 'in' queries, supports >10 handling)
   Future<List<ProductModel>> getProductsForBestCategory(
     String bestCategoryId,
