@@ -18,6 +18,7 @@ class CustomAppBarWidget extends StatelessWidget
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(title, style: Theme.of(context).textTheme.titleMedium),
+
       centerTitle: true,
       elevation: 0,
       leading:

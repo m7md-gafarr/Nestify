@@ -5,7 +5,12 @@ class PromoField extends StatelessWidget {
   final String value;
   final ValueChanged<String> onChanged;
   final VoidCallback onClear;
-  const PromoField({super.key, required this.value, required this.onChanged, required this.onClear});
+  const PromoField({
+    super.key,
+    required this.value,
+    required this.onChanged,
+    required this.onClear,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +25,12 @@ class PromoField extends StatelessWidget {
             color: Theme.of(context).dividerColor.withOpacity(.2),
             shape: BoxShape.circle,
           ),
-          child: IconButton(onPressed: onClear, icon: const Icon(Icons.close, size: 16)),
+          child: IconButton(
+            onPressed: onClear,
+            icon: const Icon(Icons.close, size: 16),
+          ),
         ),
       ),
     );
   }
 }
-
-
