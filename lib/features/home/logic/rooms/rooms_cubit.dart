@@ -12,6 +12,8 @@ class RoomsCubit extends Cubit<RoomsState> {
   RoomsCubit() : super(RoomsLoading());
 
   void listenToRooms() {
+    _subscription?.cancel();
+
     emit(RoomsLoading());
 
     _subscription = RoomService().getRoomsStream().listen(

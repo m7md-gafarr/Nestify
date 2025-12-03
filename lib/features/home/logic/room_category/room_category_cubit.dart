@@ -13,6 +13,8 @@ class RoomCategoryCubit extends Cubit<RoomCategoryState> {
   RoomCategoryCubit() : super(RoomCategoryLoading());
 
   void listenToRoomCategories({required String roomId}) {
+    _subscription?.cancel();
+
     emit(RoomCategoryLoading());
 
     _subscription = RoomCategoryService()

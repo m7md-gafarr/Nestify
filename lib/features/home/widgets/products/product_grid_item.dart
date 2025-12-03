@@ -1,6 +1,9 @@
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
+import 'package:depi_graduation_project/features/saved_items/logic/saved_items/saved_items_cubit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -45,7 +48,12 @@ class ProductGridItem extends StatelessWidget {
                 ).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.read<SavedItemsCubit>().addSavedItem(
+                    userId: FirebaseAuth.instance.currentUser!.uid,
+                    productId: product.id,
+                  );
+                },
                 icon: Icon(Iconsax.heart, size: 24.sp),
               ),
             ],

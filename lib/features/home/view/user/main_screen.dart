@@ -22,11 +22,17 @@ class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<MainScreen> createState() => MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
+
+  void jumpToHome() {
+    setState(() {
+      _currentIndex = 0;
+    });
+  }
 
   final List<Widget> _screens = [
     HomeContent(),

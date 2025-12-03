@@ -19,6 +19,7 @@ import 'package:depi_graduation_project/features/home/view/user/ad_popover_scree
 import 'package:depi_graduation_project/features/bag/view/bag_screen.dart';
 import 'package:depi_graduation_project/features/saved_items/view/saved_items_screen.dart';
 import 'package:depi_graduation_project/features/account/view/account_screen.dart';
+import 'package:depi_graduation_project/main.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -27,7 +28,9 @@ class AppRouter {
       case AppRouteNames.introducationPageRoute:
         return MaterialPageRoute(builder: (context) => IntroducationScreen());
       case AppRouteNames.homePageRoute:
-        return MaterialPageRoute(builder: (context) => MainScreen());
+        return MaterialPageRoute(
+          builder: (context) => MainScreen(key: mainScreenKey),
+        );
 
       // Home Screen Routes
       case AppRouteNames.mainScreenRoute:

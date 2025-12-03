@@ -1,9 +1,9 @@
-import 'dart:developer';
-
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/features/home/logic/product/product_cubit.dart';
 import 'package:depi_graduation_project/features/home/widgets/review/no_reviews_widget.dart';
 import 'package:depi_graduation_project/features/home/widgets/review/review_card_widget.dart';
+import 'package:depi_graduation_project/features/saved_items/logic/saved_items/saved_items_cubit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -125,7 +125,13 @@ class _ProductScreenState extends State<ProductScreen> {
                                     .surfaceContainerHighest
                                     .withOpacity(0.8),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                context.read<SavedItemsCubit>().addSavedItem(
+                                  userId:
+                                      FirebaseAuth.instance.currentUser!.uid,
+                                  productId: product.id,
+                                );
+                              },
                               icon: Icon(Iconsax.heart),
                             ),
                           ),

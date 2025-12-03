@@ -13,6 +13,8 @@ class ProductCubit extends Cubit<ProductState> {
   ProductCubit() : super(ProductLoading());
 
   void listenToProducts(String categoryId) {
+    _subscription?.cancel();
+
     emit(ProductLoading());
 
     _subscription = ProductService()

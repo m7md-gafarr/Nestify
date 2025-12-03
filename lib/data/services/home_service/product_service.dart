@@ -19,6 +19,17 @@ class ProductService {
         );
   }
 
+  Future<ProductModel?> getProductById(String productId) async {
+    final doc = await FirebaseFirestore.instance
+        .collection(FirebaseCollection.products)
+        .doc(productId)
+        .get();
+
+    if (!doc.exists) return null;
+
+    return ProductModel.fromJson(doc.data()!, doc.id);
+  }
+
   Future<void> addProductsByCategoryWithId(ProductModel model) async {
     await _db
         .collection(FirebaseCollection.products)
@@ -30,7 +41,6 @@ class ProductService {
     return _db.collection(FirebaseCollection.products).doc().id;
   }
 
-  // Get products for a best category (batch 'in' queries, supports >10 handling)
   Future<List<ProductModel>> getProductsForBestCategory(
     String bestCategoryId,
   ) async {
@@ -56,51 +66,6 @@ class ProductService {
 
     return results;
   }
-
-  // // Flexible product query with filters + pagination example
-  // Future<List<ProductModel>> queryProducts({
-  //   String? roomId,
-  //   String? categoryId,
-  //   String? color,
-  //   String? productType,
-  //   String? quality,
-  //   double? minPrice,
-  //   double? maxPrice,
-  //   DocumentSnapshot? lastDoc,
-  //   int limit = 20,
-  // }) async {
-  //   Query q = _db
-  //       .collection(FirebaseCollection.products)
-  //       .where('isActive', isEqualTo: true);
-
-  //   if (roomId != null) q = q.where('roomId', isEqualTo: roomId);
-  //   if (categoryId != null) q = q.where('categoryId', isEqualTo: categoryId);
-  //   if (color != null && color != 'All') q = q.where('color', isEqualTo: color);
-  //   if (productType != null && productType != 'All')
-  //     q = q.where('productType', isEqualTo: productType);
-  //   if (quality != null && quality != 'All')
-  //     q = q.where('quality', isEqualTo: quality);
-
-  //   q = q.orderBy('createdAt', descending: true).limit(limit);
-
-  //   if (lastDoc != null) q = q.startAfterDocument(lastDoc);
-
-  //   final qs = await q.get();
-  //   List<ProductModel> items = qs.docs
-  //       .map((d) => ProductModel.fromJson(d.data()!, d.id))
-  //       .toList();
-
-  //   // client-side price filter (Firestore doesn't support range + multiple where easily)
-  //   if ((minPrice != null) || (maxPrice != null)) {
-  //     items = items.where((p) {
-  //       if (minPrice != null && p.price < minPrice) return false;
-  //       if (maxPrice != null && p.price > maxPrice) return false;
-  //       return true;
-  //     }).toList();
-  //   }
-
-  //   return items;
-  // }
 
   Future<void> addProduct(ProductModel product) async {
     final docRef = _db.collection(FirebaseCollection.products).doc(product.id);

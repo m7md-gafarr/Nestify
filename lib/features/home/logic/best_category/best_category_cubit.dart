@@ -13,9 +13,9 @@ class BestCategoryCubit extends Cubit<BestCategoryState> {
   BestCategoryCubit({required this.service}) : super(BestCategoryLoading());
 
   void listenToBestCategories() {
-    emit(BestCategoryLoading());
-
     _subscription?.cancel();
+
+    emit(BestCategoryLoading());
 
     _subscription = service.getBestCategoriesStream().listen(
       (bestCategories) {
