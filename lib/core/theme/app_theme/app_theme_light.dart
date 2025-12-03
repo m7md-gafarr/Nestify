@@ -20,6 +20,8 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
     error: AppColorLight.error,
     outline: AppColorLight.border,
     primaryContainer: AppColorLight.primaryContainer,
+    surfaceContainerLow: AppColorLight.shimmerBase,
+    surfaceContainerHighest: AppColorLight.shimmerHighlight.withOpacity(.65),
   ),
 
   iconTheme: IconThemeData(color: AppColorLight.iconPrimary, size: 27.sp),
@@ -245,6 +247,34 @@ ThemeData getThemeColorLight(BuildContext context, Locale? locale) => ThemeData(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(12.r)),
     ),
+  ),
+
+  datePickerTheme: DatePickerThemeData(
+    confirmButtonStyle: ButtonStyle(
+      foregroundColor: const WidgetStatePropertyAll(AppColorLight.onPrimary),
+
+      textStyle: WidgetStatePropertyAll(
+        TextStyle(
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w600,
+          fontFamily: font,
+        ),
+      ),
+    ),
+    cancelButtonStyle: ButtonStyle(
+      foregroundColor: const WidgetStatePropertyAll(AppColorLight.error),
+      textStyle: WidgetStatePropertyAll(
+        TextStyle(
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w600,
+          fontFamily: font,
+        ),
+      ),
+    ),
+    backgroundColor: AppColorLight.background,
+    headerBackgroundColor: AppColorLight.primary,
+    headerForegroundColor: AppColorLight.onPrimary,
+    dayForegroundColor: WidgetStateProperty.all(AppColorLight.textPrimary),
   ),
 );
 

@@ -7,7 +7,6 @@ class AppRouteNames {
   static const String categoriesScreenRoute = "/categoriesScreenRoute";
   static const String catalogScreenRoute = "/catalogScreenRoute";
   static const String productScreenRoute = "/productScreenRoute";
-  static const String reviewsScreenRoute = "/reviewsScreenRoute";
   static const String newReviewsScreenRoute = "/newReviewsScreenRoute";
   static const String adPopoverScreenRoute = "/adPopoverScreenRoute";
   static const String storyScreenRoute = "/storyScreenRoute";
@@ -21,8 +20,18 @@ class AppRouteNames {
 
   // Account Feature
   static const String accountScreenRoute = "/accountScreenRoute";
-  static const String emptyAccountScreenRoute = "/emptyAccountScreenRoute";
   static const String loginScreenRoute = "/loginScreenRoute";
   static const String registerScreenRoute = "/registerScreenRoute";
   static const String forgotPasswordScreenRoute = "/forgotPasswordScreenRoute";
+  static const String completeAddDataScreenRoute =
+      "/completeAddDataScreenRoute";
+  static const String myDetailsScreenRoute = "/myDetailsScreenRoute";
+  static const String myOrdersScreenRoute = "/myOrdersScreenRoute";
+  static const String orderDetailsScreenRoute = "/orderDetailsScreenRoute";
+  static const String addressBookScreenRoute = "/addressBookScreenRoute";
+  static const String editAddressScreenRoute = "/editAddressScreenRoute";
+  static const String paymentMethodsScreenRoute = "/paymentMethodsScreenRoute";
+
+  // Settings Feature
+  static const String settingsScreenRoute = "/settingsScreenRoute";
 }

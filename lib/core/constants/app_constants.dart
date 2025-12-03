@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -11,3 +13,7 @@ bool isArabicText(String text) {
 }
 
 const font = "cairo";
+
+double randomWidth(double min, double max) {
+  return Random().nextDouble() * (max - min) + min;
+}
