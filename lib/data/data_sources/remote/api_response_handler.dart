@@ -53,10 +53,7 @@ class ApiResponseHandler {
   }
 
   static ApiResponse<T> handleGenericError<T>(dynamic e) {
-    return ApiResponse<T>(
-      success: false,
-      errors: e.toString(),
-    );
+    return ApiResponse<T>(success: false, errors: e.toString());
   }
 
   static bool _isSuccess(dynamic data) {

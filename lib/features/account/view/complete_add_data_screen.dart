@@ -1,7 +1,9 @@
+import 'package:depi_graduation_project/core/constants/firebase_collection.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/core/utils/dialog/dialog_helper.dart';
 import 'package:depi_graduation_project/core/utils/snakbar/snackebar_helper.dart';
 import 'package:depi_graduation_project/core/utils/validation_utils.dart';
+import 'package:depi_graduation_project/data/services/supabase_storage_service.dart';
 import 'package:depi_graduation_project/features/account/logic/complete_add_data/complete_add_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -201,9 +203,18 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                 SizedBox(height: 40.h),
 
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     formKey.currentState!.save();
                     if (formKey.currentState!.validate()) {
+                      String? imageUrl;
+                      if (_selectedImage != null) {
+                        imageUrl = await SupabaseStorageService().uploadImage(
+                          file: File(_selectedImage!.path),
+                          folder: FirebaseCollection.users,
+                          name: credential.user!.uid,
+                        );
+                      }
+
                       context.read<CompleteAddDataCubit>().completeAddData(
                         UserModel(
                           userId: credential.user!.uid,
@@ -212,7 +223,7 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                           phoneNumber: phoneController.text.trim(),
                           address: addressController.text.trim(),
                           dateOfBirth: dobController.text.trim(),
-                          profileImageUrl: _selectedImage?.path ?? '',
+                          profileImageUrl: imageUrl ?? '',
                         ),
                       );
                     }

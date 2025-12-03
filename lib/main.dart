@@ -2,17 +2,28 @@ import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/core/router/router.dart';
 import 'package:depi_graduation_project/core/theme/app_theme/app_theme_dark.dart';
 import 'package:depi_graduation_project/core/theme/app_theme/app_theme_light.dart';
-import 'package:depi_graduation_project/core/utils/Theme/theme_provider.dart';
-import 'package:depi_graduation_project/core/utils/check_connection/check_connection_cubit.dart';
+import 'package:depi_graduation_project/core/utils/theme/theme_provider.dart';
+import 'package:depi_graduation_project/data/services/home_service/best_category_service.dart';
+import 'package:depi_graduation_project/features/home/logic/new_review/new_review_cubit.dart';
+import 'package:depi_graduation_project/features/home/logic/subscribes/subscribes_cubit.dart';
+import 'package:depi_graduation_project/features/home/view/user/main_screen.dart';
+import 'package:depi_graduation_project/features/no_internet/logic/check_connection/check_connection_cubit.dart';
 import 'package:depi_graduation_project/core/utils/language/language.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
-import 'package:depi_graduation_project/data/services/user_firestore_service.dart';
+import 'package:depi_graduation_project/data/services/supabase_storage_service.dart';
+import 'package:depi_graduation_project/data/services/account_service/user_firestore_service.dart';
 import 'package:depi_graduation_project/features/account/logic/complete_add_data/complete_add_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/logic/login/login_cubit.dart';
 import 'package:depi_graduation_project/features/account/logic/register/register_cubit.dart';
-import 'package:depi_graduation_project/features/account/logic/update_user_data/update_data_cubit.dart';
-import 'package:depi_graduation_project/features/home/logic/filter_cubit/filter_cubit_cubit.dart';
+import 'package:depi_graduation_project/features/account/logic/update_user_data/update_user_data_cubit.dart';
+import 'package:depi_graduation_project/features/home/logic/best_category/best_category_cubit.dart';
+import 'package:depi_graduation_project/features/home/logic/filter_and_sort/filter_and_sort_cubit.dart';
+import 'package:depi_graduation_project/features/home/logic/product/product_cubit.dart';
+import 'package:depi_graduation_project/features/home/logic/room_category/room_category_cubit.dart';
+import 'package:depi_graduation_project/features/home/logic/rooms/rooms_cubit.dart';
+import 'package:depi_graduation_project/features/saved_items/logic/saved_items/saved_items_cubit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,6 +35,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 String? _initialRoute;
+final GlobalKey<MainScreenState> mainScreenKey = GlobalKey<MainScreenState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,7 +64,7 @@ void main() async {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => CheckConnectionCubit()),
-          BlocProvider(create: (_) => FilterCubit()),
+          BlocProvider(create: (_) => FilterAndSortCubit()),
           BlocProvider(
             create: (context) =>
                 LoginCubit(context.read<CheckConnectionCubit>()),
@@ -69,9 +81,10 @@ void main() async {
             ),
           ),
           BlocProvider(
-            create: (context) => UpdateDataCubit(
+            create: (context) => UpdateUserDataCubit(
               context.read<CheckConnectionCubit>(),
               UserFirestoreService(),
+              SupabaseStorageService(),
             ),
           ),
           BlocProvider(
@@ -80,7 +93,23 @@ void main() async {
               UserFirestoreService(),
             ),
           ),
+          BlocProvider(
+            create: (_) =>
+                BestCategoryCubit(service: BestCategoryService())
+                  ..listenToBestCategories(),
+          ),
+          BlocProvider(create: (context) => RoomsCubit()..listenToRooms()),
+          BlocProvider(create: (context) => RoomCategoryCubit()),
+          BlocProvider(create: (context) => ProductCubit()),
+          BlocProvider(create: (context) => NewReviewCubit()),
+          BlocProvider(create: (context) => SubscribesCubit()),
+          BlocProvider(
+            create: (context) =>
+                SavedItemsCubit()
+                  ..loadSavedItems(FirebaseAuth.instance.currentUser!.uid),
+          ),
         ],
+
         child: MyApp(appRouter: AppRouter()),
       ),
     ),

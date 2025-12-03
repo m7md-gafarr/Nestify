@@ -1,6 +1,6 @@
 import 'package:depi_graduation_project/core/images/app_images.dart';
 
-import 'package:depi_graduation_project/core/utils/check_connection/check_connection_cubit.dart';
+import 'package:depi_graduation_project/features/no_internet/logic/check_connection/check_connection_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

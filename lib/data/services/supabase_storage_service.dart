@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:depi_graduation_project/core/constants/firebase_collection.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseStorageService {
@@ -7,35 +6,41 @@ class SupabaseStorageService {
 
   Future<String?> uploadImage({
     required File file,
-    required String userId,
+    required String folder,
+    required String name,
   }) async {
     try {
+      final safeName = name.replaceAll(" ", "_").toLowerCase();
       final fileExt = file.path.split('.').last;
       final fileName =
-          "$userId-${DateTime.now().millisecondsSinceEpoch}.$fileExt";
-      final filePath = fileName;
+          "$safeName-${DateTime.now().millisecondsSinceEpoch}.$fileExt";
 
       final fileBytes = await file.readAsBytes();
 
-      await Supabase.instance.client.storage
-          .from(FirebaseCollection.users)
+      await _client.storage
+          .from(folder)
           .uploadBinary(
-            filePath,
+            fileName,
             fileBytes,
-            fileOptions: FileOptions(contentType: "image/$fileExt"),
+            fileOptions: FileOptions(
+              contentType: "image/$fileExt",
+              upsert: true,
+            ),
           );
 
-      return Supabase.instance.client.storage
-          .from(FirebaseCollection.users)
-          .getPublicUrl(filePath);
+      return _client.storage.from(folder).getPublicUrl(fileName);
     } catch (e) {
       return null;
     }
   }
 
-  Future<bool> deleteImage(String filePath) async {
-    final bucket = _client.storage.from('users');
-    await bucket.remove([filePath]);
-    return true;
+  Future<void> deleteImage({
+    required String folder,
+    required String imageUrl,
+  }) async {
+    try {
+      final fileName = imageUrl.split('/').last;
+      await _client.storage.from(folder).remove([fileName]);
+    } catch (_) {}
   }
 }
