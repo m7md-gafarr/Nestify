@@ -12,6 +12,7 @@ class AppRouteNames {
   static const String storyScreenRoute = "/storyScreenRoute";
   // Bag/Cart Feature
   static const String bagScreenRoute = "/bagScreenRoute";
+  static const String checkoutScreenRoute = "/checkoutScreenRoute";
 
   // Saved Items Feature
   static const String savedItemsScreenRoute = "/savedItemsScreenRoute";

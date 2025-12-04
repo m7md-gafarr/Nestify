@@ -25,4 +25,7 @@ class Assets {
   /// Assets for assetsImagesSurprised
   /// assets/images/surprised.svg
   static const String assetsImagesSurprised = "assets/images/surprised.svg";
+  /// Assets for assetsFriendly
+  /// assets/images/friendly.svg
+  static const String assetsFriendly = "assets/images/friendly.svg";
 }
