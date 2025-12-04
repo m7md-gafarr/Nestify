@@ -1,3 +1,4 @@
+import 'package:depi_graduation_project/components/shimmer_network_image_widget.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,17 +47,16 @@ class RoomCategoryCardWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              ClipRRect(
+
+              ShimmerNetworkImage(
+                imageUrl: imagePath,
+                height: 100.h,
+                width: 100.h,
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(12.r),
                   bottomRight: Radius.circular(12.r),
                 ),
-                child: Image.network(
-                  imagePath,
-                  height: 100.h,
-                  width: 100.h,
-                  fit: BoxFit.cover,
-                ),
+                fit: BoxFit.cover,
               ),
             ],
           ),

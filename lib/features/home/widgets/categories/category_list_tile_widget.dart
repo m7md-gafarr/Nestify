@@ -1,17 +1,16 @@
-import 'package:depi_graduation_project/core/images/app_images.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoryListTileWidget extends StatelessWidget {
   final String categoryName;
-  final String? imageAsset;
+  final String imageAsset;
   final String categoryId;
 
   const CategoryListTileWidget({
     super.key,
     required this.categoryName,
-    this.imageAsset,
+    required this.imageAsset,
     required this.categoryId,
   });
 
@@ -35,7 +34,7 @@ class CategoryListTileWidget extends StatelessWidget {
             color: Colors.grey.shade300,
             borderRadius: BorderRadius.circular(50.r),
             image: DecorationImage(
-              image: NetworkImage(imageAsset ?? Assets.assetsImagesPic),
+              image: NetworkImage(imageAsset),
               fit: BoxFit.cover,
             ),
           ),

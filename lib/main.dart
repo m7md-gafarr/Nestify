@@ -4,6 +4,7 @@ import 'package:depi_graduation_project/core/theme/app_theme/app_theme_dark.dart
 import 'package:depi_graduation_project/core/theme/app_theme/app_theme_light.dart';
 import 'package:depi_graduation_project/core/utils/theme/theme_provider.dart';
 import 'package:depi_graduation_project/data/services/home_service/best_category_service.dart';
+import 'package:depi_graduation_project/features/account/logic/forgot_password/forgot_password_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/new_review/new_review_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/subscribes/subscribes_cubit.dart';
 import 'package:depi_graduation_project/features/home/view/user/main_screen.dart';
@@ -72,6 +73,10 @@ void main() async {
           BlocProvider(
             create: (context) =>
                 RegisterCubit(context.read<CheckConnectionCubit>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                ForgotPasswordCubit(context.read<CheckConnectionCubit>()),
           ),
 
           BlocProvider(

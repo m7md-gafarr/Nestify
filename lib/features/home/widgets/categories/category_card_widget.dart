@@ -1,3 +1,4 @@
+import 'package:depi_graduation_project/components/shimmer_network_image_widget.dart';
 import 'package:depi_graduation_project/features/home/models/categories/best_categories_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,14 +24,12 @@ class CategoryCardWidget extends StatelessWidget {
         width: 88.w,
         child: Stack(
           children: [
-            ClipRRect(
+            ShimmerNetworkImage(
+              imageUrl: imagePath,
+              width: double.infinity,
+              height: double.infinity,
               borderRadius: BorderRadius.circular(15),
-              child: Image.network(
-                imagePath,
-                fit: BoxFit.cover,
-                height: double.infinity,
-                width: double.infinity,
-              ),
+              fit: BoxFit.cover,
             ),
 
             ClipRRect(

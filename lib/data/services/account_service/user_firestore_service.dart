@@ -29,11 +29,21 @@ class UserFirestoreService {
         .update(model.toMap());
   }
 
-  Future<bool> isUserExist(String userId) async {
+  Future<bool> isUserExistById(String userId) async {
     final doc = await _firestore
         .collection(FirebaseCollection.users)
         .doc(userId)
         .get();
     return doc.exists;
+  }
+
+  Future<bool> isUserExistByEmail(String email) async {
+    final user = await _firestore
+        .collection(FirebaseCollection.users)
+        .where('email', isEqualTo: email)
+        .limit(1)
+        .get();
+
+    return user.docs.isNotEmpty;
   }
 }
