@@ -1,31 +1,31 @@
 import 'package:depi_graduation_project/components/shimmer_network_image_widget.dart';
+import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/features/home/models/categories/best_categories_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoryCardWidget extends StatelessWidget {
-  const CategoryCardWidget({
-    super.key,
-    required this.imagePath,
-    required this.text,
-    required this.list,
-  });
+  const CategoryCardWidget({super.key, required this.model});
 
-  final String imagePath;
-  final String text;
-  final List<BestCategoryModel> list;
+  final BestCategoryModel model;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          AppRouteNames.bestCatalogScreenRoute,
+          arguments: model,
+        );
+      },
       child: SizedBox(
         height: 88.w,
         width: 88.w,
         child: Stack(
           children: [
             ShimmerNetworkImage(
-              imageUrl: imagePath,
+              imageUrl: model.imageUrl,
               width: double.infinity,
               height: double.infinity,
               borderRadius: BorderRadius.circular(15),
@@ -51,7 +51,7 @@ class CategoryCardWidget extends StatelessWidget {
               child: SizedBox(
                 width: 72.w,
                 child: Text(
-                  text,
+                  model.title,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: Colors.white,
                     fontSize: 13.sp,

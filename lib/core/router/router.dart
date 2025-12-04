@@ -1,13 +1,14 @@
 import 'package:depi_graduation_project/core/constants/app_constants.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/features/Settings/view/settings_screen.dart';
-import 'package:depi_graduation_project/features/account/view/address_book_screen.dart';
-import 'package:depi_graduation_project/features/account/view/complete_add_data_screen.dart';
-import 'package:depi_graduation_project/features/account/view/forgot_password_screen.dart';
-import 'package:depi_graduation_project/features/account/view/login_screen.dart';
-import 'package:depi_graduation_project/features/account/view/my_details_screen.dart';
-import 'package:depi_graduation_project/features/account/view/my_orders_screen.dart';
-import 'package:depi_graduation_project/features/account/view/register_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/address_book_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/complete_add_data_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/forgot_password_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/login_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/my_details_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/my_orders_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/register_screen.dart';
+import 'package:depi_graduation_project/features/home/view/user/best_catalog_screen.dart';
 import 'package:depi_graduation_project/features/home/view/user/main_screen.dart';
 import 'package:depi_graduation_project/features/home/view/user/story_screen.dart';
 import 'package:depi_graduation_project/features/introducation/view/introducation_screen.dart';
@@ -18,7 +19,7 @@ import 'package:depi_graduation_project/features/home/view/user/new_reviews_scre
 import 'package:depi_graduation_project/features/home/view/user/ad_popover_screen.dart';
 import 'package:depi_graduation_project/features/bag/view/bag_screen.dart';
 import 'package:depi_graduation_project/features/saved_items/view/saved_items_screen.dart';
-import 'package:depi_graduation_project/features/account/view/account_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/account_screen.dart';
 import 'package:depi_graduation_project/main.dart';
 import 'package:flutter/material.dart';
 
@@ -78,6 +79,11 @@ class AppRouter {
       case AppRouteNames.storyScreenRoute:
         return MaterialPageRoute(
           builder: (context) => StoryScreen(),
+          settings: settings,
+        );
+      case AppRouteNames.bestCatalogScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => const BestCatalogScreen(),
           settings: settings,
         );
 

@@ -4,7 +4,7 @@ import 'package:depi_graduation_project/core/constants/firebase_collection.dart'
 import 'package:depi_graduation_project/data/services/home_service/best_category_service.dart';
 import 'package:depi_graduation_project/data/services/supabase_storage_service.dart';
 import 'package:depi_graduation_project/features/home/models/categories/best_categories_model.dart';
-
+import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -19,11 +19,30 @@ class _AddBestCategoryScreenState extends State<AddBestCategoryScreen> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController orderController = TextEditingController();
 
+  List<ProductModel> products = [];
+  Set<String> selectedProducts = {};
+
   File? _pickedImage;
-
   final ImagePicker _picker = ImagePicker();
-
   bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    loadProducts();
+  }
+
+  Future<void> loadProducts() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection(FirebaseCollection.products)
+        .get();
+
+    products = snapshot.docs
+        .map((doc) => ProductModel.fromJson(doc.data(), doc.id))
+        .toList();
+
+    setState(() {});
+  }
 
   Future<void> pickImage() async {
     final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
@@ -35,10 +54,14 @@ class _AddBestCategoryScreenState extends State<AddBestCategoryScreen> {
   }
 
   Future<void> saveCategory() async {
-    if (titleController.text.isEmpty || orderController.text.isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Please fill all fields")));
+    if (titleController.text.isEmpty ||
+        orderController.text.isEmpty ||
+        selectedProducts.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Please fill all fields & select products"),
+        ),
+      );
       return;
     }
 
@@ -51,15 +74,17 @@ class _AddBestCategoryScreenState extends State<AddBestCategoryScreen> {
         folder: FirebaseCollection.bestCategories,
       );
 
+      final id = FirebaseFirestore.instance
+          .collection(FirebaseCollection.bestCategories)
+          .doc()
+          .id;
+
       final model = BestCategoryModel(
-        id: FirebaseFirestore.instance
-            .collection(FirebaseCollection.bestCategories)
-            .doc()
-            .id,
+        id: id,
         title: titleController.text.trim(),
         imageUrl: imageUrl ?? "",
         order: int.tryParse(orderController.text) ?? 0,
-        products: [],
+        products: selectedProducts.toList(),
         isActive: true,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
@@ -123,6 +148,34 @@ class _AddBestCategoryScreenState extends State<AddBestCategoryScreen> {
                   border: OutlineInputBorder(),
                 ),
               ),
+              const SizedBox(height: 30),
+
+              products.isEmpty
+                  ? const CircularProgressIndicator()
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: products.length,
+                      itemBuilder: (context, index) {
+                        final p = products[index];
+
+                        return CheckboxListTile(
+                          value: selectedProducts.contains(p.id),
+                          title: Text(p.name),
+                          subtitle: Text("Price: ${p.price}"),
+                          onChanged: (val) {
+                            setState(() {
+                              if (val == true) {
+                                selectedProducts.add(p.id);
+                              } else {
+                                selectedProducts.remove(p.id);
+                              }
+                            });
+                          },
+                        );
+                      },
+                    ),
+
               const SizedBox(height: 30),
               SizedBox(
                 width: double.infinity,

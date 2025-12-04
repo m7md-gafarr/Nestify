@@ -20,7 +20,7 @@ class ProductService {
   }
 
   Future<ProductModel?> getProductById(String productId) async {
-    final doc = await FirebaseFirestore.instance
+    final doc = await _db
         .collection(FirebaseCollection.products)
         .doc(productId)
         .get();
@@ -28,6 +28,17 @@ class ProductService {
     if (!doc.exists) return null;
 
     return ProductModel.fromJson(doc.data()!, doc.id);
+  }
+
+  Stream<ProductModel?> getProductByIdStream(String productId) {
+    return _db
+        .collection(FirebaseCollection.products)
+        .doc(productId)
+        .snapshots()
+        .map(
+          (snap) =>
+              snap.exists ? ProductModel.fromJson(snap.data()!, snap.id) : null,
+        );
   }
 
   Future<void> addProductsByCategoryWithId(ProductModel model) async {

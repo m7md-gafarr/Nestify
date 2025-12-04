@@ -5,6 +5,7 @@ import 'package:depi_graduation_project/core/theme/app_theme/app_theme_light.dar
 import 'package:depi_graduation_project/core/utils/theme/theme_provider.dart';
 import 'package:depi_graduation_project/data/services/home_service/best_category_service.dart';
 import 'package:depi_graduation_project/features/account/logic/forgot_password/forgot_password_cubit.dart';
+import 'package:depi_graduation_project/features/home/logic/best_product/best_product_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/new_review/new_review_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/subscribes/subscribes_cubit.dart';
 import 'package:depi_graduation_project/features/home/view/user/main_screen.dart';
@@ -104,6 +105,7 @@ void main() async {
                   ..listenToBestCategories(),
           ),
           BlocProvider(create: (context) => RoomsCubit()..listenToRooms()),
+          BlocProvider(create: (context) => BestProductCubit()),
           BlocProvider(create: (context) => RoomCategoryCubit()),
           BlocProvider(create: (context) => ProductCubit()),
           BlocProvider(create: (context) => NewReviewCubit()),

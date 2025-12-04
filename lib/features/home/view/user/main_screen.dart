@@ -10,7 +10,7 @@ import 'package:depi_graduation_project/features/home/logic/rooms/rooms_cubit.da
 import 'package:depi_graduation_project/features/home/widgets/categories/category_card_widget.dart';
 import 'package:depi_graduation_project/features/no_internet/view/no_internet_screen.dart';
 import 'package:depi_graduation_project/features/saved_items/view/saved_items_screen.dart';
-import 'package:depi_graduation_project/features/account/view/account_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/account_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -147,11 +147,7 @@ class _HomeContentState extends State<HomeContent> {
                             right: 10.w,
                             left: index == 0 ? 15 : 0,
                           ),
-                          child: CategoryCardWidget(
-                            text: list[index].title,
-                            imagePath: list[index].imageUrl,
-                            list: list,
-                          ),
+                          child: CategoryCardWidget(model: list[index]),
                         ),
                       ),
                     ),

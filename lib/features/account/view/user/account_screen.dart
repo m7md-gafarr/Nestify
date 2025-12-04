@@ -1,13 +1,12 @@
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
+import 'package:depi_graduation_project/components/shimmer_network_image_widget.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
 import 'package:depi_graduation_project/data/services/account_service/auth_service.dart';
 
 import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
+import 'package:depi_graduation_project/features/account/view/dashboard/admin_screen.dart';
 import 'package:depi_graduation_project/features/account/widgets/empty_account_widget.dart';
-import 'package:depi_graduation_project/features/home/view/dashboard/add_product_screen.dart';
-import 'package:depi_graduation_project/features/home/view/dashboard/add_room_category_screen.dart';
-import 'package:depi_graduation_project/features/home/view/dashboard/add_room_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,29 +52,28 @@ class _AccountScreenState extends State<AccountScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 60.h),
-                  CustomSectionHeaderWidget(title: 'my account'),
+                  GestureDetector(
+                    onDoubleTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AdminScreen()),
+                      );
+                    },
+                    child: CustomSectionHeaderWidget(title: 'my account'),
+                  ),
                   SizedBox(height: 20.h),
                   BlocBuilder<GetUserDataCubit, GetUserDataState>(
                     builder: (context, state) {
                       if (state is GetUserDataSuccess) {
                         return ListTile(
                           contentPadding: EdgeInsets.zero,
-                          leading: (state.userModel.profileImageUrl!.isNotEmpty)
-                              ? CircleAvatar(
-                                  radius: 30.r,
-                                  backgroundImage: NetworkImage(
-                                    state.userModel.profileImageUrl!,
-                                  ),
-                                )
-                              : CircleAvatar(
-                                  radius: 30.r,
-                                  backgroundColor: Colors.grey[300],
-                                  child: Icon(
-                                    Iconsax.user,
-                                    size: 30.sp,
-                                    color: Colors.white,
-                                  ),
-                                ),
+                          leading: ShimmerNetworkImage(
+                            imageUrl: state.userModel.profileImageUrl!,
+                            width: 50.w,
+                            height: 50.w,
+                            borderRadius: BorderRadius.circular(50.r),
+                            fit: BoxFit.cover,
+                          ),
 
                           title: Text(
                             state.userModel.fullName,
@@ -149,22 +147,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       );
                     },
                   ),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: Icon(Iconsax.cards, size: 24.sp),
-                    title: Text(
-                      'Payment Methods',
-                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    onTap: () async {
-                      Navigator.pushNamed(
-                        context,
-                        AppRouteNames.paymentMethodsScreenRoute,
-                      );
-                    },
-                  ),
+
                   ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(Iconsax.setting, size: 24.sp),
@@ -237,54 +220,6 @@ class _AccountScreenState extends State<AccountScreen> {
                               ),
                             ],
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: Icon(Iconsax.add, size: 24.sp),
-                    title: Text(
-                      'Add products ',
-                      style: Theme.of(context).textTheme.titleSmall!,
-                    ),
-                    onTap: () async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AddProductScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: Icon(Iconsax.add, size: 24.sp),
-                    title: Text(
-                      'Add rooms ',
-                      style: Theme.of(context).textTheme.titleSmall!,
-                    ),
-                    onTap: () async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AddRoomScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: Icon(Iconsax.add, size: 24.sp),
-                    title: Text(
-                      'Add rooms categories ',
-                      style: Theme.of(context).textTheme.titleSmall!,
-                    ),
-                    onTap: () async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AddRoomCategoryScreen(),
                         ),
                       );
                     },
