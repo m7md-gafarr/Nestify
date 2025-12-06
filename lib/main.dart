@@ -23,6 +23,7 @@ import 'package:depi_graduation_project/features/home/logic/product/product_cubi
 import 'package:depi_graduation_project/features/home/logic/room_category/room_category_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/rooms/rooms_cubit.dart';
 import 'package:depi_graduation_project/features/saved_items/logic/saved_items/saved_items_cubit.dart';
+import 'package:depi_graduation_project/features/bag/logic/bag/bag_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -108,6 +109,7 @@ void main() async {
                 SavedItemsCubit()
                   ..loadSavedItems(FirebaseAuth.instance.currentUser!.uid),
           ),
+          BlocProvider(create: (_) => BagCubit()),
         ],
 
         child: MyApp(appRouter: AppRouter()),

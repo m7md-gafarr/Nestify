@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import '../../../core/images/app_images.dart';
 import '../widgets/method_option.dart';
 
 class PaymentMethodPage extends StatelessWidget {

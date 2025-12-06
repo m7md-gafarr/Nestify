@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
-import '../models/bag_view_model.dart';
+import '../logic/bag/bag_cubit.dart';
 import 'bag_empty_view.dart';
 import 'bag_filled_view.dart';
 
@@ -10,24 +10,24 @@ class BagScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => BagViewModel(),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: const _BagScreenContent(),
-      ),
+    return BlocBuilder<BagCubit, BagState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: _BagScreenContent(state: state),
+        );
+      },
     );
   }
 }
 
 class _BagScreenContent extends StatelessWidget {
-  const _BagScreenContent();
+  final BagState state;
 
-  void _onCheckout(BuildContext context, BagViewModel vm) {
-    Navigator.of(context).pushNamed(
-      AppRouteNames.checkoutScreenRoute,
-      arguments: vm,
-    );
+  const _BagScreenContent({required this.state});
+
+  void _onCheckout(BuildContext context) {
+    Navigator.of(context).pushNamed(AppRouteNames.checkoutScreenRoute);
   }
 
   void _onStartShopping(BuildContext context) {
@@ -36,15 +36,21 @@ class _BagScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final vm = context.watch<BagViewModel>();
-
-    if (vm.isEmpty) {
-      return BagEmptyView(onStartShopping: () => _onStartShopping(context));
+    if (state is BagLoaded) {
+      final bagState = state as BagLoaded;
+      if (bagState.items.isEmpty) {
+        return BagEmptyView(onStartShopping: () => _onStartShopping(context));
+      }
+      return BagFilledView(onCheckout: () => _onCheckout(context));
     }
 
-    return BagFilledView(
-      viewModel: vm,
-      onCheckout: () => _onCheckout(context, vm),
-    );
+    // Loading or error state
+    if (state is BagError) {
+      return Center(
+        child: Text((state as BagError).message),
+      );
+    }
+
+    return const Center(child: CircularProgressIndicator());
   }
 }

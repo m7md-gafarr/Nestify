@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../models/bag_view_model.dart';
+import '../logic/bag/bag_cubit.dart';
 import 'checkout_contact_info_page.dart';
 import 'delivery_details_page.dart';
 import 'payment_method_page.dart';
 import 'order_success_screen.dart';
-import '../../../core/router/route_names.dart';
 
 class CheckoutScreen extends StatefulWidget {
-  final BagViewModel bagViewModel;
-
-  const CheckoutScreen({
-    super.key,
-    required this.bagViewModel,
-  });
+  const CheckoutScreen({super.key});
 
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
@@ -176,15 +171,22 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 ),
 
                 // Page 3: Payment Method
-                PaymentMethodPage(
-                  selectedPaymentMethod: _selectedPaymentMethod,
-                  total: widget.bagViewModel.total,
-                  onPaymentMethodChanged: (index) {
-                    setState(() {
-                      _selectedPaymentMethod = index;
-                    });
+                BlocBuilder<BagCubit, BagState>(
+                  builder: (context, state) {
+                    if (state is BagLoaded) {
+                      return PaymentMethodPage(
+                        selectedPaymentMethod: _selectedPaymentMethod,
+                        total: state.total,
+                        onPaymentMethodChanged: (index) {
+                          setState(() {
+                            _selectedPaymentMethod = index;
+                          });
+                        },
+                        onComplete: _completeOrder,
+                      );
+                    }
+                    return const Center(child: CircularProgressIndicator());
                   },
-                  onComplete: _completeOrder,
                 ),
               ],
             ),
