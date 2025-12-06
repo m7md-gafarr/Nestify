@@ -23,6 +23,17 @@ class BagScreen extends StatelessWidget {
 class _BagScreenContent extends StatelessWidget {
   const _BagScreenContent();
 
+  void _onCheckout(BuildContext context, BagViewModel vm) {
+    Navigator.of(context).pushNamed(
+      AppRouteNames.checkoutScreenRoute,
+      arguments: vm,
+    );
+  }
+
+  void _onStartShopping(BuildContext context) {
+    Navigator.of(context).pushReplacementNamed(AppRouteNames.homePageRoute);
+  }
+
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<BagViewModel>();
@@ -31,12 +42,9 @@ class _BagScreenContent extends StatelessWidget {
       return BagEmptyView(onStartShopping: () => _onStartShopping(context));
     }
 
-    return BagFilledView(viewModel: vm, onCheckout: () => _onCheckout(context));
-  }
-
-  void _onCheckout(BuildContext context) {}
-
-  void _onStartShopping(BuildContext context) {
-    Navigator.of(context).pushReplacementNamed(AppRouteNames.homePageRoute);
+    return BagFilledView(
+      viewModel: vm,
+      onCheckout: () => _onCheckout(context, vm),
+    );
   }
 }
