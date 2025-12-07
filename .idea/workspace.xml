@@ -9,14 +9,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="338b567e-732d-48c9-81a3-e878d3cacfb7" name="Changes" comment="feat: Implement multi-step checkout flow&#10;&#10;* Add CheckoutScreen with PageView navigation and state management&#10;* Implement individual checkout steps: ContactInfoPage, DeliveryDetailsPage, and PaymentMethodPage&#10;* Add OrderSuccessScreen for completed transactions&#10;* Create reusable widgets: MethodOption, DateTimeButton, DeliveryAddressCard, and PaymentMethodTile">
+    <list default="true" id="338b567e-732d-48c9-81a3-e878d3cacfb7" name="Changes" comment="bag update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/core/router/router.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/router/router.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/bag/logic/bag/bag_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/bag/logic/bag/bag_cubit.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/features/bag/view/bag_filled_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/bag/view/bag_filled_view.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/features/bag/view/bag_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/bag/view/bag_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/bag/view/checkout_contact_info_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/bag/view/checkout_contact_info_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/features/bag/view/checkout_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/bag/view/checkout_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/bag/view/payment_method_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/bag/view/payment_method_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -135,7 +134,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764810759569</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="bag update">
+      <option name="closed" value="true" />
+      <created>1765012637301</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1765012637301</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -158,6 +165,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Merge branch 'm7md-gafarr' into abdelrahman-emad" />
     <MESSAGE value="feat: Implement multi-step checkout flow&#10;&#10;* Add CheckoutScreen with PageView navigation and state management&#10;* Implement individual checkout steps: ContactInfoPage, DeliveryDetailsPage, and PaymentMethodPage&#10;* Add OrderSuccessScreen for completed transactions&#10;* Create reusable widgets: MethodOption, DateTimeButton, DeliveryAddressCard, and PaymentMethodTile" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Implement multi-step checkout flow&#10;&#10;* Add CheckoutScreen with PageView navigation and state management&#10;* Implement individual checkout steps: ContactInfoPage, DeliveryDetailsPage, and PaymentMethodPage&#10;* Add OrderSuccessScreen for completed transactions&#10;* Create reusable widgets: MethodOption, DateTimeButton, DeliveryAddressCard, and PaymentMethodTile" />
+    <MESSAGE value="bag update" />
+    <option name="LAST_COMMIT_MESSAGE" value="bag update" />
   </component>
 </project>

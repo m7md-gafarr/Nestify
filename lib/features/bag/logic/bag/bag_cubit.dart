@@ -80,4 +80,3 @@ class BagCubit extends Cubit<BagState> {
 
   bool get isEmpty => _items.isEmpty;
 }
-
