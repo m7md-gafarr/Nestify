@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="338b567e-732d-48c9-81a3-e878d3cacfb7" name="Changes" comment="add fetch 1">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+    <list default="true" id="338b567e-732d-48c9-81a3-e878d3cacfb7" name="Changes" comment="refactor: split api helper into client and exceptions layers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_sources/remote/api_helper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/data_sources/remote/api_helper.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +128,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765123243392</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="refactor: split api helper into client and exceptions layers">
+      <option name="closed" value="true" />
+      <created>1765127226929</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1765127226929</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -155,6 +160,7 @@
     <MESSAGE value="Merge branch 'm7md-gafarr' into abdelrahman-emad" />
     <MESSAGE value="add fetch" />
     <MESSAGE value="add fetch 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="add fetch 1" />
+    <MESSAGE value="refactor: split api helper into client and exceptions layers" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: split api helper into client and exceptions layers" />
   </component>
 </project>
