@@ -5,6 +5,18 @@ import 'package:depi_graduation_project/features/saved_items/models/saved_item_m
 class SavedItemService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
+  Stream<SavedItemModel> listenToSavedItems(String userId) {
+    return _db
+        .collection(FirebaseCollection.savedItems)
+        .doc(userId)
+        .snapshots()
+        .map((snapshot) {
+          if (!snapshot.exists) return SavedItemModel(productId: []);
+
+          return SavedItemModel.fromJson(snapshot.data()!);
+        });
+  }
+
   Future<void> addSavedItem({
     required String userId,
     required SavedItemModel model,
@@ -21,18 +33,6 @@ class SavedItemService {
     await _db.collection(FirebaseCollection.savedItems).doc(userId).update({
       "productId": FieldValue.arrayRemove(model.productId),
     });
-  }
-
-  Stream<SavedItemModel> listenToSavedItems(String userId) {
-    return _db
-        .collection(FirebaseCollection.savedItems)
-        .doc(userId)
-        .snapshots()
-        .map((snapshot) {
-          if (!snapshot.exists) return SavedItemModel(productId: []);
-
-          return SavedItemModel.fromJson(snapshot.data()!);
-        });
   }
 
   Future<SavedItemModel> getSavedItems(String userId) async {

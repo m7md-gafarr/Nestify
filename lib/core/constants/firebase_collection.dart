@@ -6,4 +6,5 @@ class FirebaseCollection {
   static const String products = "products";
   static const String subscribes = "subscribes";
   static const String savedItems = "saved_items";
+  static const String bag = "bag";
 }

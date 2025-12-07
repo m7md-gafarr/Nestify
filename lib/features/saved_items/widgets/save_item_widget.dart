@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:depi_graduation_project/core/router/route_names.dart';
+import 'package:depi_graduation_project/core/utils/snakbar/snackebar_helper.dart';
+import 'package:depi_graduation_project/features/bag/logic/bag/bag_cubit.dart';
 import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
 import 'package:depi_graduation_project/features/saved_items/logic/saved_items/saved_items_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -85,8 +89,37 @@ class SaveItemWidget extends StatelessWidget {
                     width: 150.w,
                     height: 40.h,
                     child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text("Move to bag", textAlign: TextAlign.center),
+                      onPressed: () {
+                        context.read<BagCubit>().addBagItem(
+                          product: productModel,
+                          userId: FirebaseAuth.instance.currentUser!.uid,
+                        );
+                      },
+                      child: BlocConsumer<BagCubit, BagState>(
+                        listener: (context, state) {
+                          if (state is BagError) {
+                            SnackbarHelper.showError(context, state.message);
+                          } else if (state is BagSuccess) {
+                            SnackbarHelper.showSuccess(
+                              context,
+                              'Item added to bag successfully',
+                            );
+                          }
+                        },
+                        builder: (context, state) {
+                          if (state is BagLoading) {
+                            return CircularProgressIndicator(
+                              constraints: BoxConstraints(
+                                minHeight: 30.h,
+                                minWidth: 30.h,
+                              ),
+                              color: Colors.white,
+                            );
+                          } else {
+                            return const Text('Add to Bag');
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ],

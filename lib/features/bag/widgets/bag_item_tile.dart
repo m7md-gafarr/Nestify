@@ -1,10 +1,11 @@
-import 'package:depi_graduation_project/features/bag/models/bag_item.dart';
+import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'custom_button.dart';
 
 class BagItemTile extends StatelessWidget {
-  final BagItem item;
+  final ProductModel item;
+  final int quantity;
   final VoidCallback onRemove;
   final VoidCallback onIncrement;
   final VoidCallback onDecrement;
@@ -12,6 +13,7 @@ class BagItemTile extends StatelessWidget {
   const BagItemTile({
     super.key,
     required this.item,
+    required this.quantity,
     required this.onRemove,
     required this.onIncrement,
     required this.onDecrement,
@@ -26,8 +28,8 @@ class BagItemTile extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12.r),
-            child: Image.asset(
-              item.imagePath,
+            child: Image.network(
+              item.imageUrl[0],
               width: 96.w,
               height: 96.w,
               fit: BoxFit.cover,
@@ -63,7 +65,7 @@ class BagItemTile extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  item.title,
+                  item.name,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodySmall,
@@ -75,7 +77,7 @@ class BagItemTile extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 12.w),
                       child: Text(
-                        '${item.quantity}',
+                        '$quantity',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),

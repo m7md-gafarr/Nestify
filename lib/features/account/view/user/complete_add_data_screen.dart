@@ -247,7 +247,7 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                           } else if (state is CompleteAddDataFailure) {
                             SnackbarHelper.showError(
                               context,
-                              title: state.errorMessage,
+                              state.errorMessage,
                             );
                           } else if (state is CompleteAddDataNoInternet) {
                             DialogHelper(context).showNoInternetDialog(

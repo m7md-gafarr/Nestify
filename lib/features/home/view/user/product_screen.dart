@@ -1,4 +1,6 @@
 import 'package:depi_graduation_project/core/router/route_names.dart';
+import 'package:depi_graduation_project/core/utils/snakbar/snackebar_helper.dart';
+import 'package:depi_graduation_project/features/bag/logic/bag/bag_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/product/product_cubit.dart';
 import 'package:depi_graduation_project/features/home/widgets/review/no_reviews_widget.dart';
 import 'package:depi_graduation_project/features/home/widgets/review/review_card_widget.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
 
@@ -132,7 +135,23 @@ class _ProductScreenState extends State<ProductScreen> {
                                   productId: product.id,
                                 );
                               },
-                              icon: Icon(Iconsax.heart),
+                              icon:
+                                  BlocConsumer<
+                                    SavedItemsCubit,
+                                    SavedItemsState
+                                  >(
+                                    listener: (context, state) {
+                                      if (state is SavedItemsLoaded) {
+                                        SnackbarHelper.showSuccess(
+                                          context,
+                                          "Added to saved items",
+                                        );
+                                      }
+                                    },
+                                    builder: (context, state) {
+                                      return Icon(Iconsax.heart);
+                                    },
+                                  ),
                             ),
                           ),
                         ],
@@ -225,9 +244,30 @@ class _ProductScreenState extends State<ProductScreen> {
                           ),
                           SizedBox(height: 20.h),
                           ElevatedButton.icon(
-                            onPressed: () {},
-                            icon: Icon(Icons.add_shopping_cart),
-                            label: Text("Add to Cart"),
+                            onPressed: () {
+                              context.read<BagCubit>().addBagItem(
+                                userId: FirebaseAuth.instance.currentUser!.uid,
+                                product: product,
+                              );
+                            },
+                            icon: BlocBuilder<BagCubit, BagState>(
+                              builder: (context, state) {
+                                if (state is BagLoading) {
+                                  return SizedBox.shrink();
+                                }
+                                return Icon(Iconsax.shopping_cart5);
+                              },
+                            ),
+                            label: BlocBuilder<BagCubit, BagState>(
+                              builder: (context, state) {
+                                if (state is BagLoading) {
+                                  return CircularProgressIndicator(
+                                    color: Colors.white,
+                                  );
+                                }
+                                return Text('Add to Bag');
+                              },
+                            ),
                           ),
 
                           SizedBox(height: 30.h),

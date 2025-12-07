@@ -25,9 +25,7 @@ class MethodOption extends StatelessWidget {
       borderRadius: BorderRadius.circular(12.r),
       child: Container(
         padding: EdgeInsets.all(16.w),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.r),
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.r)),
         child: Row(
           children: [
             SizedBox(width: 32.w, height: 32.w, child: icon),
@@ -38,10 +36,7 @@ class MethodOption extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
+                  Text(title, style: Theme.of(context).textTheme.titleSmall),
                   if (subtitle.isNotEmpty) ...[
                     SizedBox(height: 2.h),
                     Text(
@@ -50,7 +45,7 @@ class MethodOption extends StatelessWidget {
                         color: AppColorLight.textTertiary,
                       ),
                     ),
-                  ]
+                  ],
                 ],
               ),
             ),
@@ -67,10 +62,10 @@ class MethodOption extends StatelessWidget {
               ),
               child: isSelected
                   ? Icon(
-                Icons.check,
-                size: 16.sp,
-                color: AppColorLight.onButtonPrimary,
-              )
+                      Icons.check,
+                      size: 16.sp,
+                      color: AppColorLight.onButtonPrimary,
+                    )
                   : null,
             ),
           ],

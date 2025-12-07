@@ -5,7 +5,7 @@ import 'package:depi_graduation_project/features/bag/widgets/method_option.dart'
 import 'package:depi_graduation_project/features/bag/widgets/delivery_address_card.dart';
 import 'package:depi_graduation_project/features/bag/widgets/date_time_button.dart';
 
-class DeliveryDetailsPage extends StatelessWidget {
+class DeliveryDetailsWidget extends StatelessWidget {
   final String selectedDeliveryMethod;
   final String selectedDate;
   final String selectedTime;
@@ -14,7 +14,7 @@ class DeliveryDetailsPage extends StatelessWidget {
   final ValueChanged<String> onTimeChanged;
   final VoidCallback onNext;
 
-  const DeliveryDetailsPage({
+  const DeliveryDetailsWidget({
     super.key,
     required this.selectedDeliveryMethod,
     required this.selectedDate,
@@ -28,7 +28,12 @@ class DeliveryDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> dates = ['Tomorrow', 'Jun 25', 'Jun 26', 'Jun 27'];
-    final List<String> timeSlots = ['12:00 pm', '2:00 pm', '4:00 pm', '6:00 pm'];
+    final List<String> timeSlots = [
+      '12:00 pm',
+      '2:00 pm',
+      '4:00 pm',
+      '6:00 pm',
+    ];
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -44,9 +49,9 @@ class DeliveryDetailsPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 8.h),
-                    const CustomSectionHeaderWidget(title: 'delivery method'),
-                    SizedBox(height: 8.h),
+                    SizedBox(height: 40.h),
+                    const CustomSectionHeaderWidget(title: 'delivery details'),
+                    SizedBox(height: 20.h),
                     MethodOption(
                       icon: Icon(Icons.directions_car, size: 28.sp),
                       title: 'By courier',
@@ -62,7 +67,14 @@ class DeliveryDetailsPage extends StatelessWidget {
                       onTap: () => onDeliveryMethodChanged('pickup'),
                     ),
                     SizedBox(height: 16.h),
-                    const CustomSectionHeaderWidget(title: 'delivery address'),
+                    Text(
+                      'delivery address',
+                      style: Theme.of(context).textTheme.headlineSmall!
+                          .copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.sp,
+                          ),
+                    ),
                     SizedBox(height: 8.h),
                     DeliveryAddressCard(
                       address: 'London, 221B Baker Street',
@@ -70,14 +82,22 @@ class DeliveryDetailsPage extends StatelessWidget {
                       onTap: () {},
                     ),
                     SizedBox(height: 16.h),
-                    const CustomSectionHeaderWidget(title: 'delivery time'),
+                    Text(
+                      'delivery time',
+                      style: Theme.of(context).textTheme.headlineSmall!
+                          .copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.sp,
+                          ),
+                    ),
                     SizedBox(height: 16.h),
                     SizedBox(
                       height: 40.h,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemCount: dates.length,
-                        separatorBuilder: (context, index) => SizedBox(width: 12.w),
+                        separatorBuilder: (context, index) =>
+                            SizedBox(width: 12.w),
                         itemBuilder: (context, index) {
                           final date = dates[index];
                           final isSelected = selectedDate == date;
@@ -95,7 +115,8 @@ class DeliveryDetailsPage extends StatelessWidget {
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemCount: timeSlots.length,
-                        separatorBuilder: (context, index) => SizedBox(width: 12.w),
+                        separatorBuilder: (context, index) =>
+                            SizedBox(width: 12.w),
                         itemBuilder: (context, index) {
                           final time = timeSlots[index];
                           final isSelected = selectedTime == time;
@@ -126,4 +147,3 @@ class DeliveryDetailsPage extends StatelessWidget {
     );
   }
 }
-

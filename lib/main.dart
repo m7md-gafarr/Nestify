@@ -5,6 +5,7 @@ import 'package:depi_graduation_project/core/theme/app_theme/app_theme_light.dar
 import 'package:depi_graduation_project/core/utils/theme/theme_provider.dart';
 import 'package:depi_graduation_project/data/services/home_service/best_category_service.dart';
 import 'package:depi_graduation_project/features/account/logic/forgot_password/forgot_password_cubit.dart';
+import 'package:depi_graduation_project/features/bag/logic/bag/bag_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/best_product/best_product_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/new_review/new_review_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/subscribes/subscribes_cubit.dart';
@@ -114,6 +115,11 @@ void main() async {
             create: (context) =>
                 SavedItemsCubit()
                   ..loadSavedItems(FirebaseAuth.instance.currentUser!.uid),
+          ),
+          BlocProvider(
+            create: (context) =>
+                BagCubit()
+                  ..loadBagItems(FirebaseAuth.instance.currentUser!.uid),
           ),
         ],
 

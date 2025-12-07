@@ -18,8 +18,6 @@ import 'package:depi_graduation_project/features/home/view/user/product_screen.d
 import 'package:depi_graduation_project/features/home/view/user/new_reviews_screen.dart';
 import 'package:depi_graduation_project/features/home/view/user/ad_popover_screen.dart';
 import 'package:depi_graduation_project/features/bag/view/bag_screen.dart';
-import 'package:depi_graduation_project/features/bag/view/checkout_screen.dart';
-import 'package:depi_graduation_project/features/bag/models/bag_view_model.dart';
 import 'package:depi_graduation_project/features/saved_items/view/saved_items_screen.dart';
 import 'package:depi_graduation_project/features/account/view/user/account_screen.dart';
 import 'package:depi_graduation_project/main.dart';
@@ -92,18 +90,8 @@ class AppRouter {
       // Bag/Cart Screen Route
       case AppRouteNames.bagScreenRoute:
         return MaterialPageRoute(builder: (context) => BagScreen());
-      case AppRouteNames.checkoutScreenRoute:
-        final bagViewModel = settings.arguments as BagViewModel?;
-        if (bagViewModel == null) {
-          return MaterialPageRoute(
-            builder: (context) => const Scaffold(
-              body: Center(child: Text("Bag data is required")),
-            ),
-          );
-        }
-        return MaterialPageRoute(
-          builder: (context) => CheckoutScreen(bagViewModel: bagViewModel),
-        );
+      // case AppRouteNames.checkoutScreenRoute:
+      //   return MaterialPageRoute(builder: (context) => CheckoutScreen());
 
       // Saved Items Screen Route
       case AppRouteNames.savedItemsScreenRoute:
