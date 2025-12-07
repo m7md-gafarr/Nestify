@@ -44,4 +44,7 @@ class AppColorLight {
 
   static const Color iconPrimary = Color(0xFF212121);
   static const Color iconSecondary = Color(0xFF757575);
+
+  static const Color shimmerBase = Color(0xFFF5F5F5);
+  static const Color shimmerHighlight = Color(0xFFE0E0E0);
 }

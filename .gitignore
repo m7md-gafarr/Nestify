@@ -120,3 +120,9 @@ app.*.symbols
 
 
 .env
+
+# Prevent desktop platform folders from being committed
+windows/
+macos/
+linux/
+web/

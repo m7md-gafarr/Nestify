@@ -1,15 +1,23 @@
-import 'package:depi_graduation_project/features/bag/models/bag_item.dart';
+import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'custom_button.dart';
 
 class BagItemTile extends StatelessWidget {
-  final BagItem item;
+  final ProductModel item;
+  final int quantity;
   final VoidCallback onRemove;
   final VoidCallback onIncrement;
   final VoidCallback onDecrement;
 
-  const BagItemTile({super.key, required this.item, required this.onRemove, required this.onIncrement, required this.onDecrement});
+  const BagItemTile({
+    super.key,
+    required this.item,
+    required this.quantity,
+    required this.onRemove,
+    required this.onIncrement,
+    required this.onDecrement,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +28,12 @@ class BagItemTile extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12.r),
-            child: Image.asset(item.imagePath, width: 96.w, height: 96.w, fit: BoxFit.cover),
+            child: Image.network(
+              item.imageUrl[0],
+              width: 96.w,
+              height: 96.w,
+              fit: BoxFit.cover,
+            ),
           ),
           SizedBox(width: 12.w),
           Expanded(
@@ -52,7 +65,7 @@ class BagItemTile extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  item.title,
+                  item.name,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodySmall,
@@ -63,7 +76,10 @@ class BagItemTile extends StatelessWidget {
                     CustomButton(icon: Icons.remove, onTap: onDecrement),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 12.w),
-                      child: Text('${item.quantity}', style: Theme.of(context).textTheme.bodyMedium),
+                      child: Text(
+                        '$quantity',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                     ),
                     CustomButton(icon: Icons.add, onTap: onIncrement),
                   ],
@@ -76,5 +92,3 @@ class BagItemTile extends StatelessWidget {
     );
   }
 }
-
-

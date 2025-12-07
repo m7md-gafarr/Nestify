@@ -13,8 +13,12 @@ final class LoginFailure extends LoginState {
 }
 
 final class LoginSuccess extends LoginState {
-  final UserCredential credential;
-  LoginSuccess(this.credential);
+  LoginSuccess();
+}
+
+final class NotCompleteAddData extends LoginState {
+  UserCredential credential;
+  NotCompleteAddData(this.credential);
 }
 
 final class LoginNoInternet extends LoginState {}

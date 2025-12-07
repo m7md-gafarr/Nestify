@@ -2,21 +2,22 @@
 class Assets {
   Assets._();
 
+  static const String assetsImagesSurprised = 'assets/images/surprised.svg';
   static const String cairoCairoBlack = 'assets/fonts/cairo/Cairo-Black.ttf';
   static const String cairoCairoBold = 'assets/fonts/cairo/Cairo-Bold.ttf';
-  static const String cairoCairoExtraBold =
-      'assets/fonts/cairo/Cairo-ExtraBold.ttf';
-  static const String cairoCairoExtraLight =
-      'assets/fonts/cairo/Cairo-ExtraLight.ttf';
+  static const String cairoCairoExtraBold = 'assets/fonts/cairo/Cairo-ExtraBold.ttf';
+  static const String cairoCairoExtraLight = 'assets/fonts/cairo/Cairo-ExtraLight.ttf';
   static const String cairoCairoLight = 'assets/fonts/cairo/Cairo-Light.ttf';
   static const String cairoCairoMedium = 'assets/fonts/cairo/Cairo-Medium.ttf';
-  static const String cairoCairoRegular =
-      'assets/fonts/cairo/Cairo-Regular.ttf';
-  static const String cairoCairoSemiBold =
-      'assets/fonts/cairo/Cairo-SemiBold.ttf';
+  static const String cairoCairoRegular = 'assets/fonts/cairo/Cairo-Regular.ttf';
+  static const String cairoCairoSemiBold = 'assets/fonts/cairo/Cairo-SemiBold.ttf';
   static const String imagesElement = 'assets/images/Element.svg';
+  static const String imagesFriendly = 'assets/images/friendly.svg';
   static const String imagesOnboarding = 'assets/images/Onboarding.svg';
   static const String imagesPic = 'assets/images/pic.png';
+  static const String imagesSad = 'assets/images/sad.svg';
+  static const String imagesSmiley = 'assets/images/smiley.svg';
   static const String imagesSurprised = 'assets/images/surprised.png';
   static const String logoNestify = 'assets/logo/nestify.png';
+
 }

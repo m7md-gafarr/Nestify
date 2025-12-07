@@ -1,22 +1,26 @@
 import 'package:depi_graduation_project/core/constants/app_constants.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
-import 'package:depi_graduation_project/features/account/view/empty_account_screen.dart';
-import 'package:depi_graduation_project/features/account/view/forgot_password_screen.dart';
-import 'package:depi_graduation_project/features/account/view/login_screen.dart';
-import 'package:depi_graduation_project/features/account/view/register_screen.dart';
-
-import 'package:depi_graduation_project/features/home/view/story_screen.dart';
+import 'package:depi_graduation_project/features/Settings/view/settings_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/address_book_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/complete_add_data_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/forgot_password_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/login_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/my_details_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/my_orders_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/register_screen.dart';
+import 'package:depi_graduation_project/features/home/view/user/best_catalog_screen.dart';
+import 'package:depi_graduation_project/features/home/view/user/main_screen.dart';
+import 'package:depi_graduation_project/features/home/view/user/story_screen.dart';
 import 'package:depi_graduation_project/features/introducation/view/introducation_screen.dart';
-import 'package:depi_graduation_project/features/home/view/main_screen.dart';
-import 'package:depi_graduation_project/features/home/view/categories_screen.dart';
-import 'package:depi_graduation_project/features/home/view/catalog_screen.dart';
-import 'package:depi_graduation_project/features/home/view/product_screen.dart';
-import 'package:depi_graduation_project/features/home/view/reviews_screen.dart';
-import 'package:depi_graduation_project/features/home/view/new_reviews_screen.dart';
-import 'package:depi_graduation_project/features/home/view/ad_popover_screen.dart';
+import 'package:depi_graduation_project/features/home/view/user/categories_screen.dart';
+import 'package:depi_graduation_project/features/home/view/user/catalog_screen.dart';
+import 'package:depi_graduation_project/features/home/view/user/product_screen.dart';
+import 'package:depi_graduation_project/features/home/view/user/new_reviews_screen.dart';
+import 'package:depi_graduation_project/features/home/view/user/ad_popover_screen.dart';
 import 'package:depi_graduation_project/features/bag/view/bag_screen.dart';
-import 'package:depi_graduation_project/features/saved%20items/view/saved_items_screen.dart';
-import 'package:depi_graduation_project/features/account/view/account_screen.dart';
+import 'package:depi_graduation_project/features/saved_items/view/saved_items_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/account_screen.dart';
+import 'package:depi_graduation_project/main.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -25,14 +29,20 @@ class AppRouter {
       case AppRouteNames.introducationPageRoute:
         return MaterialPageRoute(builder: (context) => IntroducationScreen());
       case AppRouteNames.homePageRoute:
-        return MaterialPageRoute(builder: (context) => MainScreen());
+        return MaterialPageRoute(
+          builder: (context) => MainScreen(key: mainScreenKey),
+        );
 
       case AppRouteNames.mainScreenRoute:
         return MaterialPageRoute(builder: (context) => MainScreen());
       case AppRouteNames.categoriesScreenRoute:
-        return MaterialPageRoute(builder: (context) => CategoriesScreen());
+        return MaterialPageRoute(
+          builder: (context) => CategoriesScreen(),
+          settings: settings,
+        );
       case AppRouteNames.catalogScreenRoute:
         return PageRouteBuilder(
+          settings: settings,
           pageBuilder: (context, animation, secondaryAnimation) =>
               const CatalogScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -57,10 +67,12 @@ class AppRouter {
           builder: (context) => ProductScreen(),
           settings: settings,
         );
-      case AppRouteNames.reviewsScreenRoute:
-        return MaterialPageRoute(builder: (context) => ReviewsScreen());
+
       case AppRouteNames.newReviewsScreenRoute:
-        return MaterialPageRoute(builder: (context) => NewReviewsScreen());
+        return MaterialPageRoute(
+          builder: (context) => NewReviewsScreen(),
+          settings: settings,
+        );
       case AppRouteNames.adPopoverScreenRoute:
         return MaterialPageRoute(builder: (context) => AdPopoverScreen());
       case AppRouteNames.storyScreenRoute:
@@ -68,10 +80,17 @@ class AppRouter {
           builder: (context) => StoryScreen(),
           settings: settings,
         );
+      case AppRouteNames.bestCatalogScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => const BestCatalogScreen(),
+          settings: settings,
+        );
 
       // Bag/Cart Screen Route
       case AppRouteNames.bagScreenRoute:
         return MaterialPageRoute(builder: (context) => BagScreen());
+      // case AppRouteNames.checkoutScreenRoute:
+      //   return MaterialPageRoute(builder: (context) => CheckoutScreen());
 
       // Saved Items Screen Route
       case AppRouteNames.savedItemsScreenRoute:
@@ -80,14 +99,46 @@ class AppRouter {
       // Account Screen Route
       case AppRouteNames.accountScreenRoute:
         return MaterialPageRoute(builder: (context) => AccountScreen());
-      case AppRouteNames.emptyAccountScreenRoute:
-        return MaterialPageRoute(builder: (context) => EmptyAccountScreen());
+
       case AppRouteNames.loginScreenRoute:
         return MaterialPageRoute(builder: (context) => LoginScreen());
       case AppRouteNames.registerScreenRoute:
         return MaterialPageRoute(builder: (context) => RegisterScreen());
       case AppRouteNames.forgotPasswordScreenRoute:
         return MaterialPageRoute(builder: (context) => ForgotPasswordScreen());
+
+      case AppRouteNames.completeAddDataScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => CompleteAddDataScreen(),
+          settings: settings,
+        );
+
+      case AppRouteNames.myDetailsScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => MyDetailsScreen(),
+          settings: settings,
+        );
+
+      case AppRouteNames.myOrdersScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => MyOrdersScreen(),
+          settings: settings,
+        );
+      case AppRouteNames.orderDetailsScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => MyOrdersScreen(),
+          settings: settings,
+        );
+
+      case AppRouteNames.addressBookScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => AddressBookScreen(),
+          settings: settings,
+        );
+
+      // Settings Screen Route
+      case AppRouteNames.settingsScreenRoute:
+        return MaterialPageRoute(builder: (context) => SettingsScreen());
 
       default:
         return MaterialPageRoute(

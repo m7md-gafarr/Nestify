@@ -1,0 +1,49 @@
+import 'package:depi_graduation_project/core/router/route_names.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class CategoryListTileWidget extends StatelessWidget {
+  final String categoryName;
+  final String imageAsset;
+  final String categoryId;
+
+  const CategoryListTileWidget({
+    super.key,
+    required this.categoryName,
+    required this.imageAsset,
+    required this.categoryId,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          AppRouteNames.catalogScreenRoute,
+          arguments: [categoryId, categoryName],
+        );
+      },
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        minVerticalPadding: 20.h,
+        leading: Container(
+          width: 36.w,
+          height: 36.w,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(50.r),
+            image: DecorationImage(
+              image: NetworkImage(imageAsset),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        title: Text(
+          categoryName,
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+      ),
+    );
+  }
+}

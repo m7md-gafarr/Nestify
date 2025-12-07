@@ -53,4 +53,32 @@ class ValidationUtils {
 
     return null;
   }
+
+  static String? fullNameValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Full name is required';
+    }
+    return null;
+  }
+
+  static String? phoneNumberValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Phone number is required';
+    }
+
+    final phoneRegex = RegExp(r'^(10|11|12|15)[0-9]{8}$');
+
+    if (!phoneRegex.hasMatch(value)) {
+      return 'Invalid Egyptian phone number';
+    }
+
+    return null;
+  }
+
+  static String? addressValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Address is required';
+    }
+    return null;
+  }
 }
