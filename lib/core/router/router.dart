@@ -33,7 +33,6 @@ class AppRouter {
           builder: (context) => MainScreen(key: mainScreenKey),
         );
 
-      // Home Screen Routes
       case AppRouteNames.mainScreenRoute:
         return MaterialPageRoute(builder: (context) => MainScreen());
       case AppRouteNames.categoriesScreenRoute:
