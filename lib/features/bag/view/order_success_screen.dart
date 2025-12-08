@@ -26,6 +26,10 @@ class OrderSuccessScreen extends StatelessWidget {
             width: 160.w,
             height: 160.w,
             fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Theme.of(context).colorScheme.onSurface,
+              BlendMode.srcIn,
+            ),
           ),
           Text(
             "your order is placed",

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:depi_graduation_project/components/custom_app_bar_widget.dart';
 
 import 'package:depi_graduation_project/data/services/account_service/user_firestore_service.dart';

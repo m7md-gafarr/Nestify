@@ -1,3 +1,4 @@
+import 'package:depi_graduation_project/components/custom_app_bar_widget.dart';
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
 import 'package:depi_graduation_project/core/utils/dialog/dialog_helper.dart';
 import 'package:depi_graduation_project/core/utils/validation_utils.dart';
@@ -40,6 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBarWidget(title: ""),
       body: Form(
         key: formKey,
         child: SingleChildScrollView(
@@ -49,7 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 120.h),
+                  SizedBox(height: 40.h),
                   Align(
                     alignment: AlignmentGeometry.centerLeft,
                     child: RichText(

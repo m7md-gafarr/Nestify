@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:depi_graduation_project/generated/assets.dart';
 import 'package:depi_graduation_project/main.dart';
 import 'package:flutter/material.dart';

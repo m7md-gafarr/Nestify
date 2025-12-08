@@ -54,7 +54,10 @@ class _IntroducationScreenState extends State<IntroducationScreen> {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
+                  colors: [
+                    Colors.transparent,
+                    Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                  ],
                 ),
               ),
               child: Center(

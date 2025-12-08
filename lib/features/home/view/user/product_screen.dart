@@ -460,19 +460,31 @@ class _ProductScreenState extends State<ProductScreen> {
                                 style: Theme.of(context).textTheme.titleLarge!
                                     .copyWith(fontWeight: FontWeight.bold),
                               ),
-                              TextButton(
-                                onPressed: () =>
-                                    navigatorToNewReviews(context, product),
-                                child: Text(
-                                  "Add Review",
-                                  style: Theme.of(context).textTheme.labelLarge!
-                                      .copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: Theme.of(
-                                          context,
-                                        ).colorScheme.primary,
+                              BlocBuilder<GetUserDataCubit, GetUserDataState>(
+                                builder: (context, state) {
+                                  if (state is GetUserNotLoggedIn) {
+                                    return SizedBox.shrink();
+                                  } else {
+                                    return TextButton(
+                                      onPressed: () => navigatorToNewReviews(
+                                        context,
+                                        product,
                                       ),
-                                ),
+                                      child: Text(
+                                        "Add Review",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge!
+                                            .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              color: Theme.of(
+                                                context,
+                                              ).colorScheme.primary,
+                                            ),
+                                      ),
+                                    );
+                                  }
+                                },
                               ),
                             ],
                           ),

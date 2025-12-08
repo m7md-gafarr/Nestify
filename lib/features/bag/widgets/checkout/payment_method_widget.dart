@@ -1,5 +1,4 @@
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
-import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/features/bag/logic/checkout/checkout_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
