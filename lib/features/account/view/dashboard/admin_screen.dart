@@ -1,4 +1,5 @@
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:depi_graduation_project/features/home/view/dashboard/add_best_category_screen.dart';
 import 'package:depi_graduation_project/features/home/view/dashboard/add_product_screen.dart';
 import 'package:depi_graduation_project/features/home/view/dashboard/add_promo_code_screen.dart';
@@ -20,7 +21,9 @@ class AdminScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomSectionHeaderWidget(title: 'Admin Dashboard'),
+              CustomSectionHeaderWidget(
+                title: S.of(context).adminDashboardTitle,
+              ),
               SizedBox(height: 25.h),
 
               Expanded(
@@ -35,7 +38,7 @@ class AdminScreen extends StatelessWidget {
                   children: [
                     _DashboardCard(
                       icon: Iconsax.add_square,
-                      label: "Add Products",
+                      label: S.of(context).adminAddProducts,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -45,7 +48,7 @@ class AdminScreen extends StatelessWidget {
                     ),
                     _DashboardCard(
                       icon: Iconsax.add_square,
-                      label: "Add Best Categories ",
+                      label: S.of(context).adminAddBestCategories,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -57,7 +60,7 @@ class AdminScreen extends StatelessWidget {
                     ),
                     _DashboardCard(
                       icon: Iconsax.add_square,
-                      label: "Add Rooms",
+                      label: S.of(context).adminAddRooms,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -67,7 +70,7 @@ class AdminScreen extends StatelessWidget {
                     ),
                     _DashboardCard(
                       icon: Iconsax.add_square,
-                      label: "Add Room Categories",
+                      label: S.of(context).adminAddRoomCategories,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -80,7 +83,7 @@ class AdminScreen extends StatelessWidget {
 
                     _DashboardCard(
                       icon: Iconsax.add_square,
-                      label: "Add Promo Codes",
+                      label: S.of(context).adminAddPromoCodes,
                       onTap: () {
                         Navigator.push(
                           context,

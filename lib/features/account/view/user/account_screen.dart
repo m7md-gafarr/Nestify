@@ -3,6 +3,7 @@ import 'package:depi_graduation_project/components/shimmer_network_image_widget.
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
 import 'package:depi_graduation_project/data/services/account_service/auth_service.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 
 import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/view/dashboard/admin_screen.dart';
@@ -44,7 +45,9 @@ class _AccountScreenState extends State<AccountScreen> {
                         MaterialPageRoute(builder: (context) => AdminScreen()),
                       );
                     },
-                    child: CustomSectionHeaderWidget(title: 'my account'),
+                    child: CustomSectionHeaderWidget(
+                      title: S.of(context).accountMyAccount,
+                    ),
                   ),
                   SizedBox(height: 20.h),
                   ListTile(
@@ -75,7 +78,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(Iconsax.bag_2, size: 24.sp),
                     title: Text(
-                      'My orders',
+                      S.of(context).accountMyOrders,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
@@ -91,7 +94,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(Iconsax.user, size: 24.sp),
                     title: Text(
-                      'My Details',
+                      S.of(context).accountMyDetails,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
@@ -109,7 +112,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(Iconsax.location, size: 24.sp),
                     title: Text(
-                      'Address book',
+                      S.of(context).accountAddressBook,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
@@ -126,7 +129,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(Iconsax.setting, size: 24.sp),
                     title: Text(
-                      'Setting',
+                      S.of(context).accountSetting,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
@@ -146,7 +149,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       color: Colors.red,
                     ),
                     title: Text(
-                      'Logout',
+                      S.of(context).accountLogout,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w500,
                         color: Colors.red,
@@ -160,26 +163,26 @@ class _AccountScreenState extends State<AccountScreen> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           title: Text(
-                            "are you sure you want to sign out?",
+                            S.of(context).accountLogoutTitle,
                             textAlign: TextAlign.center,
                           ),
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                "We definitely don't want that",
+                                S.of(context).accountLogoutMessage,
                                 textAlign: TextAlign.center,
                               ),
                               SizedBox(height: 20.h),
                               ElevatedButton(
-                                child: Text("No, I want to stay"),
+                                child: Text(S.of(context).accountLogoutStay),
                                 onPressed: () async {
                                   Navigator.pop(context);
                                 },
                               ),
                               SizedBox(height: 10.h),
                               OutlinedButton(
-                                child: Text("Yep, sign out"),
+                                child: Text(S.of(context).accountLogoutConfirm),
                                 onPressed: () async {
                                   Navigator.pop(context);
                                   AuthService().logout();

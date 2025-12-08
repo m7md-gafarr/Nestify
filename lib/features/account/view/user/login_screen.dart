@@ -7,6 +7,7 @@ import 'package:depi_graduation_project/features/account/logic/get_user_data/get
 import 'package:depi_graduation_project/features/account/logic/login/login_cubit.dart';
 import 'package:depi_graduation_project/features/bag/logic/bag/bag_cubit.dart';
 import 'package:depi_graduation_project/features/saved_items/logic/saved_items/saved_items_cubit.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -49,20 +50,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 40.h),
                   Align(
                     alignment: AlignmentGeometry.centerLeft,
-                    child: CustomSectionHeaderWidget(title: 'Nestify'),
+                    child: CustomSectionHeaderWidget(
+                      title: S.of(context).loginTitle,
+                    ),
                   ),
                   SizedBox(height: 40.h),
 
                   RichText(
                     text: TextSpan(
-                      text: 'Welcome Back',
+                      text: S.of(context).loginWelcomeBack,
                       style: Theme.of(
                         context,
                       ).textTheme.headlineSmall!.copyWith(fontSize: 20.sp),
                       children: [
                         TextSpan(
-                          text:
-                              ' ,If you don’t have an account register You can ',
+                          text: S.of(context).loginNoAccount,
                           style: Theme.of(
                             context,
                           ).textTheme.titleSmall!.copyWith(fontSize: 16.sp),
@@ -75,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                         ),
                         TextSpan(
-                          text: 'Register here !',
+                          text: S.of(context).loginRegisterHere,
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               Navigator.pushNamed(
@@ -100,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: _emailController,
                     decoration: InputDecoration(
-                      hintText: 'Email',
+                      hintText: S.of(context).loginEmail,
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -111,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: _passwordController,
                     decoration: InputDecoration(
-                      hintText: 'Password',
+                      hintText: S.of(context).loginPassword,
                       border: OutlineInputBorder(),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -132,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       },
                       child: Text(
-                        'Forgot password ?',
+                        S.of(context).loginForgotPassword,
                         style: Theme.of(context).textTheme.bodyMedium,
                         textAlign: TextAlign.center,
                       ),
@@ -157,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ).showErrorDialog(message: state.errorMessage);
                         } else if (state is LoginNoInternet) {
                           DialogHelper(context).showNoInternetDialog(
-                            message: "No Internet Connection",
+                            message: S.of(context).loginNoInternet,
                           );
                         } else if (state is LoginSuccess) {
                           context.read<GetUserDataCubit>().getUserData();
@@ -185,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (state is LoginLoading) {
                           return CircularProgressIndicator(color: Colors.white);
                         } else {
-                          return Text('Login');
+                          return Text(S.of(context).loginButton);
                         }
                       },
                     ),
@@ -195,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: AlignmentGeometry.center,
                     child: Text(
-                      "or continue with",
+                      S.of(context).loginContinueWith,
                       style: Theme.of(context).textTheme.bodyLarge,
                       textAlign: TextAlign.center,
                     ),

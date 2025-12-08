@@ -4,6 +4,7 @@ import 'package:depi_graduation_project/features/account/logic/address_book/addr
 import 'package:depi_graduation_project/features/account/widgets/address_book/shimmer/location_tile_widget_shimmer.dart';
 import 'package:depi_graduation_project/features/account/widgets/address_book/location_tile_widget.dart';
 import 'package:depi_graduation_project/features/account/widgets/address_book/empty_address_book_widget.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +15,7 @@ class AddressBookScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBarWidget(title: "Address Book"),
+      appBar: CustomAppBarWidget(title: S.of(context).addressBookTitle),
       body: BlocBuilder<AddressBookCubit, AddressBookState>(
         builder: (context, state) {
           if (state is AddressBookLoading) {
@@ -58,14 +59,14 @@ class AddressBookScreen extends StatelessWidget {
                           AppRouteNames.addNewAddressBookScreenRoute,
                         );
                       },
-                      child: const Text("Add New Address"),
+                      child: Text(S.of(context).addressBookAddNew),
                     ),
                   ),
                 ],
               );
             }
           } else {
-            return const Center(child: Text('No addresses found.'));
+            return Center(child: Text(S.of(context).addressBookNoAddresses));
           }
         },
       ),

@@ -9,6 +9,7 @@ import 'package:depi_graduation_project/features/bag/models/order/order_model.da
 import 'package:depi_graduation_project/features/bag/models/order/payment_details_model.dart';
 import 'package:depi_graduation_project/features/bag/models/order/product_items_model.dart';
 import 'package:depi_graduation_project/features/bag/widgets/checkout/payment_method_widget.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -95,9 +96,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       appBar: AppBar(
         title: Column(
           children: [
-            Text('Checkout', style: Theme.of(context).textTheme.titleMedium),
             Text(
-              'Step ${_currentPage + 1} of $_totalPages',
+              S.of(context).checkoutTitle,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            Text(
+              '${S.of(context).checkoutStep} ${_currentPage + 1} ${S.of(context).checkoutOf} $_totalPages',
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ],

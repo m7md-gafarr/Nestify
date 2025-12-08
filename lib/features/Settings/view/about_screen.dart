@@ -1,4 +1,5 @@
 import 'package:depi_graduation_project/components/custom_app_bar_widget.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -8,52 +9,45 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      appBar: CustomAppBarWidget(title: "About"),
+      appBar: CustomAppBarWidget(title: S.of(context).aboutTitle),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Nestify', style: textTheme.headlineSmall),
+              Text(S.of(context).aboutAppName, style: textTheme.headlineSmall),
               const SizedBox(height: 8),
-              Text(
-                'Nestify helps you discover and furnish spaces you love with curated rooms, products, and inspiration.',
-                style: textTheme.bodyMedium,
-              ),
+              Text(S.of(context).aboutAppDesc, style: textTheme.bodyMedium),
               const SizedBox(height: 20),
 
-              Text('Our Mission', style: textTheme.titleLarge),
-              const SizedBox(height: 8),
               Text(
-                'Make home styling simple, delightful, and accessible by blending thoughtful design with seamless shopping.',
-                style: textTheme.bodyMedium,
+                S.of(context).aboutMissionTitle,
+                style: textTheme.titleLarge,
               ),
+              const SizedBox(height: 8),
+              Text(S.of(context).aboutMissionBody, style: textTheme.bodyMedium),
               const SizedBox(height: 20),
 
-              Text('What You Can Do', style: textTheme.titleLarge),
+              Text(
+                S.of(context).aboutWhatYouCanDoTitle,
+                style: textTheme.titleLarge,
+              ),
               const SizedBox(height: 8),
-              const _Bullet(
-                text: 'Browse curated rooms and categories for inspiration.',
-              ),
-              const _Bullet(
-                text: 'Save items you love and build your bag effortlessly.',
-              ),
-              const _Bullet(
-                text:
-                    'Manage your profile, addresses, and orders from one place.',
-              ),
+              _Bullet(text: S.of(context).aboutWhatYouCanDoItem1),
+              _Bullet(text: S.of(context).aboutWhatYouCanDoItem2),
+              _Bullet(text: S.of(context).aboutWhatYouCanDoItem3),
               const SizedBox(height: 20),
 
-              Text('Contact', style: textTheme.titleLarge),
-              const SizedBox(height: 8),
               Text(
-                'Have feedback or need help? Reach us at support@nesti-fy.app.',
-                style: textTheme.bodyMedium,
+                S.of(context).aboutContactTitle,
+                style: textTheme.titleLarge,
               ),
+              const SizedBox(height: 8),
+              Text(S.of(context).aboutContactBody, style: textTheme.bodyMedium),
               const SizedBox(height: 30),
 
-              Text('Version 1.0.0', style: textTheme.bodySmall),
+              Text(S.of(context).aboutVersion, style: textTheme.bodySmall),
             ],
           ),
         ),

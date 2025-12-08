@@ -1,5 +1,6 @@
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
 import 'package:depi_graduation_project/features/bag/logic/checkout/checkout_cubit.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,7 +28,7 @@ class PaymentMethodWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 40.h),
-          const CustomSectionHeaderWidget(title: 'Payment method'),
+          CustomSectionHeaderWidget(title: S.of(context).checkoutPaymentMethod),
 
           SizedBox(height: 20.h),
 
@@ -74,7 +75,7 @@ class PaymentMethodWidget extends StatelessWidget {
                   );
                 }
                 return Text(
-                  'Pay \$${total.toStringAsFixed(2)}',
+                  '${S.of(context).checkoutPay} \$${total.toStringAsFixed(2)}',
                   style: TextStyle(fontSize: 18.sp),
                 );
               },

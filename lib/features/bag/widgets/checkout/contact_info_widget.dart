@@ -1,4 +1,5 @@
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/utils/validation_utils.dart';
@@ -31,7 +32,9 @@ class CheckoutContactInfoWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(height: 40.h),
-              const CustomSectionHeaderWidget(title: 'Contact info'),
+              CustomSectionHeaderWidget(
+                title: S.of(context).checkoutContactInfo,
+              ),
 
               SizedBox(height: 20.h),
 
@@ -39,8 +42,8 @@ class CheckoutContactInfoWidget extends StatelessWidget {
                 controller: fullNameController,
                 keyboardType: TextInputType.name,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: const InputDecoration(
-                  hintText: 'Full name',
+                decoration: InputDecoration(
+                  hintText: S.of(context).checkoutFullName,
                   border: OutlineInputBorder(),
                 ),
                 validator: ValidationUtils.fullNameValidator,
@@ -54,7 +57,7 @@ class CheckoutContactInfoWidget extends StatelessWidget {
                 maxLength: 10,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
-                  hintText: 'Phone Number',
+                  hintText: S.of(context).checkoutPhoneNumber,
                   prefixText: '+20 ',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.r),
@@ -67,14 +70,17 @@ class CheckoutContactInfoWidget extends StatelessWidget {
                 controller: emailController,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  hintText: 'Email',
+                decoration: InputDecoration(
+                  hintText: S.of(context).checkoutEmail,
                   border: OutlineInputBorder(),
                 ),
                 validator: ValidationUtils.emailValidator,
               ),
               SizedBox(height: 40.h),
-              ElevatedButton(onPressed: onNext, child: Text("Next")),
+              ElevatedButton(
+                onPressed: onNext,
+                child: Text(S.of(context).checkoutNext),
+              ),
               SizedBox(height: 20.h),
             ],
           ),

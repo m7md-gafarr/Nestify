@@ -1,4 +1,5 @@
 import 'package:depi_graduation_project/core/utils/date_utils.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
@@ -45,23 +46,27 @@ class DeliveryDetailsWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 40.h),
-                    const CustomSectionHeaderWidget(title: 'delivery method'),
+                    CustomSectionHeaderWidget(
+                      title: S.of(context).checkoutDeliveryMethod,
+                    ),
                     MethodOption(
                       icon: Icon(Icons.directions_car, size: 28.sp),
-                      title: 'By courier',
-                      subtitle: 'Tomorrow, any time',
+                      title: S.of(context).checkoutByCourier,
+                      subtitle: S.of(context).checkoutCourierTime,
                       isSelected: selectedDeliveryMethod == 'courier',
                       onTap: () => onDeliveryMethodChanged('courier'),
                     ),
                     MethodOption(
                       icon: Icon(Icons.shopping_cart_outlined, size: 28.sp),
-                      title: 'I\'ll take it myself',
-                      subtitle: 'Any day from tomorrow',
+                      title: S.of(context).checkoutPickup,
+                      subtitle: S.of(context).checkoutPickupTime,
                       isSelected: selectedDeliveryMethod == 'pickup',
                       onTap: () => onDeliveryMethodChanged('pickup'),
                     ),
                     SizedBox(height: 16.h),
-                    const CustomSectionHeaderWidget(title: 'delivery address'),
+                    CustomSectionHeaderWidget(
+                      title: S.of(context).checkoutDeliveryAddress,
+                    ),
                     SizedBox(height: 8.h),
                     DeliveryAddressCard(
                       address: 'London, 221B Baker Street',
@@ -69,7 +74,9 @@ class DeliveryDetailsWidget extends StatelessWidget {
                       onTap: () {},
                     ),
                     SizedBox(height: 16.h),
-                    const CustomSectionHeaderWidget(title: 'delivery time'),
+                    CustomSectionHeaderWidget(
+                      title: S.of(context).checkoutDeliveryTime,
+                    ),
                     SizedBox(height: 16.h),
                     SizedBox(
                       height: 40.h,
@@ -114,7 +121,7 @@ class DeliveryDetailsWidget extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 50.h),
                       ),
-                      child: const Text('Continue'),
+                      child: Text(S.of(context).checkoutContinue),
                     ),
                     SizedBox(height: 24.h),
                   ],

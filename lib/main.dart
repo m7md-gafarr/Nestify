@@ -5,7 +5,6 @@ import 'package:depi_graduation_project/core/theme/app_theme/app_theme_light.dar
 import 'package:depi_graduation_project/core/utils/language/language_cubit.dart';
 import 'package:depi_graduation_project/core/utils/language/language_state.dart';
 import 'package:depi_graduation_project/core/utils/theme/theme_cubit.dart';
-import 'package:depi_graduation_project/core/utils/theme/theme_provider.dart';
 import 'package:depi_graduation_project/core/utils/theme/theme_state.dart';
 import 'package:depi_graduation_project/data/services/home_service/best_category_service.dart';
 import 'package:depi_graduation_project/features/account/logic/address_book/address_book_cubit.dart';
@@ -18,7 +17,6 @@ import 'package:depi_graduation_project/features/home/logic/new_review/new_revie
 import 'package:depi_graduation_project/features/home/logic/subscribes/subscribes_cubit.dart';
 import 'package:depi_graduation_project/features/home/view/user/main_screen.dart';
 import 'package:depi_graduation_project/features/no_internet/logic/check_connection/check_connection_cubit.dart';
-import 'package:depi_graduation_project/core/utils/language/language.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
 import 'package:depi_graduation_project/data/services/supabase_storage_service.dart';
 import 'package:depi_graduation_project/data/services/account_service/user_firestore_service.dart';

@@ -1,4 +1,5 @@
 import 'package:depi_graduation_project/features/bag/logic/promo_code/promo_code_cubit.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,7 +27,7 @@ class TotalSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Total',
+                  S.of(context).bagTotal,
                   style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.sp,
@@ -44,7 +45,7 @@ class TotalSection extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Promocode', style: textTheme.bodyMedium),
+                Text(S.of(context).bagPromocode, style: textTheme.bodyMedium),
                 Text(
                   '-\$${discount.toStringAsFixed(2)}',
                   style: textTheme.bodyMedium,

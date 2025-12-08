@@ -7,6 +7,7 @@ import 'package:depi_graduation_project/features/bag/logic/promo_code/promo_code
 import 'package:depi_graduation_project/features/bag/widgets/bag_empty_widget.dart';
 import 'package:depi_graduation_project/features/bag/widgets/bag_item_tile.dart';
 import 'package:depi_graduation_project/features/bag/widgets/total_section.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +37,7 @@ class BagScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 60.h),
-                      CustomSectionHeaderWidget(title: 'bag'),
+                      CustomSectionHeaderWidget(title: S.of(context).bagTitle),
                       SizedBox(height: 35.h),
                       BlocBuilder<BagCubit, BagState>(
                         builder: (context, state) {
@@ -109,7 +110,7 @@ class BagScreen extends StatelessWidget {
                                 ),
                                 SizedBox(height: 20.h),
                                 Text(
-                                  'Promo Code',
+                                  S.of(context).bagPromoCode,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineSmall!
@@ -120,7 +121,9 @@ class BagScreen extends StatelessWidget {
                                 ),
                                 SizedBox(height: 8.h),
                                 TextField(
-                                  decoration: InputDecoration(hintText: 'Code'),
+                                  decoration: InputDecoration(
+                                    hintText: S.of(context).bagPromoCodeHint,
+                                  ),
                                   onChanged: (value) {
                                     context
                                         .read<PromoCodeCubit>()
@@ -138,7 +141,7 @@ class BagScreen extends StatelessWidget {
                                       arguments: [total, state.bagModel],
                                     );
                                   },
-                                  child: const Text('Continue'),
+                                  child: Text(S.of(context).bagContinue),
                                 ),
                                 SizedBox(height: 20.h),
                               ],
