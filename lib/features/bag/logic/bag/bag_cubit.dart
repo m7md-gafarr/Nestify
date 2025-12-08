@@ -57,13 +57,25 @@ class BagCubit extends Cubit<BagState> {
     _emitLoadedState();
   }
 
+  void addItem(BagItem item) {
+    final existingIndex = _items.indexWhere((i) => i.id == item.id);
+    if (existingIndex != -1) {
+      // Item already exists, increment quantity
+      _items[existingIndex].quantity += item.quantity;
+    } else {
+      // New item, add to bag
+      _items.add(item);
+    }
+    _emitLoadedState();
+  }
+
   void removeItem(BagItem item) {
-    _items.remove(item);
+    _items.removeWhere((i) => i.id == item.id);
     _emitLoadedState();
   }
 
   void incrementQuantity(BagItem item) {
-    final index = _items.indexOf(item);
+    final index = _items.indexWhere((i) => i.id == item.id);
     if (index != -1) {
       _items[index].quantity++;
       _emitLoadedState();
@@ -71,7 +83,7 @@ class BagCubit extends Cubit<BagState> {
   }
 
   void decrementQuantity(BagItem item) {
-    final index = _items.indexOf(item);
+    final index = _items.indexWhere((i) => i.id == item.id);
     if (index != -1 && _items[index].quantity > 1) {
       _items[index].quantity--;
       _emitLoadedState();
@@ -80,3 +92,4 @@ class BagCubit extends Cubit<BagState> {
 
   bool get isEmpty => _items.isEmpty;
 }
+

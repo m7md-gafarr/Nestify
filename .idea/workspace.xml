@@ -11,12 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="338b567e-732d-48c9-81a3-e878d3cacfb7" name="Changes" comment="bag update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/router/router.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/router/router.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/features/bag/logic/bag/bag_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/bag/logic/bag/bag_cubit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/bag/view/bag_filled_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/bag/view/bag_filled_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/bag/view/bag_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/bag/view/bag_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/bag/view/checkout_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/bag/view/checkout_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/bag/models/bag_view_model.dart" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +55,9 @@
     &quot;accountId&quot;: &quot;9545683d-690b-40eb-998e-38f1f89632c3&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -142,7 +141,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765012637301</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="bag update">
+      <option name="closed" value="true" />
+      <created>1765120853765</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1765120853765</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
