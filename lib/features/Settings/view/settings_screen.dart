@@ -84,39 +84,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
           ListTile(
             title: Text(S.of(context).settingsPrivacyPolicy),
-            trailing: IconButton(
-              icon: Icon(Icons.arrow_forward_ios),
-              iconSize: 16.sp,
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  AppRouteNames.privacyPolicyScreenRoute,
-                );
-              },
-            ),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                AppRouteNames.privacyPolicyScreenRoute,
+              );
+            },
+            trailing: Icon(Icons.arrow_forward_ios, size: 16.sp),
           ),
+
           ListTile(
             title: Text(S.of(context).settingsTerms),
-            trailing: IconButton(
-              icon: Icon(Icons.arrow_forward_ios),
-              iconSize: 16.sp,
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  AppRouteNames.termsAndConditionsScreenRoute,
-                );
-              },
-            ),
+
+            trailing: Icon(Icons.arrow_forward_ios, size: 16.sp),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                AppRouteNames.termsAndConditionsScreenRoute,
+              );
+            },
           ),
+
           ListTile(
             title: Text(S.of(context).settingsAbout),
-            trailing: IconButton(
-              icon: Icon(Icons.arrow_forward_ios),
-              iconSize: 16.sp,
-              onPressed: () {
-                Navigator.pushNamed(context, AppRouteNames.aboutScreenRoute);
-              },
-            ),
+            trailing: Icon(Icons.arrow_forward_ios, size: 16.sp),
+            onTap: () {
+              Navigator.pushNamed(context, AppRouteNames.aboutScreenRoute);
+            },
           ),
           Spacer(),
 
