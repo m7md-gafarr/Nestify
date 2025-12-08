@@ -1,19 +1,24 @@
+![Nestify App](./assets/banner.jpg)
+
 # Nestify – Home & Décor Shopping App
 
 ## Description
 
-Nestify is a Flutter mobile app for browsing home décor and room setups, managing a cart and saved items, and handling user accounts with Firebase Auth and Firestore. It includes onboarding, localization, theming, and connectivity-aware UI, with Supabase storage for media and shared preferences for onboarding/login state.
+Nestify is a fully localized (English/Arabic) Flutter mobile app for browsing home décor and room setups, managing a cart and saved items, and handling user accounts with Firebase Auth and Firestore. It includes onboarding, complete i18n localization with ARB files, light/dark theming with RTL support, connectivity-aware UI, Supabase storage for media, and shared preferences for onboarding/login state.
 
 ## Features
 
 - Onboarding flow that hands off to the main experience once completed
 - Email/password auth (register, login, password reset) via Firebase Auth
+- **Full bilingual support** (English/Arabic) with ARB-based localization (300+ translation keys)
+- **RTL/LTR layouts** with directional UI components for seamless Arabic experience
 - Home feed with categories, rooms, product catalog, product details, and reviews
 - Cart/Bag with quantity updates and real-time sync in Firestore
 - Saved items (wishlist) per user
 - Best categories and curated catalogs backed by Firestore collections
 - Connectivity checking with offline fallback screen
-- Localization-ready (Intl + generated `S` delegate) and light/dark theming
+- **Localized form validation** with context-aware error messages
+- Light/dark theming with RTL-aware components
 - Supabase storage helper for media uploads; SharedPreferences for local flags
 - Responsive layout with `flutter_screenutil`
 
@@ -41,14 +46,14 @@ lib/
 			saved_item_service/      # Wishlist persistence
 			supabase_storage_service.dart # Media uploads
 	features/
-		introducation/             # Onboarding screen
-		home/                      # Logic/models/views for home, catalog, products
-		bag/                       # Cart UI + state
-		saved_items/               # Wishlist UI + state
-		account/                   # Login/Register/Password reset/Profile/Orders
+		introducation/             # Onboarding screen (localized)
+		home/                      # Logic/models/views for home, catalog, products (localized)
+		bag/                       # Cart UI + state (localized)
+		saved_items/               # Wishlist UI + state (localized)
+		account/                   # Login/Register/Password reset/Profile/Orders (localized)
 		Settings/                  # Settings screen
-		no_internet/               # Offline UI
-	generated/, l10n/            # Intl localization outputs
+		no_internet/               # Offline UI (localized)
+	generated/, l10n/            # Intl localization outputs & ARB files (intl_en.arb, intl_ar.arb)
 assets/
 	images/, logo/, fonts/       # App assets and Cairo font family
 public/                        # Web hosting assets (if using Flutter web)
@@ -61,9 +66,10 @@ android/, ios/, macos/, linux/, windows/ # Platform projects
 - State management: `flutter_bloc`, `bloc`, `provider`
 - Firebase: `firebase_core`, `firebase_auth`, `cloud_firestore`
 - Supabase: `supabase_flutter` (storage uploads)
+- Localization: `intl ^0.19.0`, `flutter_localizations` with ARB files (300+ keys for English/Arabic)
 - UI/UX: `flutter_screenutil`, `animations`, `cached_network_image`, `shimmer`, `lottie`, `smooth_page_indicator`
 - Assets & media: `flutter_svg`, `image_picker`
-- Utilities: `shared_preferences`, `intl`, `url_launcher`, `connectivity_plus`
+- Utilities: `shared_preferences`, `url_launcher`, `connectivity_plus`
 
 ## Installation & Setup
 
@@ -100,6 +106,8 @@ android/, ios/, macos/, linux/, windows/ # Platform projects
 - Storage: `SupabaseStorageService` for uploads
 - Local storage: `SharedPreferencesService` for onboarding/login flags
 - Connectivity: `CheckConnectionCubit` with `NoInternetScreen`
+- **Localization**: ARB-based i18n with `lib/l10n/intl_en.arb` and `lib/l10n/intl_ar.arb` (300+ translation keys), generated via `flutter gen-l10n`
+- **Validation**: `ValidationUtils` with context-aware localized error messages for forms
 
 ## Testing
 
