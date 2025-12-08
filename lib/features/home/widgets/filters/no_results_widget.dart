@@ -1,5 +1,4 @@
 import 'package:depi_graduation_project/core/images/app_images.dart';
-import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,7 +26,7 @@ class NoResultsWidget extends StatelessWidget {
           ),
           SizedBox(height: 10.h),
           Text(
-            S.of(context).noResultsMessage,
+            message,
             style: Theme.of(context).textTheme.headlineSmall,
             textAlign: TextAlign.center,
           ),
