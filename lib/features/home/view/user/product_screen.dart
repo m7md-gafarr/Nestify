@@ -50,6 +50,7 @@ class _ProductScreenState extends State<ProductScreen> {
               product = state.products.firstWhere((p) => p.id == args.id);
             } catch (_) {}
           }
+
           return Stack(
             children: [
               SingleChildScrollView(

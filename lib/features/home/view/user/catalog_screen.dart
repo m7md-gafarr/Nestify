@@ -165,13 +165,13 @@ class _CatalogScreenState extends State<CatalogScreen> {
                       }
 
                       originalProducts = productState.products;
-                      if (!pricesInitialized) {
-                        final maxPrice = originalProducts
+                      if (!pricesInitialized && originalProducts.isNotEmpty) {
+                        final prices = originalProducts
                             .map((p) => p.price)
-                            .reduce((a, b) => a > b ? a : b);
-                        final minPrice = originalProducts
-                            .map((p) => p.price)
-                            .reduce((a, b) => a < b ? a : b);
+                            .toList();
+
+                        final maxPrice = prices.reduce((a, b) => a > b ? a : b);
+                        final minPrice = prices.reduce((a, b) => a < b ? a : b);
 
                         context.read<FilterAndSortCubit>().setMinMax(
                           minPrice,
