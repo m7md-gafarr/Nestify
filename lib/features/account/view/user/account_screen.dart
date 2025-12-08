@@ -3,11 +3,11 @@ import 'package:depi_graduation_project/components/shimmer_network_image_widget.
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
 import 'package:depi_graduation_project/data/services/account_service/auth_service.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 
 import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/view/dashboard/admin_screen.dart';
 import 'package:depi_graduation_project/features/account/widgets/empty_account_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,32 +21,18 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-  bool isLoggedIn = false;
-
-  @override
-  @override
-  void initState() {
-    super.initState();
-    loadUser();
-  }
-
-  Future<void> loadUser() async {
-    final currentUser = FirebaseAuth.instance.currentUser;
-
-    if (currentUser == null) {
-      setState(() => isLoggedIn = false);
-      return;
-    }
-
-    setState(() => isLoggedIn = true);
-    context.read<GetUserDataCubit>().getUserData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoggedIn == true
-          ? Padding(
+      body: BlocBuilder<GetUserDataCubit, GetUserDataState>(
+        builder: (context, state) {
+          if (state is GetUserNotLoggedIn) {
+            return const EmptyAccountWidget();
+          } else if (state is GetUserDataLoading ||
+              state is GetUserDataInitial) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is GetUserDataSuccess) {
+            return Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,41 +45,32 @@ class _AccountScreenState extends State<AccountScreen> {
                         MaterialPageRoute(builder: (context) => AdminScreen()),
                       );
                     },
-                    child: CustomSectionHeaderWidget(title: 'my account'),
+                    child: CustomSectionHeaderWidget(
+                      title: S.of(context).accountMyAccount,
+                    ),
                   ),
                   SizedBox(height: 20.h),
-                  BlocBuilder<GetUserDataCubit, GetUserDataState>(
-                    builder: (context, state) {
-                      if (state is GetUserDataSuccess) {
-                        return ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: ShimmerNetworkImage(
-                            imageUrl: state.userModel.profileImageUrl!,
-                            width: 50.w,
-                            height: 50.w,
-                            borderRadius: BorderRadius.circular(50.r),
-                            fit: BoxFit.cover,
-                          ),
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: ShimmerNetworkImage(
+                      imageUrl: state.userModel.profileImageUrl!,
+                      width: 50.w,
+                      height: 50.w,
+                      borderRadius: BorderRadius.circular(50.r),
+                      fit: BoxFit.cover,
+                    ),
 
-                          title: Text(
-                            state.userModel.fullName,
-                            style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          subtitle: Text(
-                            state.userModel.phoneNumber,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        );
-                      } else {
-                        return Center(child: CircularProgressIndicator());
-                      }
-                    },
+                    title: Text(
+                      state.userModel.fullName,
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    subtitle: Text(
+                      state.userModel.phoneNumber,
+                      style: TextStyle(fontSize: 14.sp, color: Colors.grey),
+                    ),
                   ),
 
                   SizedBox(height: 30.h),
@@ -101,7 +78,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(Iconsax.bag_2, size: 24.sp),
                     title: Text(
-                      'My orders',
+                      S.of(context).accountMyOrders,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
@@ -117,7 +94,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(Iconsax.user, size: 24.sp),
                     title: Text(
-                      'My Details',
+                      S.of(context).accountMyDetails,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
@@ -135,7 +112,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(Iconsax.location, size: 24.sp),
                     title: Text(
-                      'Address book',
+                      S.of(context).accountAddressBook,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
@@ -152,7 +129,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(Iconsax.setting, size: 24.sp),
                     title: Text(
-                      'Setting',
+                      S.of(context).accountSetting,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
@@ -172,7 +149,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       color: Colors.red,
                     ),
                     title: Text(
-                      'Logout',
+                      S.of(context).accountLogout,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w500,
                         color: Colors.red,
@@ -186,26 +163,26 @@ class _AccountScreenState extends State<AccountScreen> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           title: Text(
-                            "are you sure you want to sign out?",
+                            S.of(context).accountLogoutTitle,
                             textAlign: TextAlign.center,
                           ),
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                "We definitely don't want that",
+                                S.of(context).accountLogoutMessage,
                                 textAlign: TextAlign.center,
                               ),
                               SizedBox(height: 20.h),
                               ElevatedButton(
-                                child: Text("No, I want to stay"),
+                                child: Text(S.of(context).accountLogoutStay),
                                 onPressed: () async {
                                   Navigator.pop(context);
                                 },
                               ),
                               SizedBox(height: 10.h),
                               OutlinedButton(
-                                child: Text("Yep, sign out"),
+                                child: Text(S.of(context).accountLogoutConfirm),
                                 onPressed: () async {
                                   Navigator.pop(context);
                                   AuthService().logout();
@@ -226,8 +203,12 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                 ],
               ),
-            )
-          : EmptyAccountWidget(),
+            );
+          } else {
+            return const SizedBox.shrink();
+          }
+        },
+      ),
     );
   }
 }

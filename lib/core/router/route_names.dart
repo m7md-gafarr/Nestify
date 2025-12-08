@@ -14,6 +14,8 @@ class AppRouteNames {
   // Bag/Cart Feature
   static const String bagScreenRoute = "/bagScreenRoute";
   static const String checkoutScreenRoute = "/checkoutScreenRoute";
+  static const String orderConfirmationScreenRoute =
+      "/orderConfirmationScreenRoute";
 
   // Saved Items Feature
   static const String savedItemsScreenRoute = "/savedItemsScreenRoute";
@@ -33,7 +35,13 @@ class AppRouteNames {
   static const String addressBookScreenRoute = "/addressBookScreenRoute";
   static const String editAddressScreenRoute = "/editAddressScreenRoute";
   static const String paymentMethodsScreenRoute = "/paymentMethodsScreenRoute";
+  static const String addNewAddressBookScreenRoute =
+      "/addNewAddressBookScreenRoute";
 
   // Settings Feature
   static const String settingsScreenRoute = "/settingsScreenRoute";
+  static const String aboutScreenRoute = "/aboutScreenRoute";
+  static const String privacyPolicyScreenRoute = "/privacyPolicyScreenRoute";
+  static const String termsAndConditionsScreenRoute =
+      "/termsAndConditionsScreenRoute";
 }

@@ -25,6 +25,10 @@ class NoInternetScreen extends StatelessWidget {
                 Assets.assetsImagesSad,
                 width: 150.w,
                 height: 150.h,
+                colorFilter: ColorFilter.mode(
+                  Theme.of(context).colorScheme.onSurface,
+                  BlendMode.srcIn,
+                ),
               ),
               Text(
                 'no connection',

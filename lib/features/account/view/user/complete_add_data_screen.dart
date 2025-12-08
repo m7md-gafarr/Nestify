@@ -6,6 +6,7 @@ import 'package:depi_graduation_project/core/utils/validation_utils.dart';
 import 'package:depi_graduation_project/data/services/supabase_storage_service.dart';
 import 'package:depi_graduation_project/features/account/logic/complete_add_data/complete_add_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/models/user_model.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,7 +57,7 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
               children: [
                 SizedBox(height: 50.h),
                 Text(
-                  'Set up your profile',
+                  S.of(context).completeProfileTitle,
                   style: Theme.of(context).textTheme.titleLarge,
                   textAlign: TextAlign.center,
                 ),
@@ -92,7 +93,7 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                 SizedBox(height: 10.h),
                 _selectedImage == null
                     ? Text(
-                        'Upload or take a photo',
+                        S.of(context).completeProfileUploadPhoto,
                         style: Theme.of(context).textTheme.bodyMedium,
                         textAlign: TextAlign.center,
                       )
@@ -101,10 +102,11 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                 TextFormField(
                   controller: fullNameController,
                   keyboardType: TextInputType.name,
-                  validator: ValidationUtils.fullNameValidator,
+                  validator: (value) =>
+                      ValidationUtils.fullNameValidator(value, context),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
-                    hintText: 'Full Name',
+                    hintText: S.of(context).completeProfileFullName,
 
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.r),
@@ -126,11 +128,12 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                 TextFormField(
                   controller: phoneController,
                   keyboardType: TextInputType.phone,
-                  validator: ValidationUtils.phoneNumberValidator,
+                  validator: (value) =>
+                      ValidationUtils.phoneNumberValidator(value, context),
                   maxLength: 10,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
-                    hintText: 'Phone Number',
+                    hintText: S.of(context).completeProfilePhoneNumber,
                     prefixText: '+20 ',
 
                     border: OutlineInputBorder(
@@ -142,10 +145,11 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                 TextFormField(
                   controller: addressController,
                   keyboardType: TextInputType.streetAddress,
-                  validator: ValidationUtils.addressValidator,
+                  validator: (value) =>
+                      ValidationUtils.addressValidator(value, context),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
-                    hintText: 'Address',
+                    hintText: S.of(context).completeProfileAddress,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.r),
                     ),
@@ -156,17 +160,19 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                   controller: dobController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "select birthdate";
+                      return S.of(context).completeProfileSelectBirthdate;
                     } else if (_age < 18) {
-                      return "Age must be at least 18 years old";
+                      return S.of(context).completeProfileAgeError;
                     }
                     return null;
                   },
                   onTap: () async {
                     DateTime? pickedDate = await showDatePicker(
-                      cancelText: 'Close',
-                      confirmText: 'OK',
-                      helpText: 'Select your birthdate',
+                      cancelText: S.of(context).completeProfileCancel,
+                      confirmText: S.of(context).completeProfileConfirm,
+                      helpText: S
+                          .of(context)
+                          .completeProfileSelectBirthdateHelp,
 
                       context: context,
                       initialDate: DateTime.now(),
@@ -194,7 +200,7 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                   readOnly: true,
                   cursorColor: Theme.of(context).primaryColor,
                   decoration: InputDecoration(
-                    hintText: 'Date of Birth',
+                    hintText: S.of(context).completeProfileDateOfBirth,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.r),
                     ),
@@ -251,7 +257,7 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                             );
                           } else if (state is CompleteAddDataNoInternet) {
                             DialogHelper(context).showNoInternetDialog(
-                              message: "No Internet Connection",
+                              message: S.of(context).completeProfileNoInternet,
                             );
                           }
                         },
@@ -264,7 +270,7 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                               ),
                             );
                           }
-                          return Text('Complete Setup');
+                          return Text(S.of(context).completeProfileComplete);
                         },
                       ),
                 ),
@@ -291,7 +297,7 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
               ListTile(
                 leading: Icon(Iconsax.camera),
                 title: Text(
-                  "Camera",
+                  S.of(context).completeProfileCamera,
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 onTap: () async {
@@ -304,7 +310,7 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
               ListTile(
                 leading: Icon(Iconsax.gallery),
                 title: Text(
-                  "Gallery",
+                  S.of(context).completeProfileGallery,
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 onTap: () async {

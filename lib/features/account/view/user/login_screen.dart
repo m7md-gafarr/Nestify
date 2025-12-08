@@ -1,8 +1,14 @@
+import 'package:depi_graduation_project/components/custom_app_bar_widget.dart';
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/core/utils/dialog/dialog_helper.dart';
 import 'package:depi_graduation_project/core/utils/validation_utils.dart';
+import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/logic/login/login_cubit.dart';
+import 'package:depi_graduation_project/features/bag/logic/bag/bag_cubit.dart';
+import 'package:depi_graduation_project/features/saved_items/logic/saved_items/saved_items_cubit.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBarWidget(title: ""),
       body: Form(
         key: formKey,
         child: SingleChildScrollView(
@@ -40,23 +47,24 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 120.h),
+                  SizedBox(height: 40.h),
                   Align(
                     alignment: AlignmentGeometry.centerLeft,
-                    child: CustomSectionHeaderWidget(title: 'Nestify'),
+                    child: CustomSectionHeaderWidget(
+                      title: S.of(context).loginTitle,
+                    ),
                   ),
                   SizedBox(height: 40.h),
 
                   RichText(
                     text: TextSpan(
-                      text: 'Welcome Back',
+                      text: S.of(context).loginWelcomeBack,
                       style: Theme.of(
                         context,
                       ).textTheme.headlineSmall!.copyWith(fontSize: 20.sp),
                       children: [
                         TextSpan(
-                          text:
-                              ' ,If you don’t have an account register You can ',
+                          text: S.of(context).loginNoAccount,
                           style: Theme.of(
                             context,
                           ).textTheme.titleSmall!.copyWith(fontSize: 16.sp),
@@ -69,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                         ),
                         TextSpan(
-                          text: 'Register here !',
+                          text: S.of(context).loginRegisterHere,
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               Navigator.pushNamed(
@@ -90,22 +98,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   SizedBox(height: 40.h),
                   TextFormField(
-                    validator: ValidationUtils.emailValidator,
+                    validator: (value) =>
+                        ValidationUtils.emailValidator(value, context),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: _emailController,
                     decoration: InputDecoration(
-                      hintText: 'Email',
+                      hintText: S.of(context).loginEmail,
                       border: OutlineInputBorder(),
                     ),
                   ),
                   SizedBox(height: 20.h),
                   TextFormField(
                     obscureText: obscureText,
-                    validator: ValidationUtils.passwordValidator,
+                    validator: (value) =>
+                        ValidationUtils.passwordValidator(value, context),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: _passwordController,
                     decoration: InputDecoration(
-                      hintText: 'Password',
+                      hintText: S.of(context).loginPassword,
                       border: OutlineInputBorder(),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -126,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       },
                       child: Text(
-                        'Forgot password ?',
+                        S.of(context).loginForgotPassword,
                         style: Theme.of(context).textTheme.bodyMedium,
                         textAlign: TextAlign.center,
                       ),
@@ -151,9 +161,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           ).showErrorDialog(message: state.errorMessage);
                         } else if (state is LoginNoInternet) {
                           DialogHelper(context).showNoInternetDialog(
-                            message: "No Internet Connection",
+                            message: S.of(context).loginNoInternet,
                           );
                         } else if (state is LoginSuccess) {
+                          context.read<GetUserDataCubit>().getUserData();
+                          context.read<BagCubit>().loadBagItems(
+                            FirebaseAuth.instance.currentUser!.uid,
+                          );
+                          context.read<SavedItemsCubit>().loadSavedItems(
+                            FirebaseAuth.instance.currentUser!.uid,
+                          );
                           Navigator.pushNamedAndRemoveUntil(
                             context,
                             AppRouteNames.homePageRoute,
@@ -172,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (state is LoginLoading) {
                           return CircularProgressIndicator(color: Colors.white);
                         } else {
-                          return Text('Login');
+                          return Text(S.of(context).loginButton);
                         }
                       },
                     ),
@@ -182,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: AlignmentGeometry.center,
                     child: Text(
-                      "or continue with",
+                      S.of(context).loginContinueWith,
                       style: Theme.of(context).textTheme.bodyLarge,
                       textAlign: TextAlign.center,
                     ),

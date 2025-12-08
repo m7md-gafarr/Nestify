@@ -1,4 +1,5 @@
 import 'package:depi_graduation_project/components/shimmer_network_image_widget.dart';
+import 'package:depi_graduation_project/core/constants/app_constants.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,9 +53,11 @@ class RoomCategoryCardWidget extends StatelessWidget {
                 imageUrl: imagePath,
                 height: 100.h,
                 width: 100.h,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(12.r),
-                  bottomRight: Radius.circular(12.r),
+                borderRadius: BorderRadiusDirectional.only(
+                  topStart: Radius.circular(0),
+                  bottomStart: Radius.circular(0),
+                  topEnd: Radius.circular(12.r),
+                  bottomEnd: Radius.circular(12.r),
                 ),
                 fit: BoxFit.cover,
               ),

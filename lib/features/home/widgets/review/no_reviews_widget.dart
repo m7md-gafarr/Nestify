@@ -1,3 +1,4 @@
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,17 +13,20 @@ class noReviewsWidget extends StatelessWidget {
       children: [
         Icon(Icons.rate_review, size: 48.sp),
         SizedBox(height: 10.h),
-        Text("No reviews yet!", style: Theme.of(context).textTheme.titleMedium),
+        Text(
+          S.of(context).reviewsNoReviews,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
         SizedBox(height: 6.h),
         Text(
-          "Be the first to write a review.",
+          S.of(context).reviewsBeFirst,
           style: Theme.of(context).textTheme.bodySmall,
           textAlign: TextAlign.center,
         ),
         SizedBox(height: 16.h),
         ElevatedButton(
           onPressed: onPressed,
-          child: const Text("Add Your Review"),
+          child: Text(S.of(context).reviewsAddYourReview),
         ),
       ],
     );

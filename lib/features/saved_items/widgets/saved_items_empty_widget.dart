@@ -1,4 +1,5 @@
 import 'package:depi_graduation_project/core/images/app_images.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:depi_graduation_project/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,12 +20,16 @@ class SavedItemsEmptyWidget extends StatelessWidget {
             Assets.assetsImagesSurprised,
             width: 120.w,
             height: 120.w,
+            colorFilter: ColorFilter.mode(
+              Theme.of(context).colorScheme.onSurface,
+              BlendMode.srcIn,
+            ),
           ),
 
           SizedBox(height: 20.h),
 
           Text(
-            'nothing saved...',
+            S.of(context).savedItemsEmpty,
             style: Theme.of(context).textTheme.headlineSmall,
             textAlign: TextAlign.center,
           ),
@@ -32,7 +37,7 @@ class SavedItemsEmptyWidget extends StatelessWidget {
           SizedBox(height: 20.h),
 
           Text(
-            '... no worries. Start saving as you shop by clicking the little heart',
+            S.of(context).savedItemsEmptyMessage,
             style: Theme.of(context).textTheme.bodyLarge,
             textAlign: TextAlign.center,
           ),
@@ -43,7 +48,7 @@ class SavedItemsEmptyWidget extends StatelessWidget {
             onPressed: () {
               mainScreenKey.currentState?.jumpToHome();
             },
-            child: const Text("Start shopping"),
+            child: Text(S.of(context).savedItemsStartShopping),
           ),
           SizedBox(height: 20.h),
         ],

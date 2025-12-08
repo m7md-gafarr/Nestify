@@ -1,6 +1,10 @@
 import 'package:depi_graduation_project/core/constants/app_constants.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
+import 'package:depi_graduation_project/features/Settings/view/about_screen.dart';
+import 'package:depi_graduation_project/features/Settings/view/privacy_policy_screen.dart';
 import 'package:depi_graduation_project/features/Settings/view/settings_screen.dart';
+import 'package:depi_graduation_project/features/Settings/view/terms_and_conditions_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/add_new_address_book_screen.dart';
 import 'package:depi_graduation_project/features/account/view/user/address_book_screen.dart';
 import 'package:depi_graduation_project/features/account/view/user/complete_add_data_screen.dart';
 import 'package:depi_graduation_project/features/account/view/user/forgot_password_screen.dart';
@@ -8,6 +12,8 @@ import 'package:depi_graduation_project/features/account/view/user/login_screen.
 import 'package:depi_graduation_project/features/account/view/user/my_details_screen.dart';
 import 'package:depi_graduation_project/features/account/view/user/my_orders_screen.dart';
 import 'package:depi_graduation_project/features/account/view/user/register_screen.dart';
+import 'package:depi_graduation_project/features/bag/view/checkout_screen.dart';
+import 'package:depi_graduation_project/features/bag/view/order_success_screen.dart';
 import 'package:depi_graduation_project/features/home/view/user/best_catalog_screen.dart';
 import 'package:depi_graduation_project/features/home/view/user/main_screen.dart';
 import 'package:depi_graduation_project/features/home/view/user/story_screen.dart';
@@ -90,12 +96,23 @@ class AppRouter {
       // Bag/Cart Screen Route
       case AppRouteNames.bagScreenRoute:
         return MaterialPageRoute(builder: (context) => BagScreen());
-      // case AppRouteNames.checkoutScreenRoute:
-      //   return MaterialPageRoute(builder: (context) => CheckoutScreen());
+      case AppRouteNames.checkoutScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => CheckoutScreen(),
+          settings: settings,
+        );
+      case AppRouteNames.orderConfirmationScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => OrderSuccessScreen(),
+          settings: settings,
+        );
 
       // Saved Items Screen Route
       case AppRouteNames.savedItemsScreenRoute:
-        return MaterialPageRoute(builder: (context) => SavedItemsScreen());
+        return MaterialPageRoute(
+          builder: (context) => SavedItemsScreen(),
+          settings: settings,
+        );
 
       // Account Screen Route
       case AppRouteNames.accountScreenRoute:
@@ -136,10 +153,26 @@ class AppRouter {
           builder: (context) => AddressBookScreen(),
           settings: settings,
         );
+      case AppRouteNames.addNewAddressBookScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => AddNewAddressBookScreen(),
+          settings: settings,
+        );
 
       // Settings Screen Route
       case AppRouteNames.settingsScreenRoute:
         return MaterialPageRoute(builder: (context) => SettingsScreen());
+
+      case AppRouteNames.aboutScreenRoute:
+        return MaterialPageRoute(builder: (context) => AboutScreen());
+
+      case AppRouteNames.privacyPolicyScreenRoute:
+        return MaterialPageRoute(builder: (context) => PrivacyPolicyScreen());
+
+      case AppRouteNames.termsAndConditionsScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => TermsAndConditionsScreen(),
+        );
 
       default:
         return MaterialPageRoute(

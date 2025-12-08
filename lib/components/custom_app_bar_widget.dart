@@ -25,7 +25,7 @@ class CustomAppBarWidget extends StatelessWidget
           leading ??
           IconButton(
             icon: isRTL(context)
-                ? const Icon(Iconsax.arrow_right_2)
+                ? Icon(Iconsax.arrow_right_1, size: 27.sp)
                 : Icon(Iconsax.arrow_left, size: 27.sp),
             onPressed: () {
               Navigator.of(context).pop();

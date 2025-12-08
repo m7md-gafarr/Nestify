@@ -1,3 +1,6 @@
+import 'package:depi_graduation_project/generated/l10n.dart';
+import 'package:flutter/material.dart';
+
 class ValidationUtils {
   static bool hasUpperCase(String value) => RegExp(r'[A-Z]').hasMatch(value);
 
@@ -11,35 +14,35 @@ class ValidationUtils {
 
   static bool hasMinLength(String value) => value.length >= 6;
 
-  static String? emailValidator(String? value) {
+  static String? emailValidator(String? value, BuildContext context) {
     if (value == null || value.isEmpty) {
-      return 'Email is required';
+      return S.of(context).validationEmailRequired;
     }
 
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
     if (!emailRegex.hasMatch(value)) {
-      return 'Invalid email format';
+      return S.of(context).validationEmailInvalidFormat;
     }
 
     return null;
   }
 
-  static String? passwordValidator(String? value) {
+  static String? passwordValidator(String? value, BuildContext context) {
     if (value == null || value.isEmpty) {
-      return 'Password is required';
+      return S.of(context).validationPasswordRequired;
     }
 
     if (value.length < 6) {
-      return 'Password must be at least 6 characters';
+      return S.of(context).validationPasswordMinLength;
     }
 
     return null;
   }
 
-  static String? strongPasswordValidator(String? value) {
+  static String? strongPasswordValidator(String? value, BuildContext context) {
     if (value == null || value.isEmpty) {
-      return 'Password is required';
+      return S.of(context).validationPasswordRequired;
     }
 
     final containsUpper = hasUpperCase(value);
@@ -48,36 +51,36 @@ class ValidationUtils {
     final meetsMinLen = hasMinLength(value);
 
     if (!containsUpper || !containsNumber || !containsSpecial || !meetsMinLen) {
-      return 'Password does not meet the required conditions';
+      return S.of(context).validationPasswordConditions;
     }
 
     return null;
   }
 
-  static String? fullNameValidator(String? value) {
+  static String? fullNameValidator(String? value, BuildContext context) {
     if (value == null || value.isEmpty) {
-      return 'Full name is required';
+      return S.of(context).validationFullNameRequired;
     }
     return null;
   }
 
-  static String? phoneNumberValidator(String? value) {
+  static String? phoneNumberValidator(String? value, BuildContext context) {
     if (value == null || value.isEmpty) {
-      return 'Phone number is required';
+      return S.of(context).validationPhoneNumberRequired;
     }
 
     final phoneRegex = RegExp(r'^(10|11|12|15)[0-9]{8}$');
 
     if (!phoneRegex.hasMatch(value)) {
-      return 'Invalid Egyptian phone number';
+      return S.of(context).validationPhoneNumberInvalid;
     }
 
     return null;
   }
 
-  static String? addressValidator(String? value) {
+  static String? addressValidator(String? value, BuildContext context) {
     if (value == null || value.isEmpty) {
-      return 'Address is required';
+      return S.of(context).validationAddressRequired;
     }
     return null;
   }

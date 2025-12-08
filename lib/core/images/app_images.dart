@@ -2,17 +2,22 @@
 class Assets {
   Assets._();
 
+  /// Assets for assetsImagesDissatisfied
+  /// assets/images/dissatisfied.svg
+  static const String assetsImagesDissatisfied =
+      "assets/images/dissatisfied.svg";
+
   /// Assets for assetsImagesElement
   /// assets/images/Element.svg
   static const String assetsImagesElement = "assets/images/Element.svg";
 
+  /// Assets for assetsImagesFriendly
+  /// assets/images/friendly.svg
+  static const String assetsImagesFriendly = "assets/images/friendly.svg";
+
   /// Assets for assetsImagesOnboarding
   /// assets/images/Onboarding.svg
   static const String assetsImagesOnboarding = "assets/images/Onboarding.svg";
-
-  /// Assets for assetsImagesPic
-  /// assets/images/pic.png
-  static const String assetsImagesPic = "assets/images/pic.png";
 
   /// Assets for assetsImagesSad
   /// assets/images/sad.svg
@@ -25,7 +30,4 @@ class Assets {
   /// Assets for assetsImagesSurprised
   /// assets/images/surprised.svg
   static const String assetsImagesSurprised = "assets/images/surprised.svg";
-  /// Assets for assetsFriendly
-  /// assets/images/friendly.svg
-  static const String assetsFriendly = "assets/images/friendly.svg";
 }

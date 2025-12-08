@@ -4,19 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
+  brightness: Brightness.dark,
   fontFamily: font,
   primaryColor: AppColorDark.primary,
-  secondaryHeaderColor: AppColorDark.info,
+  secondaryHeaderColor: AppColorDark.onPrimary,
   scaffoldBackgroundColor: AppColorDark.background,
-
-  colorScheme: ColorScheme.dark(
-    outline: Colors.white.withOpacity(.2),
-    primaryContainer: AppColorDark.primaryContainer,
-  ),
+  canvasColor: AppColorDark.background,
   appBarTheme: AppBarTheme(
-    backgroundColor: AppColorDark.surface,
+    backgroundColor: Colors.transparent,
     surfaceTintColor: Colors.transparent,
   ),
+
+  colorScheme: ColorScheme.dark(
+    primary: AppColorDark.primary,
+    secondary: AppColorDark.info,
+    error: AppColorDark.error,
+    outline: AppColorDark.border,
+    primaryContainer: AppColorDark.primaryContainer,
+    surface: AppColorDark.surface,
+    surfaceContainerLow: AppColorDark.shimmerBase,
+    surfaceContainerHighest: AppColorDark.shimmerHighlight.withOpacity(.65),
+  ),
+
+  iconTheme: IconThemeData(color: AppColorDark.iconPrimary, size: 27.sp),
 
   iconButtonTheme: IconButtonThemeData(
     style: ButtonStyle(
@@ -27,58 +37,74 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
 
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      fixedSize: const WidgetStatePropertyAll(Size(double.maxFinite, 47)),
+      fixedSize: const WidgetStatePropertyAll(Size(double.maxFinite, 64)),
       shape: const WidgetStatePropertyAll(
         ContinuousRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(27)),
         ),
       ),
+      elevation: const WidgetStatePropertyAll(0),
+      backgroundColor: const WidgetStatePropertyAll(AppColorDark.buttonPrimary),
+      foregroundColor: const WidgetStatePropertyAll(
+        AppColorDark.onButtonPrimary,
+      ),
       textStyle: WidgetStatePropertyAll(
         TextStyle(
-          letterSpacing: .7,
-          fontFamily: font,
           fontSize: 18.sp,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w600,
+          fontFamily: font,
+          letterSpacing: 0.7,
         ),
       ),
-      elevation: const WidgetStatePropertyAll(0),
-      backgroundColor: WidgetStateProperty.all(AppColorDark.buttonPrimary),
-      foregroundColor: WidgetStateProperty.all(AppColorDark.onButtonPrimary),
     ),
   ),
 
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: ButtonStyle(
-      fixedSize: const WidgetStatePropertyAll(Size(double.maxFinite, 47)),
+      fixedSize: const WidgetStatePropertyAll(Size(double.maxFinite, 64)),
       shape: const WidgetStatePropertyAll(
         ContinuousRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(27)),
         ),
       ),
-      textStyle: WidgetStatePropertyAll(
-        TextStyle(
-          letterSpacing: .7,
-          fontFamily: font,
-          fontSize: 18.sp,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
       elevation: const WidgetStatePropertyAll(0),
       side: const WidgetStatePropertyAll(BorderSide.none),
-      foregroundColor: WidgetStateProperty.all(AppColorDark.onButtonSecondary),
-      backgroundColor: WidgetStateProperty.all(AppColorDark.buttonSecondary),
+      foregroundColor: const WidgetStatePropertyAll(
+        AppColorDark.onButtonSecondary,
+      ),
+      backgroundColor: const WidgetStatePropertyAll(
+        AppColorDark.buttonSecondary,
+      ),
+      textStyle: WidgetStatePropertyAll(
+        TextStyle(
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w500,
+          fontFamily: font,
+          letterSpacing: 0.7,
+        ),
+      ),
     ),
   ),
-  checkboxTheme: CheckboxThemeData(
+
+  textButtonTheme: TextButtonThemeData(
+    style: ButtonStyle(
+      foregroundColor: const WidgetStatePropertyAll(AppColorDark.info),
+      textStyle: WidgetStatePropertyAll(
+        TextStyle(fontSize: 18.sp, fontFamily: font),
+      ),
+    ),
+  ),
+
+  radioTheme: const RadioThemeData(
+    fillColor: WidgetStatePropertyAll(AppColorDark.primary),
+  ),
+
+  checkboxTheme: const CheckboxThemeData(
     side: BorderSide(color: AppColorDark.primary),
     checkColor: WidgetStatePropertyAll(AppColorDark.primary),
     fillColor: WidgetStatePropertyAll(AppColorDark.background),
   ),
-  iconTheme: IconThemeData(color: AppColorDark.iconPrimary),
 
-  radioTheme: RadioThemeData(
-    fillColor: WidgetStatePropertyAll(AppColorDark.primary),
-  ),
   textTheme: TextTheme(
     headlineLarge: _getTextStyle(
       AppColorDark.textPrimary,
@@ -98,7 +124,6 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
       FontWeight.bold,
       context,
     ),
-
     titleLarge: _getTextStyle(
       AppColorDark.textPrimary,
       22,
@@ -117,7 +142,6 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
       FontWeight.w500,
       context,
     ),
-
     bodyLarge: _getTextStyle(
       AppColorDark.textSecondary,
       16,
@@ -136,7 +160,6 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
       FontWeight.normal,
       context,
     ),
-
     labelLarge: _getTextStyle(
       AppColorDark.textSecondary,
       16,
@@ -156,15 +179,18 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
       context,
     ),
   ),
-
+  textSelectionTheme: TextSelectionThemeData(
+    cursorColor: AppColorDark.onPrimary,
+    selectionColor: AppColorDark.primary.withOpacity(0.5),
+    selectionHandleColor: AppColorDark.primary,
+  ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: AppColorDark.surface,
-    border: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColorDark.primary),
-    ),
+
+    fillColor: AppColorDark.surface.withOpacity(.8),
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.r)),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColorDark.primary),
+      borderSide: BorderSide(color: AppColorDark.border, width: 1.5),
     ),
     enabledBorder: const OutlineInputBorder(borderSide: BorderSide.none),
     errorBorder: OutlineInputBorder(
@@ -173,35 +199,28 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
     focusedErrorBorder: OutlineInputBorder(
       borderSide: BorderSide(color: AppColorDark.error),
     ),
-    prefixIconColor: AppColorDark.primary,
-    labelStyle: TextStyle(color: AppColorDark.primary, fontSize: 16.0.sp),
+    prefixIconColor: AppColorDark.textSecondary.withOpacity(.5),
+
     hintStyle: TextStyle(
       color: AppColorDark.textSecondary,
       fontSize: 17.sp,
-      fontWeight: FontWeight.normal,
+      fontFamily: font,
     ),
     suffixIconColor: AppColorDark.textSecondary,
     errorStyle: TextStyle(color: AppColorDark.error),
   ),
 
-  bottomSheetTheme: BottomSheetThemeData(
+  bottomSheetTheme: const BottomSheetThemeData(
     backgroundColor: AppColorDark.background,
-    dragHandleSize: const Size(double.infinity, 4),
+    dragHandleSize: Size(double.infinity, 4),
     dragHandleColor: AppColorDark.primary,
   ),
 
-  progressIndicatorTheme: ProgressIndicatorThemeData(
+  progressIndicatorTheme: const ProgressIndicatorThemeData(
     color: AppColorDark.primary,
   ),
 
-  textButtonTheme: TextButtonThemeData(
-    style: ButtonStyle(
-      textStyle: WidgetStatePropertyAll(TextStyle(fontSize: 18.sp)),
-      foregroundColor: WidgetStatePropertyAll(AppColorDark.info),
-    ),
-  ),
-
-  dividerTheme: DividerThemeData(
+  dividerTheme: const DividerThemeData(
     color: AppColorDark.divider,
     thickness: 1.2,
     endIndent: 10,
@@ -210,15 +229,56 @@ ThemeData getThemeColorDark(BuildContext context, Locale? locale) => ThemeData(
 
   dialogTheme: DialogThemeData(backgroundColor: AppColorDark.background),
 
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    backgroundColor: AppColorDark.surface,
     selectedItemColor: AppColorDark.primary,
-    unselectedItemColor: AppColorDark.textDisabled,
+    unselectedItemColor: AppColorDark.iconSecondary,
     elevation: 10,
+    type: BottomNavigationBarType.fixed,
+    showSelectedLabels: false,
+    showUnselectedLabels: false,
   ),
 
-  expansionTileTheme: ExpansionTileThemeData(
+  expansionTileTheme: const ExpansionTileThemeData(
     iconColor: AppColorDark.primary,
-    shape: Border.all(width: 0, color: Colors.transparent),
+    shape: Border(),
+  ),
+
+  cardTheme: CardThemeData(
+    color: AppColorDark.surface,
+    shadowColor: AppColorDark.shadow,
+
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(12.r)),
+    ),
+  ),
+
+  datePickerTheme: DatePickerThemeData(
+    confirmButtonStyle: ButtonStyle(
+      foregroundColor: const WidgetStatePropertyAll(AppColorDark.onPrimary),
+
+      textStyle: WidgetStatePropertyAll(
+        TextStyle(
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w600,
+          fontFamily: font,
+        ),
+      ),
+    ),
+    cancelButtonStyle: ButtonStyle(
+      foregroundColor: const WidgetStatePropertyAll(AppColorDark.error),
+      textStyle: WidgetStatePropertyAll(
+        TextStyle(
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w600,
+          fontFamily: font,
+        ),
+      ),
+    ),
+    backgroundColor: AppColorDark.background,
+    headerBackgroundColor: AppColorDark.primary,
+    headerForegroundColor: AppColorDark.onPrimary,
+    dayForegroundColor: WidgetStateProperty.all(AppColorDark.textPrimary),
   ),
 );
 

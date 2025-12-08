@@ -24,8 +24,12 @@ class EmptyAccountWidget extends StatelessWidget {
             Spacer(),
             SvgPicture.asset(
               Assets.assetsImagesSmiley,
-              width: 150.w,
-              height: 150.h,
+              width: 120.w,
+              height: 120.h,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).colorScheme.onSurface,
+                BlendMode.srcIn,
+              ),
             ),
             Text(
               'come on in',

@@ -1,20 +1,23 @@
+import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
+import 'package:depi_graduation_project/features/bag/logic/checkout/checkout_cubit.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:iconsax/iconsax.dart';
 
 import '../method_option.dart';
 
 class PaymentMethodWidget extends StatelessWidget {
-  final int selectedPaymentMethod;
   final double total;
-  final ValueChanged<int> onPaymentMethodChanged;
-  final VoidCallback onComplete;
+  final VoidCallback onPay;
+  final void Function(BuildContext, CheckoutState) listener;
 
   const PaymentMethodWidget({
     super.key,
-    required this.selectedPaymentMethod,
     required this.total,
-    required this.onPaymentMethodChanged,
-    required this.onComplete,
+    required this.onPay,
+    required this.listener,
   });
 
   @override
@@ -24,49 +27,59 @@ class PaymentMethodWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(height: 40.h),
+          CustomSectionHeaderWidget(title: S.of(context).checkoutPaymentMethod),
+
           SizedBox(height: 20.h),
-          Text(
-            "payment method",
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          SizedBox(height: 25.h),
 
           MethodOption(
-            icon: const Icon(Icons.credit_card_outlined, size: 32),
+            icon: Icon(Iconsax.card, size: 32.sp),
             title: "Mastercard 9833",
             subtitle: "734, Exp: 12/29",
-            isSelected: selectedPaymentMethod == 0,
-            onTap: () => onPaymentMethodChanged(0),
+            isSelected: true,
+            onTap: () {},
           ),
 
           SizedBox(height: 12.h),
 
           MethodOption(
-            icon: const Icon(Icons.credit_card_outlined, size: 32),
+            icon: Icon(Iconsax.card, size: 32.sp),
             title: "Visa 7233",
             subtitle: "321, Exp: 11/29",
-            isSelected: selectedPaymentMethod == 1,
-            onTap: () => onPaymentMethodChanged(1),
+            isSelected: false,
+            onTap: () {},
           ),
 
           SizedBox(height: 12.h),
 
           MethodOption(
-            icon: const Icon(Icons.apple, size: 32),
+            icon: Icon(Iconsax.card, size: 32.sp),
             title: "Apple Pay",
             subtitle: "",
-            isSelected: selectedPaymentMethod == 2,
-            onTap: () => onPaymentMethodChanged(2),
+            isSelected: false,
+            onTap: () {},
           ),
 
           const Spacer(),
 
           ElevatedButton(
-            onPressed: onComplete,
-            style: ElevatedButton.styleFrom(
-              minimumSize: Size(double.infinity, 50.h),
+            onPressed: onPay,
+
+            child: BlocConsumer<CheckoutCubit, CheckoutState>(
+              listener: listener,
+
+              builder: (context, state) {
+                if (state is CheckoutLoading) {
+                  return CircularProgressIndicator(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                  );
+                }
+                return Text(
+                  '${S.of(context).checkoutPay} \$${total.toStringAsFixed(2)}',
+                  style: TextStyle(fontSize: 18.sp),
+                );
+              },
             ),
-            child: Text("Pay \$${total.toStringAsFixed(2)}"),
           ),
           SizedBox(height: 24.h),
         ],

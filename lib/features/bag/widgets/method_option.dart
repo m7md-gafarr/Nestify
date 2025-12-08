@@ -24,7 +24,6 @@ class MethodOption extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(12.r),
       child: Container(
-        padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.r)),
         child: Row(
           children: [

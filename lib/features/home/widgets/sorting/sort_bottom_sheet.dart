@@ -1,6 +1,7 @@
 import 'package:depi_graduation_project/features/home/logic/filter_and_sort/filter_and_sort_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/filter_and_sort/filter_and_sort_state.dart';
 import 'package:depi_graduation_project/features/home/widgets/sorting/sort_option_tile.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,11 +22,11 @@ void showSortBottomSheet({required BuildContext context}) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "sort by",
+                  S.of(context).sortBy,
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 SortOptionTile(
-                  title: "Price: Low to High",
+                  title: S.of(context).sortPriceLowToHigh,
                   onTap: () {
                     cubit.changeSortOption(0);
                     Navigator.pop(context);
@@ -33,7 +34,7 @@ void showSortBottomSheet({required BuildContext context}) {
                   isSelected: state.sortOption == 0,
                 ),
                 SortOptionTile(
-                  title: "Price: High to Low",
+                  title: S.of(context).sortPriceHighToLow,
                   onTap: () {
                     cubit.changeSortOption(1);
                     Navigator.pop(context);
@@ -41,7 +42,7 @@ void showSortBottomSheet({required BuildContext context}) {
                   isSelected: state.sortOption == 1,
                 ),
                 SortOptionTile(
-                  title: "Newest First",
+                  title: S.of(context).sortNewestFirst,
                   onTap: () {
                     cubit.changeSortOption(2);
                     Navigator.pop(context);
@@ -54,7 +55,7 @@ void showSortBottomSheet({required BuildContext context}) {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text("Cancel"),
+                  child: Text(S.of(context).sortCancel),
                 ),
               ],
             ),

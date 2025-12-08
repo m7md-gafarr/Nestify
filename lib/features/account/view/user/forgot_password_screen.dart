@@ -5,6 +5,7 @@ import 'package:depi_graduation_project/components/custom_section_header_widget.
 import 'package:depi_graduation_project/core/utils/dialog/dialog_helper.dart';
 import 'package:depi_graduation_project/core/utils/validation_utils.dart';
 import 'package:depi_graduation_project/features/account/logic/forgot_password/forgot_password_cubit.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -70,7 +71,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   Align(
                     alignment: AlignmentGeometry.centerLeft,
                     child: CustomSectionHeaderWidget(
-                      title: 'Forgot password ?',
+                      title: S.of(context).forgotPasswordTitle,
                     ),
                   ),
                   SizedBox(height: 40.h),
@@ -78,7 +79,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   Align(
                     alignment: AlignmentGeometry.centerLeft,
                     child: Text(
-                      "Enter your email and we will send you a password reset link.",
+                      S.of(context).forgotPasswordInstruction,
                       style: Theme.of(
                         context,
                       ).textTheme.titleSmall!.copyWith(fontSize: 16.sp),
@@ -88,10 +89,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   SizedBox(height: 40.h),
                   TextFormField(
                     controller: emailController,
-                    validator: ValidationUtils.emailValidator,
+                    validator: (value) =>
+                        ValidationUtils.emailValidator(value, context),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
-                      hintText: 'Email',
+                      hintText: S.of(context).forgotPasswordEmail,
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -111,57 +113,61 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           }
                         : null,
 
-                    child: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
-                      listener: (context, state) {
-                        if (state is ForgotPasswordFailure) {
-                          DialogHelper(
-                            context,
-                          ).showErrorDialog(message: state.errorMessage);
-                        } else if (state is ForgotPasswordNoInternet) {
-                          DialogHelper(context).showNoInternetDialog(
-                            message: "No Internet Connection",
-                          );
-                        } else if (state is ForgotPasswordSuccess) {
-                          startTimer();
-                          DialogHelper(context).showSuccessDialog(
-                            message:
-                                "Password reset link sent successfully. Please check your email.",
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                },
-                                child: Text(
-                                  'OK',
-                                  style: Theme.of(context).textTheme.bodyLarge!
-                                      .copyWith(
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          );
-                        }
-                      },
-                      builder: (context, state) {
-                        if (state is ForgotPasswordLoading) {
-                          return const CircularProgressIndicator(
-                            color: Colors.white,
-                          );
-                        } else {
-                          return Text('Send Reset Link');
-                        }
-                      },
-                    ),
+                    child:
+                        BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
+                          listener: (context, state) {
+                            if (state is ForgotPasswordFailure) {
+                              DialogHelper(
+                                context,
+                              ).showErrorDialog(message: state.errorMessage);
+                            } else if (state is ForgotPasswordNoInternet) {
+                              DialogHelper(context).showNoInternetDialog(
+                                message: S.of(context).forgotPasswordNoInternet,
+                              );
+                            } else if (state is ForgotPasswordSuccess) {
+                              startTimer();
+                              DialogHelper(context).showSuccessDialog(
+                                message: S.of(context).forgotPasswordSuccess,
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      S.of(context).forgotPasswordOk,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                            color: Theme.of(
+                                              context,
+                                            ).primaryColor,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }
+                          },
+                          builder: (context, state) {
+                            if (state is ForgotPasswordLoading) {
+                              return const CircularProgressIndicator(
+                                color: Colors.white,
+                              );
+                            } else {
+                              return Text(S.of(context).forgotPasswordSendLink);
+                            }
+                          },
+                        ),
                   ),
                   SizedBox(height: 15.h),
                   Align(
                     alignment: Alignment.center,
                     child: Text(
                       canResend
-                          ? "Tap again to resend the reset email."
-                          : "You can resend after ${formatTime(remainingSeconds)}",
+                          ? S.of(context).forgotPasswordResendNow
+                          : "${S.of(context).forgotPasswordResendAfter} ${formatTime(remainingSeconds)}",
                       style: Theme.of(context).textTheme.bodyLarge,
                       textAlign: TextAlign.center,
                     ),

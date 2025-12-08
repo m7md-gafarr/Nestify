@@ -5,6 +5,7 @@ import 'package:depi_graduation_project/core/utils/validation_utils.dart';
 import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/logic/update_user_data/update_user_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/models/user_model.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -83,7 +84,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBarWidget(
-        title: "My Details",
+        title: S.of(context).myDetailsTitle,
         actions: [
           TextButton(
             onPressed: () async {
@@ -113,7 +114,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        "Profile updated successfully",
+                        S.of(context).myDetailsProfileUpdated,
                         style: Theme.of(
                           context,
                         ).textTheme.bodyMedium!.copyWith(color: Colors.white),
@@ -148,7 +149,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
                   );
                 } else {
                   return Text(
-                    "Save",
+                    S.of(context).myDetailsSave,
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       color: Theme.of(context).primaryColor,
                     ),
@@ -170,16 +171,17 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
                 _buildProfileImage(),
                 SizedBox(height: 10.h),
                 Text(
-                  "Change Profile Picture",
+                  S.of(context).myDetailsChangePhoto,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 SizedBox(height: 30.h),
                 TextFormField(
                   controller: nameController,
-                  validator: ValidationUtils.fullNameValidator,
+                  validator: (value) =>
+                      ValidationUtils.fullNameValidator(value, context),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
-                    hintText: 'Full Name',
+                    hintText: S.of(context).myDetailsFullName,
 
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.r),
@@ -192,7 +194,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    hintText: 'Email',
+                    hintText: S.of(context).myDetailsEmail,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.r),
                     ),
@@ -202,11 +204,12 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
                 TextFormField(
                   controller: phoneController,
                   keyboardType: TextInputType.phone,
-                  validator: ValidationUtils.phoneNumberValidator,
+                  validator: (value) =>
+                      ValidationUtils.phoneNumberValidator(value, context),
                   maxLength: 10,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
-                    hintText: 'Phone Number',
+                    hintText: S.of(context).myDetailsPhoneNumber,
                     prefixText: '+20 ',
 
                     border: OutlineInputBorder(
@@ -220,17 +223,17 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
                   controller: dobController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "select birthdate";
+                      return S.of(context).myDetailsSelectBirthdate;
                     } else if (_age < 18) {
-                      return "Age must be at least 18 years old";
+                      return S.of(context).myDetailsAgeError;
                     }
                     return null;
                   },
                   onTap: () async {
                     DateTime? pickedDate = await showDatePicker(
-                      cancelText: 'Close',
-                      confirmText: 'OK',
-                      helpText: 'Select your birthdate',
+                      cancelText: S.of(context).myDetailsCancel,
+                      confirmText: S.of(context).myDetailsConfirm,
+                      helpText: S.of(context).myDetailsSelectBirthdateHelp,
 
                       context: context,
                       initialDate: DateTime.now(),
@@ -258,7 +261,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
                   readOnly: true,
                   cursorColor: Theme.of(context).primaryColor,
                   decoration: InputDecoration(
-                    hintText: 'Date of Birth',
+                    hintText: S.of(context).myDetailsDateOfBirth,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.r),
                     ),
@@ -326,7 +329,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
               ListTile(
                 leading: Icon(Iconsax.camera),
                 title: Text(
-                  "Camera",
+                  S.of(context).myDetailsCamera,
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 onTap: () async {
@@ -339,7 +342,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
               ListTile(
                 leading: Icon(Iconsax.gallery),
                 title: Text(
-                  "Gallery",
+                  S.of(context).myDetailsGallery,
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 onTap: () async {

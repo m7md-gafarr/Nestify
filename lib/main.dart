@@ -2,16 +2,21 @@ import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/core/router/router.dart';
 import 'package:depi_graduation_project/core/theme/app_theme/app_theme_dark.dart';
 import 'package:depi_graduation_project/core/theme/app_theme/app_theme_light.dart';
-import 'package:depi_graduation_project/core/utils/theme/theme_provider.dart';
+import 'package:depi_graduation_project/core/utils/language/language_cubit.dart';
+import 'package:depi_graduation_project/core/utils/language/language_state.dart';
+import 'package:depi_graduation_project/core/utils/theme/theme_cubit.dart';
+import 'package:depi_graduation_project/core/utils/theme/theme_state.dart';
 import 'package:depi_graduation_project/data/services/home_service/best_category_service.dart';
+import 'package:depi_graduation_project/features/account/logic/address_book/address_book_cubit.dart';
 import 'package:depi_graduation_project/features/account/logic/forgot_password/forgot_password_cubit.dart';
 import 'package:depi_graduation_project/features/bag/logic/bag/bag_cubit.dart';
+import 'package:depi_graduation_project/features/bag/logic/checkout/checkout_cubit.dart';
+import 'package:depi_graduation_project/features/bag/logic/promo_code/promo_code_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/best_product/best_product_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/new_review/new_review_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/subscribes/subscribes_cubit.dart';
 import 'package:depi_graduation_project/features/home/view/user/main_screen.dart';
 import 'package:depi_graduation_project/features/no_internet/logic/check_connection/check_connection_cubit.dart';
-import 'package:depi_graduation_project/core/utils/language/language.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
 import 'package:depi_graduation_project/data/services/supabase_storage_service.dart';
 import 'package:depi_graduation_project/data/services/account_service/user_firestore_service.dart';
@@ -52,79 +57,77 @@ void main() async {
   SharedPreferencesService pref = SharedPreferencesService();
   await pref.init();
   bool seen = await pref.loadOnboardingStatus() ?? false;
-  bool isLoggedIn = await pref.loadUserLoginStatus() ?? false;
   _initialRoute = seen
-      ? (isLoggedIn
-            ? AppRouteNames.homePageRoute
-            : AppRouteNames.loginScreenRoute)
+      ? AppRouteNames.homePageRoute
       : AppRouteNames.introducationPageRoute;
   runApp(
-    MultiProvider(
+    MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => LanguageProvider()),
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        BlocProvider(create: (_) => CheckConnectionCubit()),
+        BlocProvider(create: (_) => ThemeCubit()),
+        BlocProvider(create: (_) => LanguageCubit()),
+        BlocProvider(create: (_) => FilterAndSortCubit()),
+        BlocProvider(
+          create: (context) => LoginCubit(context.read<CheckConnectionCubit>()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              RegisterCubit(context.read<CheckConnectionCubit>()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              ForgotPasswordCubit(context.read<CheckConnectionCubit>()),
+        ),
+
+        BlocProvider(
+          create: (context) => CompleteAddDataCubit(
+            context.read<CheckConnectionCubit>(),
+            UserFirestoreService(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => UpdateUserDataCubit(
+            context.read<CheckConnectionCubit>(),
+            UserFirestoreService(),
+            SupabaseStorageService(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => GetUserDataCubit(
+            context.read<CheckConnectionCubit>(),
+            UserFirestoreService(),
+          )..checkUserLoginStatus(),
+        ),
+        BlocProvider(
+          create: (_) =>
+              BestCategoryCubit(service: BestCategoryService())
+                ..listenToBestCategories(),
+        ),
+        BlocProvider(create: (context) => RoomsCubit()..listenToRooms()),
+        BlocProvider(create: (context) => BestProductCubit()),
+        BlocProvider(create: (context) => RoomCategoryCubit()),
+        BlocProvider(create: (context) => ProductCubit()),
+        BlocProvider(create: (context) => NewReviewCubit()),
+        BlocProvider(create: (context) => SubscribesCubit()),
+        BlocProvider(
+          create: (context) =>
+              SavedItemsCubit()
+                ..loadSavedItems(FirebaseAuth.instance.currentUser!.uid),
+        ),
+        BlocProvider(
+          create: (context) =>
+              BagCubit()..loadBagItems(FirebaseAuth.instance.currentUser!.uid),
+        ),
+        BlocProvider(create: (context) => PromoCodeCubit()),
+        BlocProvider(create: (context) => CheckoutCubit()),
+        BlocProvider(
+          create: (context) =>
+              AddressBookCubit()
+                ..loadAddressBooks(FirebaseAuth.instance.currentUser!.uid),
+        ),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (_) => CheckConnectionCubit()),
-          BlocProvider(create: (_) => FilterAndSortCubit()),
-          BlocProvider(
-            create: (context) =>
-                LoginCubit(context.read<CheckConnectionCubit>()),
-          ),
-          BlocProvider(
-            create: (context) =>
-                RegisterCubit(context.read<CheckConnectionCubit>()),
-          ),
-          BlocProvider(
-            create: (context) =>
-                ForgotPasswordCubit(context.read<CheckConnectionCubit>()),
-          ),
 
-          BlocProvider(
-            create: (context) => CompleteAddDataCubit(
-              context.read<CheckConnectionCubit>(),
-              UserFirestoreService(),
-            ),
-          ),
-          BlocProvider(
-            create: (context) => UpdateUserDataCubit(
-              context.read<CheckConnectionCubit>(),
-              UserFirestoreService(),
-              SupabaseStorageService(),
-            ),
-          ),
-          BlocProvider(
-            create: (context) => GetUserDataCubit(
-              context.read<CheckConnectionCubit>(),
-              UserFirestoreService(),
-            ),
-          ),
-          BlocProvider(
-            create: (_) =>
-                BestCategoryCubit(service: BestCategoryService())
-                  ..listenToBestCategories(),
-          ),
-          BlocProvider(create: (context) => RoomsCubit()..listenToRooms()),
-          BlocProvider(create: (context) => BestProductCubit()),
-          BlocProvider(create: (context) => RoomCategoryCubit()),
-          BlocProvider(create: (context) => ProductCubit()),
-          BlocProvider(create: (context) => NewReviewCubit()),
-          BlocProvider(create: (context) => SubscribesCubit()),
-          BlocProvider(
-            create: (context) =>
-                SavedItemsCubit()
-                  ..loadSavedItems(FirebaseAuth.instance.currentUser!.uid),
-          ),
-          BlocProvider(
-            create: (context) =>
-                BagCubit()
-                  ..loadBagItems(FirebaseAuth.instance.currentUser!.uid),
-          ),
-        ],
-
-        child: MyApp(appRouter: AppRouter()),
-      ),
+      child: MyApp(appRouter: AppRouter()),
     ),
   );
 }
@@ -136,31 +139,35 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(375, 812),
-      builder: (_, child) => Consumer<LanguageProvider>(
-        builder: (context, languageProvider, child) {
-          return Consumer<ThemeProvider>(
-            builder: (context, themeProvider, _) {
-              return MaterialApp(
-                locale: languageProvider.locale,
-                localizationsDelegates: [
-                  S.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: S.delegate.supportedLocales,
-                debugShowCheckedModeBanner: false,
-                onGenerateRoute: appRouter.generateRoute,
-                initialRoute: _initialRoute,
-                themeMode: themeProvider.themeMode,
-                theme: getThemeColorLight(context, languageProvider.locale),
-                darkTheme: getThemeColorDark(context, languageProvider.locale),
-              );
-            },
-          );
-        },
-      ),
+      designSize: const Size(375, 812),
+      builder: (_, __) {
+        return BlocBuilder<LanguageCubit, LanguageState>(
+          builder: (context, langState) {
+            return BlocBuilder<ThemeCubit, ThemeState>(
+              builder: (context, themeState) {
+                return MaterialApp(
+                  locale: langState.locale,
+
+                  localizationsDelegates: const [
+                    S.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+
+                  supportedLocales: S.delegate.supportedLocales,
+                  debugShowCheckedModeBanner: false,
+                  onGenerateRoute: appRouter.generateRoute,
+                  initialRoute: _initialRoute,
+                  themeMode: themeState.themeMode,
+                  theme: getThemeColorLight(context, langState.locale),
+                  darkTheme: getThemeColorDark(context, langState.locale),
+                );
+              },
+            );
+          },
+        );
+      },
     );
   }
 }

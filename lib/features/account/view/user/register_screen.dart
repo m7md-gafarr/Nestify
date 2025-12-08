@@ -1,7 +1,9 @@
+import 'package:depi_graduation_project/components/custom_app_bar_widget.dart';
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
 import 'package:depi_graduation_project/core/utils/dialog/dialog_helper.dart';
 import 'package:depi_graduation_project/core/utils/validation_utils.dart';
 import 'package:depi_graduation_project/features/account/logic/register/register_cubit.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,6 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBarWidget(title: ""),
       body: Form(
         key: formKey,
         child: SingleChildScrollView(
@@ -49,14 +52,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 120.h),
+                  SizedBox(height: 40.h),
                   Align(
                     alignment: AlignmentGeometry.centerLeft,
                     child: RichText(
                       text: TextSpan(
                         children: [
                           WidgetSpan(
-                            child: CustomSectionHeaderWidget(title: 'Nestify'),
+                            child: CustomSectionHeaderWidget(
+                              title: S.of(context).registerTitle,
+                            ),
                           ),
                         ],
                       ),
@@ -65,20 +70,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(height: 40.h),
                   RichText(
                     text: TextSpan(
-                      text: 'Create Your Account',
+                      text: S.of(context).registerCreateAccount,
                       style: Theme.of(
                         context,
                       ).textTheme.headlineSmall!.copyWith(fontSize: 20.sp),
                       children: [
                         TextSpan(
-                          text:
-                              ' ,If you already have an account register You can ',
+                          text: S.of(context).registerHaveAccount,
                           style: Theme.of(
                             context,
                           ).textTheme.titleSmall!.copyWith(fontSize: 16.sp),
                         ),
                         TextSpan(
-                          text: 'Login here !',
+                          text: S.of(context).registerLoginHere,
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               Navigator.pop(context);
@@ -95,19 +99,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   SizedBox(height: 40.h),
                   TextFormField(
-                    validator: ValidationUtils.emailValidator,
+                    validator: (value) =>
+                        ValidationUtils.emailValidator(value, context),
                     controller: _emailController,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
 
                     decoration: InputDecoration(
-                      hintText: 'Email',
+                      hintText: S.of(context).registerEmail,
                       border: OutlineInputBorder(),
                     ),
                   ),
                   SizedBox(height: 20.h),
                   TextFormField(
                     obscureText: obscurePassWord,
-                    validator: ValidationUtils.strongPasswordValidator,
+                    validator: (value) =>
+                        ValidationUtils.strongPasswordValidator(value, context),
 
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     onChanged: (value) {
@@ -116,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       });
                     },
                     decoration: InputDecoration(
-                      hintText: 'Password',
+                      hintText: S.of(context).registerPassword,
                       border: OutlineInputBorder(),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -131,16 +137,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     obscureText: obscureConfirmPassWord,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please confirm your password';
+                        return S.of(context).registerConfirmPasswordError;
                       } else if (value != password) {
-                        return 'Passwords do not match';
+                        return S.of(context).registerPasswordsNoMatch;
                       }
                       return null;
                     },
                     controller: _confirmPasswordController,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
-                      hintText: 'Confirm Password',
+                      hintText: S.of(context).registerConfirmPassword,
                       border: OutlineInputBorder(),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -172,12 +178,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ).showErrorDialog(message: state.errorMessage);
                         } else if (state is RegisterNoInternet) {
                           DialogHelper(context).showNoInternetDialog(
-                            message: "No Internet Connection",
+                            message: S.of(context).registerNoInternet,
                           );
                         } else if (state is RegisterSuccess) {
                           DialogHelper(context).showSuccessDialog(
-                            message:
-                                "Registration Successful check your email to verify your account",
+                            message: S.of(context).registerSuccess,
                             actions: [
                               TextButton(
                                 onPressed: () {
@@ -185,7 +190,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   Navigator.pop(context);
                                 },
                                 child: Text(
-                                  'OK',
+                                  S.of(context).registerOk,
                                   style: Theme.of(context).textTheme.bodyLarge!
                                       .copyWith(
                                         color: Theme.of(context).primaryColor,
@@ -200,7 +205,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         if (state is RegisterLoading) {
                           return CircularProgressIndicator(color: Colors.white);
                         } else {
-                          return Text('Register');
+                          return Text(S.of(context).registerButton);
                         }
                       },
                     ),
@@ -210,19 +215,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       buildPasswordRule(
-                        "At least 6 characters",
+                        S.of(context).registerRuleMinLength,
                         ValidationUtils.hasMinLength(password),
                       ),
                       buildPasswordRule(
-                        "Contains an uppercase letter",
+                        S.of(context).registerRuleUpperCase,
                         ValidationUtils.hasUpperCase(password),
                       ),
                       buildPasswordRule(
-                        "Contains a number",
+                        S.of(context).registerRuleNumber,
                         ValidationUtils.hasNumber(password),
                       ),
                       buildPasswordRule(
-                        "Contains a special character",
+                        S.of(context).registerRuleSpecialChar,
                         ValidationUtils.hasSpecialChar(password),
                       ),
                     ],

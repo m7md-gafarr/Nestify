@@ -45,7 +45,12 @@ class ReviewCardWidget extends StatelessWidget {
             children: [
               CircleAvatar(
                 maxRadius: 23.w,
-                backgroundImage: AssetImage(Assets.assetsImagesPic),
+                backgroundColor: Colors.grey.shade200,
+                backgroundImage:
+                    review.user.profileImageUrl != null &&
+                        review.user.profileImageUrl!.isNotEmpty
+                    ? NetworkImage(review.user.profileImageUrl!)
+                    : AssetImage(Assets.assetsImagesSmiley) as ImageProvider,
               ),
               SizedBox(width: 10.w),
               Column(

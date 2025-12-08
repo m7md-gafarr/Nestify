@@ -1,4 +1,5 @@
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/utils/validation_utils.dart';
@@ -31,30 +32,34 @@ class CheckoutContactInfoWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(height: 40.h),
-              const CustomSectionHeaderWidget(title: 'Contact info'),
+              CustomSectionHeaderWidget(
+                title: S.of(context).checkoutContactInfo,
+              ),
 
               SizedBox(height: 20.h),
 
-              /// Full Name
               TextFormField(
                 controller: fullNameController,
-                decoration: const InputDecoration(
-                  hintText: 'Full name',
+                keyboardType: TextInputType.name,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  hintText: S.of(context).checkoutFullName,
                   border: OutlineInputBorder(),
                 ),
-                validator: ValidationUtils.fullNameValidator,
+                validator: (value) =>
+                    ValidationUtils.fullNameValidator(value, context),
               ),
               SizedBox(height: 20.h),
 
-              /// Phone
               TextFormField(
                 controller: phoneController,
                 keyboardType: TextInputType.phone,
-                validator: ValidationUtils.phoneNumberValidator,
+                validator: (value) =>
+                    ValidationUtils.phoneNumberValidator(value, context),
                 maxLength: 10,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
-                  hintText: 'Phone Number',
+                  hintText: S.of(context).checkoutPhoneNumber,
                   prefixText: '+20 ',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.r),
@@ -63,18 +68,23 @@ class CheckoutContactInfoWidget extends StatelessWidget {
               ),
               SizedBox(height: 20.h),
 
-              /// Email
               TextFormField(
                 controller: emailController,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  hintText: 'Email',
+                decoration: InputDecoration(
+                  hintText: S.of(context).checkoutEmail,
                   border: OutlineInputBorder(),
                 ),
-                validator: ValidationUtils.emailValidator,
+                validator: (value) =>
+                    ValidationUtils.emailValidator(value, context),
               ),
               SizedBox(height: 40.h),
-              ElevatedButton(onPressed: onNext, child: Text("Next")),
+              ElevatedButton(
+                onPressed: onNext,
+                child: Text(S.of(context).checkoutNext),
+              ),
+              SizedBox(height: 20.h),
             ],
           ),
         ),

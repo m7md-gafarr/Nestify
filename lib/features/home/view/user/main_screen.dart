@@ -11,6 +11,7 @@ import 'package:depi_graduation_project/features/home/widgets/categories/categor
 import 'package:depi_graduation_project/features/no_internet/view/no_internet_screen.dart';
 import 'package:depi_graduation_project/features/saved_items/view/saved_items_screen.dart';
 import 'package:depi_graduation_project/features/account/view/user/account_screen.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +37,7 @@ class MainScreenState extends State<MainScreen> {
 
   final List<Widget> _screens = [
     HomeContent(),
-    const BagScreen(),
+    BagScreen(),
     const SavedItemsScreen(),
     const AccountScreen(),
   ];
@@ -65,7 +66,10 @@ class MainScreenState extends State<MainScreen> {
                         child: child,
                       );
                     },
-                child: IndexedStack(index: _currentIndex, children: _screens),
+                child: SafeArea(
+                  top: false,
+                  child: IndexedStack(index: _currentIndex, children: _screens),
+                ),
               );
             } else {
               return const NoInternetScreen();
@@ -110,7 +114,7 @@ class _HomeContentState extends State<HomeContent> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Text(
-                "Nestify",
+                S.of(context).homeNestify,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
             ),
@@ -124,7 +128,7 @@ class _HomeContentState extends State<HomeContent> {
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: "Search for rooms",
+                  hintText: S.of(context).homeSearchRooms,
                   prefixIcon: Icon(Iconsax.search_normal, size: 26.sp),
                 ),
               ),
@@ -182,7 +186,9 @@ class _HomeContentState extends State<HomeContent> {
                   if (filtered.isEmpty) {
                     return SizedBox(
                       height: MediaQuery.of(context).size.height * 0.3,
-                      child: NoResultsWidget(message: "No rooms found"),
+                      child: NoResultsWidget(
+                        message: S.of(context).homeNoRoomsFound,
+                      ),
                     );
                   }
 
