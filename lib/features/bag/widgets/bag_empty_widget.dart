@@ -21,6 +21,10 @@ class BagEmptyWidget extends StatelessWidget {
             Assets.assetsImagesSurprised,
             width: 120.w,
             height: 120.w,
+            colorFilter: ColorFilter.mode(
+              Theme.of(context).colorScheme.onSurface,
+              BlendMode.srcIn,
+            ),
           ),
 
           SizedBox(height: 20.h),

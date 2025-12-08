@@ -15,9 +15,14 @@ class CustomBottomNavBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return BottomNavigationBar(
       currentIndex: currentIndex,
       onTap: onTap,
+      backgroundColor:
+          theme.bottomNavigationBarTheme.backgroundColor ?? colorScheme.surface,
       items: [
         BottomNavigationBarItem(
           icon: Container(
@@ -25,15 +30,15 @@ class CustomBottomNavBarWidget extends StatelessWidget {
             height: 24.h,
             decoration: BoxDecoration(
               color: currentIndex == 0
-                  ? Theme.of(context).primaryColor
-                  : Theme.of(context).secondaryHeaderColor.withOpacity(.4),
+                  ? theme.primaryColor
+                  : colorScheme.surfaceContainerLow,
               borderRadius: BorderRadius.circular(6),
             ),
             child: Center(
               child: Text(
                 "N",
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: colorScheme.onPrimary,
                   fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
                   fontFamily: font,
@@ -47,10 +52,12 @@ class CustomBottomNavBarWidget extends StatelessWidget {
         const BottomNavigationBarItem(icon: Icon(Iconsax.heart), label: ""),
         const BottomNavigationBarItem(icon: Icon(Iconsax.user), label: ""),
       ],
-      selectedItemColor: Theme.of(context).primaryColor,
-      unselectedItemColor: Theme.of(
-        context,
-      ).secondaryHeaderColor.withOpacity(.4),
+      selectedItemColor:
+          theme.bottomNavigationBarTheme.selectedItemColor ??
+          theme.primaryColor,
+      unselectedItemColor:
+          theme.bottomNavigationBarTheme.unselectedItemColor ??
+          colorScheme.onSurface.withOpacity(.6),
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: false,
       showUnselectedLabels: false,

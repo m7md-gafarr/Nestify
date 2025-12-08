@@ -24,6 +24,10 @@ class _IntroducationScreenState extends State<IntroducationScreen> {
               Assets.assetsImagesElement,
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).colorScheme.onSurface,
+                BlendMode.srcIn,
+              ),
             ),
           ),
           Padding(
