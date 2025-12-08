@@ -4,6 +4,7 @@ import 'package:depi_graduation_project/features/home/logic/room_category/room_c
 import 'package:depi_graduation_project/features/home/widgets/categories/category_list_tile_widget.dart';
 import 'package:depi_graduation_project/features/home/widgets/categories/shimmer/category_list_tile_widget_shimmer.dart';
 import 'package:depi_graduation_project/features/home/widgets/filters/no_results_widget.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -63,12 +64,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       });
                     },
                     decoration: InputDecoration(
-                      hintText: "Search for categories",
+                      hintText: S.of(context).homeSearchCategories,
                       prefixIcon: Icon(Iconsax.search_normal, size: 26.sp),
                     ),
                   ),
                   SizedBox(height: 15.h),
-                  CustomSectionHeaderWidget(title: 'categories'),
+                  CustomSectionHeaderWidget(
+                    title: S.of(context).homeCategories,
+                  ),
 
                   BlocBuilder<RoomCategoryCubit, RoomCategoryState>(
                     builder: (context, state) {
@@ -84,7 +87,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           return SizedBox(
                             height: MediaQuery.of(context).size.height * 0.3,
                             child: NoResultsWidget(
-                              message: "No categories found",
+                              message: S.of(context).homeNoCategoriesFound,
                             ),
                           );
                         }

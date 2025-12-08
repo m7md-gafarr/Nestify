@@ -99,7 +99,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   SizedBox(height: 40.h),
                   TextFormField(
-                    validator: ValidationUtils.emailValidator,
+                    validator: (value) =>
+                        ValidationUtils.emailValidator(value, context),
                     controller: _emailController,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
 
@@ -111,7 +112,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(height: 20.h),
                   TextFormField(
                     obscureText: obscurePassWord,
-                    validator: ValidationUtils.strongPasswordValidator,
+                    validator: (value) =>
+                        ValidationUtils.strongPasswordValidator(value, context),
 
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     onChanged: (value) {

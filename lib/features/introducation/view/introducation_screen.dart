@@ -1,6 +1,7 @@
 import 'package:depi_graduation_project/core/images/app_images.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/data/data_sources/local/shared_pref.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -33,7 +34,7 @@ class _IntroducationScreenState extends State<IntroducationScreen> {
           Padding(
             padding: const EdgeInsets.all(30.0),
             child: Text(
-              "Define\nyour\nspace in\nyour\nunique way.",
+              S.of(context).introTitle,
               style: Theme.of(context).textTheme.displayLarge!.copyWith(
                 fontWeight: FontWeight.w100,
                 letterSpacing: 1.3,
@@ -76,7 +77,7 @@ class _IntroducationScreenState extends State<IntroducationScreen> {
                         (route) => false,
                       );
                     },
-                    child: Text("Get Started"),
+                    child: Text(S.of(context).introGetStarted),
                   ),
                 ),
               ),

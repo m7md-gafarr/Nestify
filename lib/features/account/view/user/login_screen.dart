@@ -98,7 +98,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   SizedBox(height: 40.h),
                   TextFormField(
-                    validator: ValidationUtils.emailValidator,
+                    validator: (value) =>
+                        ValidationUtils.emailValidator(value, context),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: _emailController,
                     decoration: InputDecoration(
@@ -109,7 +110,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 20.h),
                   TextFormField(
                     obscureText: obscureText,
-                    validator: ValidationUtils.passwordValidator,
+                    validator: (value) =>
+                        ValidationUtils.passwordValidator(value, context),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: _passwordController,
                     decoration: InputDecoration(

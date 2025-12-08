@@ -80,6 +80,20 @@ class MessageLookup extends MessageLookupByLibrary {
       "Street cannot be empty",
     ),
     "addAddressTitle": MessageLookupByLibrary.simpleMessage("Add New Address"),
+    "addRoomError": MessageLookupByLibrary.simpleMessage("Error"),
+    "addRoomFillAllFields": MessageLookupByLibrary.simpleMessage(
+      "Please fill all fields",
+    ),
+    "addRoomNameLabel": MessageLookupByLibrary.simpleMessage("Room Name"),
+    "addRoomOrderLabel": MessageLookupByLibrary.simpleMessage("Order"),
+    "addRoomSaveButton": MessageLookupByLibrary.simpleMessage("Save Room"),
+    "addRoomSelectImage": MessageLookupByLibrary.simpleMessage(
+      "Please select an image",
+    ),
+    "addRoomSelectImageButton": MessageLookupByLibrary.simpleMessage(
+      "Select Image",
+    ),
+    "addRoomTitle": MessageLookupByLibrary.simpleMessage("Add Room"),
     "addressBookAddNew": MessageLookupByLibrary.simpleMessage(
       "Add New Address",
     ),
@@ -102,12 +116,21 @@ class MessageLookup extends MessageLookupByLibrary {
       "Admin Dashboard",
     ),
     "bagContinue": MessageLookupByLibrary.simpleMessage("Continue"),
+    "bagEmpty": MessageLookupByLibrary.simpleMessage("your bag is empty"),
+    "bagEmptyMessage": MessageLookupByLibrary.simpleMessage(
+      "items remain in your bag for 1 hour, and then they\'re moved to your Saved items",
+    ),
+    "bagEmptyStartShopping": MessageLookupByLibrary.simpleMessage(
+      "Start shopping",
+    ),
     "bagFinalTotal": MessageLookupByLibrary.simpleMessage("final total"),
     "bagPromoCode": MessageLookupByLibrary.simpleMessage("Promo Code"),
     "bagPromoCodeHint": MessageLookupByLibrary.simpleMessage("Code"),
     "bagPromocode": MessageLookupByLibrary.simpleMessage("Promocode"),
     "bagTitle": MessageLookupByLibrary.simpleMessage("bag"),
     "bagTotal": MessageLookupByLibrary.simpleMessage("Total"),
+    "catalogFilter": MessageLookupByLibrary.simpleMessage("Filter"),
+    "catalogSort": MessageLookupByLibrary.simpleMessage("Sort"),
     "checkoutByCourier": MessageLookupByLibrary.simpleMessage("By courier"),
     "checkoutContactInfo": MessageLookupByLibrary.simpleMessage("Contact info"),
     "checkoutContinue": MessageLookupByLibrary.simpleMessage("Continue"),
@@ -175,6 +198,21 @@ class MessageLookup extends MessageLookupByLibrary {
     "completeProfileUploadPhoto": MessageLookupByLibrary.simpleMessage(
       "Upload or take a photo",
     ),
+    "filterBy": MessageLookupByLibrary.simpleMessage("Filter by"),
+    "filterCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "filterClear": MessageLookupByLibrary.simpleMessage("Clear"),
+    "filterColor": MessageLookupByLibrary.simpleMessage("Color"),
+    "filterProductType": MessageLookupByLibrary.simpleMessage("Product type"),
+    "filterQuality": MessageLookupByLibrary.simpleMessage("Quality"),
+    "filterSelectColor": MessageLookupByLibrary.simpleMessage("Select Color"),
+    "filterSelectProductType": MessageLookupByLibrary.simpleMessage(
+      "Select Product Type",
+    ),
+    "filterSelectQuality": MessageLookupByLibrary.simpleMessage(
+      "Select Quality",
+    ),
+    "filterSelectSize": MessageLookupByLibrary.simpleMessage("Select Size"),
+    "filterSize": MessageLookupByLibrary.simpleMessage("Size"),
     "forgotPasswordEmail": MessageLookupByLibrary.simpleMessage("Email"),
     "forgotPasswordInstruction": MessageLookupByLibrary.simpleMessage(
       "Enter your email and we will send you a password reset link.",
@@ -197,6 +235,23 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "forgotPasswordTitle": MessageLookupByLibrary.simpleMessage(
       "Forgot password ?",
+    ),
+    "homeCategories": MessageLookupByLibrary.simpleMessage("categories"),
+    "homeNestify": MessageLookupByLibrary.simpleMessage("Nestify"),
+    "homeNoCategoriesFound": MessageLookupByLibrary.simpleMessage(
+      "No categories found",
+    ),
+    "homeNoRoomsFound": MessageLookupByLibrary.simpleMessage("No rooms found"),
+    "homeSearchCategories": MessageLookupByLibrary.simpleMessage(
+      "Search for categories",
+    ),
+    "homeSearchFurniture": MessageLookupByLibrary.simpleMessage(
+      "Search for furniture",
+    ),
+    "homeSearchRooms": MessageLookupByLibrary.simpleMessage("Search for rooms"),
+    "introGetStarted": MessageLookupByLibrary.simpleMessage("Get Started"),
+    "introTitle": MessageLookupByLibrary.simpleMessage(
+      "Define\nyour\nspace in\nyour\nunique way.",
     ),
     "loginButton": MessageLookupByLibrary.simpleMessage("Login"),
     "loginContinueWith": MessageLookupByLibrary.simpleMessage(
@@ -249,6 +304,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "myDetailsTitle": MessageLookupByLibrary.simpleMessage("My Details"),
     "myOrdersMessage": MessageLookupByLibrary.simpleMessage(
       "User orders will be shown here.",
+    ),
+    "noResultsMessage": MessageLookupByLibrary.simpleMessage(
+      "nothing found,try\nsomething else",
     ),
     "orderSuccessMessage": MessageLookupByLibrary.simpleMessage(
       "thanks for your order, we hope you enjoyed shopping with us",
@@ -327,6 +385,30 @@ class MessageLookup extends MessageLookupByLibrary {
     "privacyUseInfoTitle": MessageLookupByLibrary.simpleMessage(
       "How We Use Information",
     ),
+    "productAddReview": MessageLookupByLibrary.simpleMessage("Add Review"),
+    "productAddToBag": MessageLookupByLibrary.simpleMessage("Add to Bag"),
+    "productCareInstructions": MessageLookupByLibrary.simpleMessage(
+      "Care Instructions",
+    ),
+    "productComposition": MessageLookupByLibrary.simpleMessage("Composition"),
+    "productDepth": MessageLookupByLibrary.simpleMessage("Depth"),
+    "productDetails": MessageLookupByLibrary.simpleMessage("Product details"),
+    "productHeight": MessageLookupByLibrary.simpleMessage("Height"),
+    "productLoginToAddToBag": MessageLookupByLibrary.simpleMessage(
+      "Login to add to Bag",
+    ),
+    "productMainMaterial": MessageLookupByLibrary.simpleMessage(
+      "Main Material",
+    ),
+    "productMeasurements": MessageLookupByLibrary.simpleMessage("Measurements"),
+    "productReviews": MessageLookupByLibrary.simpleMessage("Reviews"),
+    "productSecondaryMaterial": MessageLookupByLibrary.simpleMessage(
+      "Secondary Material",
+    ),
+    "productShowLess": MessageLookupByLibrary.simpleMessage("Show less"),
+    "productShowMore": MessageLookupByLibrary.simpleMessage("Show more"),
+    "productWeight": MessageLookupByLibrary.simpleMessage("Weight"),
+    "productWidth": MessageLookupByLibrary.simpleMessage("Width"),
     "registerButton": MessageLookupByLibrary.simpleMessage("Register"),
     "registerConfirmPassword": MessageLookupByLibrary.simpleMessage(
       "Confirm Password",
@@ -366,6 +448,25 @@ class MessageLookup extends MessageLookupByLibrary {
       "Registration Successful check your email to verify your account",
     ),
     "registerTitle": MessageLookupByLibrary.simpleMessage("Nestify"),
+    "reviewsAddYourReview": MessageLookupByLibrary.simpleMessage(
+      "Add Your Review",
+    ),
+    "reviewsBeFirst": MessageLookupByLibrary.simpleMessage(
+      "Be the first to write a review.",
+    ),
+    "reviewsNoReviews": MessageLookupByLibrary.simpleMessage("No reviews yet!"),
+    "savedItemsAddToBag": MessageLookupByLibrary.simpleMessage("Add to Bag"),
+    "savedItemsEmpty": MessageLookupByLibrary.simpleMessage("nothing saved..."),
+    "savedItemsEmptyMessage": MessageLookupByLibrary.simpleMessage(
+      "... no worries. Start saving as you shop by clicking the little heart",
+    ),
+    "savedItemsSearchFurniture": MessageLookupByLibrary.simpleMessage(
+      "Search for furniture",
+    ),
+    "savedItemsStartShopping": MessageLookupByLibrary.simpleMessage(
+      "Start shopping",
+    ),
+    "savedItemsTitle": MessageLookupByLibrary.simpleMessage("saved items"),
     "settingsAbout": MessageLookupByLibrary.simpleMessage("About"),
     "settingsArabic": MessageLookupByLibrary.simpleMessage("Arabic"),
     "settingsChooseLanguage": MessageLookupByLibrary.simpleMessage(
@@ -389,6 +490,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "settingsTheme": MessageLookupByLibrary.simpleMessage("Theme"),
     "settingsTitle": MessageLookupByLibrary.simpleMessage("Settings"),
     "settingsVersion": MessageLookupByLibrary.simpleMessage("version 1.0.0"),
+    "sortBy": MessageLookupByLibrary.simpleMessage("sort by"),
+    "sortCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "sortNewestFirst": MessageLookupByLibrary.simpleMessage("Newest First"),
+    "sortPriceHighToLow": MessageLookupByLibrary.simpleMessage(
+      "Price: High to Low",
+    ),
+    "sortPriceLowToHigh": MessageLookupByLibrary.simpleMessage(
+      "Price: Low to High",
+    ),
     "termsChangesBody": MessageLookupByLibrary.simpleMessage(
       "We may update these terms periodically. Continued use after changes means you accept the updated terms.",
     ),
@@ -473,6 +583,33 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "termsWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "Welcome to Nestify",
+    ),
+    "validationAddressRequired": MessageLookupByLibrary.simpleMessage(
+      "Address is required",
+    ),
+    "validationEmailInvalidFormat": MessageLookupByLibrary.simpleMessage(
+      "Invalid email format",
+    ),
+    "validationEmailRequired": MessageLookupByLibrary.simpleMessage(
+      "Email is required",
+    ),
+    "validationFullNameRequired": MessageLookupByLibrary.simpleMessage(
+      "Full name is required",
+    ),
+    "validationPasswordConditions": MessageLookupByLibrary.simpleMessage(
+      "Password does not meet the required conditions",
+    ),
+    "validationPasswordMinLength": MessageLookupByLibrary.simpleMessage(
+      "Password must be at least 6 characters",
+    ),
+    "validationPasswordRequired": MessageLookupByLibrary.simpleMessage(
+      "Password is required",
+    ),
+    "validationPhoneNumberInvalid": MessageLookupByLibrary.simpleMessage(
+      "Invalid Egyptian phone number",
+    ),
+    "validationPhoneNumberRequired": MessageLookupByLibrary.simpleMessage(
+      "Phone number is required",
     ),
   };
 }

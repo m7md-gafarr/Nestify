@@ -4,6 +4,7 @@ import 'package:depi_graduation_project/core/constants/firebase_collection.dart'
 import 'package:depi_graduation_project/data/services/home_service/room_service.dart';
 import 'package:depi_graduation_project/data/services/supabase_storage_service.dart';
 import 'package:depi_graduation_project/features/home/models/rooms/room_model.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -31,16 +32,16 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
 
   Future<void> saveRoom() async {
     if (nameController.text.isEmpty || orderController.text.isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Please fill all fields")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(S.of(context).addRoomFillAllFields)),
+      );
       return;
     }
 
     if (_pickedImage == null) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text("Please select an image")));
+      ).showSnackBar(SnackBar(content: Text(S.of(context).addRoomSelectImage)));
       return;
     }
 
@@ -72,9 +73,9 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
 
       Navigator.pop(context);
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Error: $e")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("${S.of(context).addRoomError}: $e")),
+      );
     }
 
     setState(() => isLoading = false);
@@ -83,7 +84,7 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Add Room')),
+      appBar: AppBar(title: Text(S.of(context).addRoomTitle)),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
@@ -113,8 +114,8 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
 
               TextField(
                 controller: nameController,
-                decoration: const InputDecoration(
-                  labelText: "Room Name",
+                decoration: InputDecoration(
+                  labelText: S.of(context).addRoomNameLabel,
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -123,8 +124,8 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
               TextField(
                 controller: orderController,
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: "Order",
+                decoration: InputDecoration(
+                  labelText: S.of(context).addRoomOrderLabel,
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -137,7 +138,7 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
                   onPressed: isLoading ? null : saveRoom,
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text("Save"),
+                      : Text(S.of(context).addRoomSaveButton),
                 ),
               ),
             ],

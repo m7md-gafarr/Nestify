@@ -1,4 +1,5 @@
 import 'package:depi_graduation_project/generated/assets.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:depi_graduation_project/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,7 +29,7 @@ class BagEmptyWidget extends StatelessWidget {
           SizedBox(height: 20.h),
 
           Text(
-            'your bag is empty',
+            S.of(context).bagEmpty,
             style: Theme.of(context).textTheme.headlineSmall,
             textAlign: TextAlign.center,
           ),
@@ -36,7 +37,7 @@ class BagEmptyWidget extends StatelessWidget {
           SizedBox(height: 20.h),
 
           Text(
-            "items remain in your bag for 1 hour, and then they're moved to your Saved items",
+            S.of(context).bagEmptyMessage,
             style: Theme.of(context).textTheme.bodyLarge,
             textAlign: TextAlign.center,
           ),
@@ -47,7 +48,7 @@ class BagEmptyWidget extends StatelessWidget {
             onPressed: () {
               mainScreenKey.currentState?.jumpToHome();
             },
-            child: const Text("Start shopping"),
+            child: Text(S.of(context).bagEmptyStartShopping),
           ),
           SizedBox(height: 20.h),
         ],

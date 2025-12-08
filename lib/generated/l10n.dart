@@ -1904,6 +1904,641 @@ class S {
       args: [],
     );
   }
+
+  /// `Nestify`
+  String get homeNestify {
+    return Intl.message('Nestify', name: 'homeNestify', desc: '', args: []);
+  }
+
+  /// `Search for rooms`
+  String get homeSearchRooms {
+    return Intl.message(
+      'Search for rooms',
+      name: 'homeSearchRooms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search for furniture`
+  String get homeSearchFurniture {
+    return Intl.message(
+      'Search for furniture',
+      name: 'homeSearchFurniture',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search for categories`
+  String get homeSearchCategories {
+    return Intl.message(
+      'Search for categories',
+      name: 'homeSearchCategories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `categories`
+  String get homeCategories {
+    return Intl.message(
+      'categories',
+      name: 'homeCategories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No rooms found`
+  String get homeNoRoomsFound {
+    return Intl.message(
+      'No rooms found',
+      name: 'homeNoRoomsFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No categories found`
+  String get homeNoCategoriesFound {
+    return Intl.message(
+      'No categories found',
+      name: 'homeNoCategoriesFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `sort by`
+  String get sortBy {
+    return Intl.message('sort by', name: 'sortBy', desc: '', args: []);
+  }
+
+  /// `Price: Low to High`
+  String get sortPriceLowToHigh {
+    return Intl.message(
+      'Price: Low to High',
+      name: 'sortPriceLowToHigh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price: High to Low`
+  String get sortPriceHighToLow {
+    return Intl.message(
+      'Price: High to Low',
+      name: 'sortPriceHighToLow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Newest First`
+  String get sortNewestFirst {
+    return Intl.message(
+      'Newest First',
+      name: 'sortNewestFirst',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get sortCancel {
+    return Intl.message('Cancel', name: 'sortCancel', desc: '', args: []);
+  }
+
+  /// `Filter by`
+  String get filterBy {
+    return Intl.message('Filter by', name: 'filterBy', desc: '', args: []);
+  }
+
+  /// `Clear`
+  String get filterClear {
+    return Intl.message('Clear', name: 'filterClear', desc: '', args: []);
+  }
+
+  /// `Product type`
+  String get filterProductType {
+    return Intl.message(
+      'Product type',
+      name: 'filterProductType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Product Type`
+  String get filterSelectProductType {
+    return Intl.message(
+      'Select Product Type',
+      name: 'filterSelectProductType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Color`
+  String get filterColor {
+    return Intl.message('Color', name: 'filterColor', desc: '', args: []);
+  }
+
+  /// `Select Color`
+  String get filterSelectColor {
+    return Intl.message(
+      'Select Color',
+      name: 'filterSelectColor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Size`
+  String get filterSize {
+    return Intl.message('Size', name: 'filterSize', desc: '', args: []);
+  }
+
+  /// `Select Size`
+  String get filterSelectSize {
+    return Intl.message(
+      'Select Size',
+      name: 'filterSelectSize',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quality`
+  String get filterQuality {
+    return Intl.message('Quality', name: 'filterQuality', desc: '', args: []);
+  }
+
+  /// `Select Quality`
+  String get filterSelectQuality {
+    return Intl.message(
+      'Select Quality',
+      name: 'filterSelectQuality',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get filterCancel {
+    return Intl.message('Cancel', name: 'filterCancel', desc: '', args: []);
+  }
+
+  /// `nothing found,try\nsomething else`
+  String get noResultsMessage {
+    return Intl.message(
+      'nothing found,try\nsomething else',
+      name: 'noResultsMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No reviews yet!`
+  String get reviewsNoReviews {
+    return Intl.message(
+      'No reviews yet!',
+      name: 'reviewsNoReviews',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Be the first to write a review.`
+  String get reviewsBeFirst {
+    return Intl.message(
+      'Be the first to write a review.',
+      name: 'reviewsBeFirst',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Your Review`
+  String get reviewsAddYourReview {
+    return Intl.message(
+      'Add Your Review',
+      name: 'reviewsAddYourReview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login to add to Bag`
+  String get productLoginToAddToBag {
+    return Intl.message(
+      'Login to add to Bag',
+      name: 'productLoginToAddToBag',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add to Bag`
+  String get productAddToBag {
+    return Intl.message(
+      'Add to Bag',
+      name: 'productAddToBag',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Product details`
+  String get productDetails {
+    return Intl.message(
+      'Product details',
+      name: 'productDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Measurements`
+  String get productMeasurements {
+    return Intl.message(
+      'Measurements',
+      name: 'productMeasurements',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Height`
+  String get productHeight {
+    return Intl.message('Height', name: 'productHeight', desc: '', args: []);
+  }
+
+  /// `Width`
+  String get productWidth {
+    return Intl.message('Width', name: 'productWidth', desc: '', args: []);
+  }
+
+  /// `Depth`
+  String get productDepth {
+    return Intl.message('Depth', name: 'productDepth', desc: '', args: []);
+  }
+
+  /// `Weight`
+  String get productWeight {
+    return Intl.message('Weight', name: 'productWeight', desc: '', args: []);
+  }
+
+  /// `Composition`
+  String get productComposition {
+    return Intl.message(
+      'Composition',
+      name: 'productComposition',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Main Material`
+  String get productMainMaterial {
+    return Intl.message(
+      'Main Material',
+      name: 'productMainMaterial',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Secondary Material`
+  String get productSecondaryMaterial {
+    return Intl.message(
+      'Secondary Material',
+      name: 'productSecondaryMaterial',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Care Instructions`
+  String get productCareInstructions {
+    return Intl.message(
+      'Care Instructions',
+      name: 'productCareInstructions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show more`
+  String get productShowMore {
+    return Intl.message(
+      'Show more',
+      name: 'productShowMore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show less`
+  String get productShowLess {
+    return Intl.message(
+      'Show less',
+      name: 'productShowLess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reviews`
+  String get productReviews {
+    return Intl.message('Reviews', name: 'productReviews', desc: '', args: []);
+  }
+
+  /// `Add Review`
+  String get productAddReview {
+    return Intl.message(
+      'Add Review',
+      name: 'productAddReview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sort`
+  String get catalogSort {
+    return Intl.message('Sort', name: 'catalogSort', desc: '', args: []);
+  }
+
+  /// `Filter`
+  String get catalogFilter {
+    return Intl.message('Filter', name: 'catalogFilter', desc: '', args: []);
+  }
+
+  /// `Add Room`
+  String get addRoomTitle {
+    return Intl.message('Add Room', name: 'addRoomTitle', desc: '', args: []);
+  }
+
+  /// `Please fill all fields`
+  String get addRoomFillAllFields {
+    return Intl.message(
+      'Please fill all fields',
+      name: 'addRoomFillAllFields',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select an image`
+  String get addRoomSelectImage {
+    return Intl.message(
+      'Please select an image',
+      name: 'addRoomSelectImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get addRoomError {
+    return Intl.message('Error', name: 'addRoomError', desc: '', args: []);
+  }
+
+  /// `Room Name`
+  String get addRoomNameLabel {
+    return Intl.message(
+      'Room Name',
+      name: 'addRoomNameLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order`
+  String get addRoomOrderLabel {
+    return Intl.message('Order', name: 'addRoomOrderLabel', desc: '', args: []);
+  }
+
+  /// `Select Image`
+  String get addRoomSelectImageButton {
+    return Intl.message(
+      'Select Image',
+      name: 'addRoomSelectImageButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Room`
+  String get addRoomSaveButton {
+    return Intl.message(
+      'Save Room',
+      name: 'addRoomSaveButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `saved items`
+  String get savedItemsTitle {
+    return Intl.message(
+      'saved items',
+      name: 'savedItemsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search for furniture`
+  String get savedItemsSearchFurniture {
+    return Intl.message(
+      'Search for furniture',
+      name: 'savedItemsSearchFurniture',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `nothing saved...`
+  String get savedItemsEmpty {
+    return Intl.message(
+      'nothing saved...',
+      name: 'savedItemsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `... no worries. Start saving as you shop by clicking the little heart`
+  String get savedItemsEmptyMessage {
+    return Intl.message(
+      '... no worries. Start saving as you shop by clicking the little heart',
+      name: 'savedItemsEmptyMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start shopping`
+  String get savedItemsStartShopping {
+    return Intl.message(
+      'Start shopping',
+      name: 'savedItemsStartShopping',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add to Bag`
+  String get savedItemsAddToBag {
+    return Intl.message(
+      'Add to Bag',
+      name: 'savedItemsAddToBag',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Define\nyour\nspace in\nyour\nunique way.`
+  String get introTitle {
+    return Intl.message(
+      'Define\nyour\nspace in\nyour\nunique way.',
+      name: 'introTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get Started`
+  String get introGetStarted {
+    return Intl.message(
+      'Get Started',
+      name: 'introGetStarted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `your bag is empty`
+  String get bagEmpty {
+    return Intl.message(
+      'your bag is empty',
+      name: 'bagEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `items remain in your bag for 1 hour, and then they're moved to your Saved items`
+  String get bagEmptyMessage {
+    return Intl.message(
+      'items remain in your bag for 1 hour, and then they\'re moved to your Saved items',
+      name: 'bagEmptyMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start shopping`
+  String get bagEmptyStartShopping {
+    return Intl.message(
+      'Start shopping',
+      name: 'bagEmptyStartShopping',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email is required`
+  String get validationEmailRequired {
+    return Intl.message(
+      'Email is required',
+      name: 'validationEmailRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid email format`
+  String get validationEmailInvalidFormat {
+    return Intl.message(
+      'Invalid email format',
+      name: 'validationEmailInvalidFormat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password is required`
+  String get validationPasswordRequired {
+    return Intl.message(
+      'Password is required',
+      name: 'validationPasswordRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password must be at least 6 characters`
+  String get validationPasswordMinLength {
+    return Intl.message(
+      'Password must be at least 6 characters',
+      name: 'validationPasswordMinLength',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password does not meet the required conditions`
+  String get validationPasswordConditions {
+    return Intl.message(
+      'Password does not meet the required conditions',
+      name: 'validationPasswordConditions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full name is required`
+  String get validationFullNameRequired {
+    return Intl.message(
+      'Full name is required',
+      name: 'validationFullNameRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone number is required`
+  String get validationPhoneNumberRequired {
+    return Intl.message(
+      'Phone number is required',
+      name: 'validationPhoneNumberRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid Egyptian phone number`
+  String get validationPhoneNumberInvalid {
+    return Intl.message(
+      'Invalid Egyptian phone number',
+      name: 'validationPhoneNumberInvalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Address is required`
+  String get validationAddressRequired {
+    return Intl.message(
+      'Address is required',
+      name: 'validationAddressRequired',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

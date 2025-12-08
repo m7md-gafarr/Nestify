@@ -7,6 +7,7 @@ import 'package:depi_graduation_project/features/home/widgets/filters/no_results
 import 'package:depi_graduation_project/features/home/widgets/products/product_grid_item.dart';
 import 'package:depi_graduation_project/features/home/widgets/products/shimmer/product_grid_item_shimmer.dart';
 import 'package:depi_graduation_project/features/home/widgets/sorting/sort_bottom_sheet.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -117,7 +118,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
                     setState(() {});
                   },
                   decoration: InputDecoration(
-                    hintText: "Search for furniture",
+                    hintText: S.of(context).homeSearchFurniture,
                     prefixIcon: Icon(Iconsax.search_normal, size: 26.sp),
                   ),
                 ),
@@ -130,7 +131,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
                       child: OutlinedButton.icon(
                         onPressed: () => showSortBottomSheet(context: context),
                         icon: const Icon(Iconsax.sort),
-                        label: const Text("Sort"),
+                        label: Text(S.of(context).catalogSort),
                       ),
                     ),
                     SizedBox(width: 15.w),
@@ -138,7 +139,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
                       child: OutlinedButton.icon(
                         onPressed: () => showMainFilterSheet(context: context),
                         icon: const Icon(Iconsax.filter),
-                        label: const Text("Filter"),
+                        label: Text(S.of(context).catalogFilter),
                       ),
                     ),
                   ],

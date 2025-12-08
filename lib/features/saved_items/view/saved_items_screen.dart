@@ -5,6 +5,7 @@ import 'package:depi_graduation_project/features/home/widgets/filters/no_results
 import 'package:depi_graduation_project/features/saved_items/logic/saved_items/saved_items_cubit.dart';
 import 'package:depi_graduation_project/features/saved_items/widgets/saved_items_empty_widget.dart';
 import 'package:depi_graduation_project/features/saved_items/widgets/save_item_widget.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +45,9 @@ class _SavedItemsScreenState extends State<SavedItemsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 60.h),
-                      CustomSectionHeaderWidget(title: 'saved items'),
+                      CustomSectionHeaderWidget(
+                        title: S.of(context).savedItemsTitle,
+                      ),
                       SizedBox(height: 20.h),
                       BlocBuilder<SavedItemsCubit, SavedItemsState>(
                         builder: (context, state) {
@@ -57,7 +60,9 @@ class _SavedItemsScreenState extends State<SavedItemsScreen> {
                                 });
                               },
                               decoration: InputDecoration(
-                                hintText: "Search for furniture",
+                                hintText: S
+                                    .of(context)
+                                    .savedItemsSearchFurniture,
                                 prefixIcon: Icon(
                                   Iconsax.search_normal,
                                   size: 26.sp,

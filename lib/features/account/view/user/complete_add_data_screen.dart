@@ -102,7 +102,8 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                 TextFormField(
                   controller: fullNameController,
                   keyboardType: TextInputType.name,
-                  validator: ValidationUtils.fullNameValidator,
+                  validator: (value) =>
+                      ValidationUtils.fullNameValidator(value, context),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
                     hintText: S.of(context).completeProfileFullName,
@@ -127,7 +128,8 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                 TextFormField(
                   controller: phoneController,
                   keyboardType: TextInputType.phone,
-                  validator: ValidationUtils.phoneNumberValidator,
+                  validator: (value) =>
+                      ValidationUtils.phoneNumberValidator(value, context),
                   maxLength: 10,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
@@ -143,7 +145,8 @@ class _CompleteAddDataScreenState extends State<CompleteAddDataScreen> {
                 TextFormField(
                   controller: addressController,
                   keyboardType: TextInputType.streetAddress,
-                  validator: ValidationUtils.addressValidator,
+                  validator: (value) =>
+                      ValidationUtils.addressValidator(value, context),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
                     hintText: S.of(context).completeProfileAddress,

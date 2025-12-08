@@ -6,6 +6,7 @@ import 'package:depi_graduation_project/features/home/logic/product/product_cubi
 import 'package:depi_graduation_project/features/home/widgets/review/no_reviews_widget.dart';
 import 'package:depi_graduation_project/features/home/widgets/review/review_card_widget.dart';
 import 'package:depi_graduation_project/features/saved_items/logic/saved_items/saved_items_cubit.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -266,7 +267,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                       AppRouteNames.loginScreenRoute,
                                     );
                                   },
-                                  child: Text('Login to add to Bag'),
+                                  child: Text(
+                                    S.of(context).productLoginToAddToBag,
+                                  ),
                                 );
                               } else {
                                 return ElevatedButton.icon(
@@ -294,7 +297,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                           color: Colors.white,
                                         );
                                       }
-                                      return Text('Add to Bag');
+                                      return Text(
+                                        S.of(context).productAddToBag,
+                                      );
                                     },
                                   ),
                                 );
@@ -306,7 +311,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Product details",
+                              S.of(context).productDetails,
                               style: Theme.of(context).textTheme.titleLarge!
                                   .copyWith(fontWeight: FontWeight.bold),
                             ),
@@ -321,7 +326,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Measurements",
+                                        S.of(context).productMeasurements,
                                         style: Theme.of(
                                           context,
                                         ).textTheme.titleSmall,
@@ -331,12 +336,12 @@ class _ProductScreenState extends State<ProductScreen> {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              "Height: ${product.details?.measurements.height ?? ""} cm",
+                                              "${S.of(context).productHeight}: ${product.details?.measurements.height ?? ""} cm",
                                             ),
                                           ),
                                           Expanded(
                                             child: Text(
-                                              "Width: ${product.details?.measurements.width ?? ""} cm",
+                                              "${S.of(context).productWidth}: ${product.details?.measurements.width ?? ""} cm",
                                             ),
                                           ),
                                         ],
@@ -345,12 +350,12 @@ class _ProductScreenState extends State<ProductScreen> {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              "Depth: ${product.details?.measurements.depth ?? ''} cm",
+                                              "${S.of(context).productDepth}: ${product.details?.measurements.depth ?? ''} cm",
                                             ),
                                           ),
                                           Expanded(
                                             child: Text(
-                                              "Weight: ${product.details?.measurements.weight ?? ''} kg",
+                                              "${S.of(context).productWeight}: ${product.details?.measurements.weight ?? ''} kg",
                                             ),
                                           ),
                                         ],
@@ -359,14 +364,14 @@ class _ProductScreenState extends State<ProductScreen> {
                                       SizedBox(height: 16.h),
 
                                       Text(
-                                        "Composition",
+                                        S.of(context).productComposition,
                                         style: Theme.of(
                                           context,
                                         ).textTheme.titleMedium,
                                       ),
                                       SizedBox(height: 4.h),
                                       Text(
-                                        "Main material: ${product.details?.composition.mainMaterial ?? ''}",
+                                        "${S.of(context).productMainMaterial}: ${product.details?.composition.mainMaterial ?? ''}",
                                       ),
                                       product
                                                   .details
@@ -376,7 +381,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                               true
                                           ? SizedBox.shrink()
                                           : Text(
-                                              "Secondary material:   ${product.details?.composition.secondaryMaterial ?? ''}",
+                                              "${S.of(context).productSecondaryMaterial}:   ${product.details?.composition.secondaryMaterial ?? ''}",
                                             ),
                                     ],
                                   )
@@ -398,7 +403,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Measurements",
+                                          S.of(context).productMeasurements,
                                           style: Theme.of(
                                             context,
                                           ).textTheme.titleSmall,
@@ -422,12 +427,12 @@ class _ProductScreenState extends State<ProductScreen> {
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                "Depth: ${product.details?.measurements.depth ?? ""} cm",
+                                                "${S.of(context).productDepth}: ${product.details?.measurements.depth ?? ""} cm",
                                               ),
                                             ),
                                             Expanded(
                                               child: Text(
-                                                "Weight: ${product.details?.measurements.weight ?? ""} kg",
+                                                "${S.of(context).productWeight}: ${product.details?.measurements.weight ?? ""} kg",
                                               ),
                                             ),
                                           ],
@@ -445,8 +450,8 @@ class _ProductScreenState extends State<ProductScreen> {
                             },
                             child: Text(
                               _expandedProductDetails
-                                  ? "Show less"
-                                  : "Show more",
+                                  ? S.of(context).productShowLess
+                                  : S.of(context).productShowMore,
                               style: Theme.of(context).textTheme.labelLarge,
                             ),
                           ),
@@ -456,7 +461,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Reviews",
+                                S.of(context).productReviews,
                                 style: Theme.of(context).textTheme.titleLarge!
                                     .copyWith(fontWeight: FontWeight.bold),
                               ),
@@ -471,7 +476,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                         product,
                                       ),
                                       child: Text(
-                                        "Add Review",
+                                        S.of(context).productAddReview,
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelLarge!
@@ -540,8 +545,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                   },
                                   child: Text(
                                     _expandedReviewsDetails
-                                        ? "Show less"
-                                        : "Show more",
+                                        ? S.of(context).productShowLess
+                                        : S.of(context).productShowMore,
                                     style: Theme.of(
                                       context,
                                     ).textTheme.labelLarge,

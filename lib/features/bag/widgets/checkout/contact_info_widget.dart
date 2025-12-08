@@ -46,14 +46,16 @@ class CheckoutContactInfoWidget extends StatelessWidget {
                   hintText: S.of(context).checkoutFullName,
                   border: OutlineInputBorder(),
                 ),
-                validator: ValidationUtils.fullNameValidator,
+                validator: (value) =>
+                    ValidationUtils.fullNameValidator(value, context),
               ),
               SizedBox(height: 20.h),
 
               TextFormField(
                 controller: phoneController,
                 keyboardType: TextInputType.phone,
-                validator: ValidationUtils.phoneNumberValidator,
+                validator: (value) =>
+                    ValidationUtils.phoneNumberValidator(value, context),
                 maxLength: 10,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
@@ -74,7 +76,8 @@ class CheckoutContactInfoWidget extends StatelessWidget {
                   hintText: S.of(context).checkoutEmail,
                   border: OutlineInputBorder(),
                 ),
-                validator: ValidationUtils.emailValidator,
+                validator: (value) =>
+                    ValidationUtils.emailValidator(value, context),
               ),
               SizedBox(height: 40.h),
               ElevatedButton(

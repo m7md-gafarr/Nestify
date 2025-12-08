@@ -2,6 +2,7 @@ import 'package:depi_graduation_project/features/home/logic/filter_and_sort/filt
 import 'package:depi_graduation_project/features/home/logic/filter_and_sort/filter_and_sort_state.dart';
 import 'package:depi_graduation_project/features/home/widgets/filters/filter_option_selector_sheet.dart';
 import 'package:depi_graduation_project/features/home/widgets/filters/filter_option_tile.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,13 +26,13 @@ void showMainFilterSheet({required BuildContext context}) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Filter by",
+                      S.of(context).filterBy,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     TextButton(
                       onPressed: cubit.clearFilters,
-                      child: const Text(
-                        "Clear",
+                      child: Text(
+                        S.of(context).filterClear,
                         style: TextStyle(color: Colors.red),
                       ),
                     ),
@@ -63,12 +64,12 @@ void showMainFilterSheet({required BuildContext context}) {
                   onChanged: (range) => cubit.updatePriceRange(range),
                 ),
                 FilterOptionTile(
-                  title: "Product type",
+                  title: S.of(context).filterProductType,
                   selectedValue: state.productType,
                   onTap: () {
                     showFilterOptionSelectorSheet(
                       context: context,
-                      title: "Select Product Type",
+                      title: S.of(context).filterSelectProductType,
                       options: [
                         "All",
                         "Chair",
@@ -84,12 +85,12 @@ void showMainFilterSheet({required BuildContext context}) {
                   },
                 ),
                 FilterOptionTile(
-                  title: "Color",
+                  title: S.of(context).filterColor,
                   selectedValue: state.color,
                   onTap: () {
                     showFilterOptionSelectorSheet(
                       context: context,
-                      title: "Select Color",
+                      title: S.of(context).filterSelectColor,
                       options: [
                         "All",
                         "White",
@@ -105,12 +106,12 @@ void showMainFilterSheet({required BuildContext context}) {
                   },
                 ),
                 FilterOptionTile(
-                  title: "Size",
+                  title: S.of(context).filterSize,
                   selectedValue: state.size,
                   onTap: () {
                     showFilterOptionSelectorSheet(
                       context: context,
-                      title: "Select Size",
+                      title: S.of(context).filterSelectSize,
                       options: [
                         "All",
                         "Small",
@@ -124,12 +125,12 @@ void showMainFilterSheet({required BuildContext context}) {
                   },
                 ),
                 FilterOptionTile(
-                  title: "Quality",
+                  title: S.of(context).filterQuality,
                   selectedValue: state.quality,
                   onTap: () {
                     showFilterOptionSelectorSheet(
                       context: context,
-                      title: "Select Quality",
+                      title: S.of(context).filterSelectQuality,
                       options: ["All", "Premium", "High", "Standard", "Budget"],
                       selectedOption: state.quality,
                       onOptionSelected: cubit.changeQuality,
@@ -141,7 +142,7 @@ void showMainFilterSheet({required BuildContext context}) {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text("Cancel"),
+                  child: Text(S.of(context).filterCancel),
                 ),
               ],
             ),

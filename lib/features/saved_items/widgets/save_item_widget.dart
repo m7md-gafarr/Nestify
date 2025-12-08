@@ -3,6 +3,7 @@ import 'package:depi_graduation_project/core/utils/snakbar/snackebar_helper.dart
 import 'package:depi_graduation_project/features/bag/logic/bag/bag_cubit.dart';
 import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
 import 'package:depi_graduation_project/features/saved_items/logic/saved_items/saved_items_cubit.dart';
+import 'package:depi_graduation_project/generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -114,7 +115,7 @@ class SaveItemWidget extends StatelessWidget {
                               color: Colors.white,
                             );
                           } else {
-                            return const Text('Add to Bag');
+                            return Text(S.of(context).savedItemsAddToBag);
                           }
                         },
                       ),

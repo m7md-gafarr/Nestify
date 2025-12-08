@@ -23,9 +23,9 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "aboutAppDesc": MessageLookupByLibrary.simpleMessage(
-      "نيستيفاي يساعدك في اكتشاف وتأثيث المساحات التي تحبها بغرف ومنتجات وأفكار منتقاة.",
+      "Nestify يساعدك في اكتشاف وتأثيث المساحات التي تحبها بغرف ومنتجات وأفكار منتقاة.",
     ),
-    "aboutAppName": MessageLookupByLibrary.simpleMessage("نيستيفاي"),
+    "aboutAppName": MessageLookupByLibrary.simpleMessage("Nestify"),
     "aboutContactBody": MessageLookupByLibrary.simpleMessage(
       "لديك ملاحظات أو تحتاج مساعدة؟ تواصل معنا عبر support@nesti-fy.app.",
     ),
@@ -80,6 +80,20 @@ class MessageLookup extends MessageLookupByLibrary {
       "الشارع لا يمكن أن يكون فارغاً",
     ),
     "addAddressTitle": MessageLookupByLibrary.simpleMessage("إضافة عنوان جديد"),
+    "addRoomError": MessageLookupByLibrary.simpleMessage("خطأ"),
+    "addRoomFillAllFields": MessageLookupByLibrary.simpleMessage(
+      "يرجى ملء جميع الحقول",
+    ),
+    "addRoomNameLabel": MessageLookupByLibrary.simpleMessage("اسم الغرفة"),
+    "addRoomOrderLabel": MessageLookupByLibrary.simpleMessage("الترتيب"),
+    "addRoomSaveButton": MessageLookupByLibrary.simpleMessage("حفظ الغرفة"),
+    "addRoomSelectImage": MessageLookupByLibrary.simpleMessage(
+      "يرجى اختيار صورة",
+    ),
+    "addRoomSelectImageButton": MessageLookupByLibrary.simpleMessage(
+      "اختر صورة",
+    ),
+    "addRoomTitle": MessageLookupByLibrary.simpleMessage("إضافة غرفة"),
     "addressBookAddNew": MessageLookupByLibrary.simpleMessage(
       "إضافة عنوان جديد",
     ),
@@ -102,12 +116,21 @@ class MessageLookup extends MessageLookupByLibrary {
       "لوحة تحكم المسؤول",
     ),
     "bagContinue": MessageLookupByLibrary.simpleMessage("متابعة"),
+    "bagEmpty": MessageLookupByLibrary.simpleMessage("حقيبتك فارغة"),
+    "bagEmptyMessage": MessageLookupByLibrary.simpleMessage(
+      "تبقى العناصر في حقيبتك لمدة ساعة واحدة، ثم يتم نقلها إلى عناصرك المحفوظة",
+    ),
+    "bagEmptyStartShopping": MessageLookupByLibrary.simpleMessage(
+      "ابدأ التسوق",
+    ),
     "bagFinalTotal": MessageLookupByLibrary.simpleMessage("الإجمالي النهائي"),
     "bagPromoCode": MessageLookupByLibrary.simpleMessage("رمز الخصم"),
     "bagPromoCodeHint": MessageLookupByLibrary.simpleMessage("الرمز"),
     "bagPromocode": MessageLookupByLibrary.simpleMessage("رمز الخصم"),
     "bagTitle": MessageLookupByLibrary.simpleMessage("الحقيبة"),
     "bagTotal": MessageLookupByLibrary.simpleMessage("الإجمالي"),
+    "catalogFilter": MessageLookupByLibrary.simpleMessage("تصفية"),
+    "catalogSort": MessageLookupByLibrary.simpleMessage("ترتيب"),
     "checkoutByCourier": MessageLookupByLibrary.simpleMessage(
       "بواسطة ساعي التوصيل",
     ),
@@ -175,6 +198,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "completeProfileUploadPhoto": MessageLookupByLibrary.simpleMessage(
       "قم بتحميل أو التقاط صورة",
     ),
+    "filterBy": MessageLookupByLibrary.simpleMessage("تصفية حسب"),
+    "filterCancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+    "filterClear": MessageLookupByLibrary.simpleMessage("مسح"),
+    "filterColor": MessageLookupByLibrary.simpleMessage("اللون"),
+    "filterProductType": MessageLookupByLibrary.simpleMessage("نوع المنتج"),
+    "filterQuality": MessageLookupByLibrary.simpleMessage("الجودة"),
+    "filterSelectColor": MessageLookupByLibrary.simpleMessage("اختر اللون"),
+    "filterSelectProductType": MessageLookupByLibrary.simpleMessage(
+      "اختر نوع المنتج",
+    ),
+    "filterSelectQuality": MessageLookupByLibrary.simpleMessage("اختر الجودة"),
+    "filterSelectSize": MessageLookupByLibrary.simpleMessage("اختر الحجم"),
+    "filterSize": MessageLookupByLibrary.simpleMessage("الحجم"),
     "forgotPasswordEmail": MessageLookupByLibrary.simpleMessage(
       "البريد الإلكتروني",
     ),
@@ -199,6 +235,25 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "forgotPasswordTitle": MessageLookupByLibrary.simpleMessage(
       "هل نسيت كلمة المرور؟",
+    ),
+    "homeCategories": MessageLookupByLibrary.simpleMessage("الفئات"),
+    "homeNestify": MessageLookupByLibrary.simpleMessage("Nestify"),
+    "homeNoCategoriesFound": MessageLookupByLibrary.simpleMessage(
+      "لم يتم العثور على فئات",
+    ),
+    "homeNoRoomsFound": MessageLookupByLibrary.simpleMessage(
+      "لم يتم العثور على غرف",
+    ),
+    "homeSearchCategories": MessageLookupByLibrary.simpleMessage(
+      "ابحث عن الفئات",
+    ),
+    "homeSearchFurniture": MessageLookupByLibrary.simpleMessage(
+      "ابحث عن الأثاث",
+    ),
+    "homeSearchRooms": MessageLookupByLibrary.simpleMessage("ابحث عن الغرف"),
+    "introGetStarted": MessageLookupByLibrary.simpleMessage("ابدأ الآن"),
+    "introTitle": MessageLookupByLibrary.simpleMessage(
+      "حدّد\nمساحتك\nبطريقتك\nالفريدة.",
     ),
     "loginButton": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "loginContinueWith": MessageLookupByLibrary.simpleMessage(
@@ -248,14 +303,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "myOrdersMessage": MessageLookupByLibrary.simpleMessage(
       "سيتم عرض طلبات المستخدم هنا.",
     ),
+    "noResultsMessage": MessageLookupByLibrary.simpleMessage(
+      "لم يتم العثور على شيء،\nجرب شيئاً آخر",
+    ),
     "orderSuccessMessage": MessageLookupByLibrary.simpleMessage(
-      "شكراً على طلبك، نأمل أن تكون قد استمتعت بالتسوق معنا",
+      "شكراً على طلبك، نأمل أن تكون استمتعت بالتسوق معنا",
     ),
     "orderSuccessOrderId": MessageLookupByLibrary.simpleMessage("#"),
     "orderSuccessTitle": MessageLookupByLibrary.simpleMessage("تم تقديم طلبك"),
-    "orderSuccessToHome": MessageLookupByLibrary.simpleMessage(
-      "إلى الصفحة الرئيسية",
-    ),
+    "orderSuccessToHome": MessageLookupByLibrary.simpleMessage("إلى الرئيسية"),
     "privacyChoicesItem1": MessageLookupByLibrary.simpleMessage(
       "حدّث بيانات حسابك أو احذفها من إعدادات الحساب عند توفر ذلك.",
     ),
@@ -325,6 +381,30 @@ class MessageLookup extends MessageLookupByLibrary {
     "privacyUseInfoTitle": MessageLookupByLibrary.simpleMessage(
       "كيف نستخدم المعلومات",
     ),
+    "productAddReview": MessageLookupByLibrary.simpleMessage("أضف تقييماً"),
+    "productAddToBag": MessageLookupByLibrary.simpleMessage("أضف إلى الحقيبة"),
+    "productCareInstructions": MessageLookupByLibrary.simpleMessage(
+      "تعليمات العناية",
+    ),
+    "productComposition": MessageLookupByLibrary.simpleMessage("التكوين"),
+    "productDepth": MessageLookupByLibrary.simpleMessage("العمق"),
+    "productDetails": MessageLookupByLibrary.simpleMessage("تفاصيل المنتج"),
+    "productHeight": MessageLookupByLibrary.simpleMessage("الارتفاع"),
+    "productLoginToAddToBag": MessageLookupByLibrary.simpleMessage(
+      "سجل الدخول للإضافة إلى الحقيبة",
+    ),
+    "productMainMaterial": MessageLookupByLibrary.simpleMessage(
+      "المادة الأساسية",
+    ),
+    "productMeasurements": MessageLookupByLibrary.simpleMessage("القياسات"),
+    "productReviews": MessageLookupByLibrary.simpleMessage("التقييمات"),
+    "productSecondaryMaterial": MessageLookupByLibrary.simpleMessage(
+      "المادة الثانوية",
+    ),
+    "productShowLess": MessageLookupByLibrary.simpleMessage("عرض أقل"),
+    "productShowMore": MessageLookupByLibrary.simpleMessage("عرض المزيد"),
+    "productWeight": MessageLookupByLibrary.simpleMessage("الوزن"),
+    "productWidth": MessageLookupByLibrary.simpleMessage("العرض"),
     "registerButton": MessageLookupByLibrary.simpleMessage("تسجيل"),
     "registerConfirmPassword": MessageLookupByLibrary.simpleMessage(
       "تأكيد كلمة المرور",
@@ -364,6 +444,27 @@ class MessageLookup extends MessageLookupByLibrary {
       "تم التسجيل بنجاح، تحقق من بريدك الإلكتروني للتحقق من حسابك",
     ),
     "registerTitle": MessageLookupByLibrary.simpleMessage("نستيفاي"),
+    "reviewsAddYourReview": MessageLookupByLibrary.simpleMessage("أضف تقييمك"),
+    "reviewsBeFirst": MessageLookupByLibrary.simpleMessage(
+      "كن أول من يكتب تقييماً.",
+    ),
+    "reviewsNoReviews": MessageLookupByLibrary.simpleMessage(
+      "لا توجد تقييمات بعد!",
+    ),
+    "savedItemsAddToBag": MessageLookupByLibrary.simpleMessage(
+      "أضف إلى الحقيبة",
+    ),
+    "savedItemsEmpty": MessageLookupByLibrary.simpleMessage("لا شيء محفوظ..."),
+    "savedItemsEmptyMessage": MessageLookupByLibrary.simpleMessage(
+      "... لا داعي للقلق. ابدأ الحفظ أثناء التسوق بالنقر على القلب الصغير",
+    ),
+    "savedItemsSearchFurniture": MessageLookupByLibrary.simpleMessage(
+      "ابحث عن الأثاث",
+    ),
+    "savedItemsStartShopping": MessageLookupByLibrary.simpleMessage(
+      "ابدأ التسوق",
+    ),
+    "savedItemsTitle": MessageLookupByLibrary.simpleMessage("العناصر المحفوظة"),
     "settingsAbout": MessageLookupByLibrary.simpleMessage("حول التطبيق"),
     "settingsArabic": MessageLookupByLibrary.simpleMessage("العربية"),
     "settingsChooseLanguage": MessageLookupByLibrary.simpleMessage(
@@ -383,6 +484,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "settingsTheme": MessageLookupByLibrary.simpleMessage("المظهر"),
     "settingsTitle": MessageLookupByLibrary.simpleMessage("الإعدادات"),
     "settingsVersion": MessageLookupByLibrary.simpleMessage("الإصدار 1.0.0"),
+    "sortBy": MessageLookupByLibrary.simpleMessage("ترتيب حسب"),
+    "sortCancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+    "sortNewestFirst": MessageLookupByLibrary.simpleMessage("الأحدث أولاً"),
+    "sortPriceHighToLow": MessageLookupByLibrary.simpleMessage(
+      "السعر: من الأعلى إلى الأقل",
+    ),
+    "sortPriceLowToHigh": MessageLookupByLibrary.simpleMessage(
+      "السعر: من الأقل إلى الأعلى",
+    ),
     "termsChangesBody": MessageLookupByLibrary.simpleMessage(
       "قد نقوم بتحديث هذه الشروط دورياً. استمرار الاستخدام بعد التحديث يعني قبول الشروط المحدّثة.",
     ),
@@ -464,7 +574,34 @@ class MessageLookup extends MessageLookupByLibrary {
       "باستخدامك للتطبيق، فإنك توافق على هذه الشروط. يرجى قراءتها بعناية.",
     ),
     "termsWelcomeTitle": MessageLookupByLibrary.simpleMessage(
-      "مرحباً بك في نيستيفاي",
+      "مرحباً بك في Nestify",
+    ),
+    "validationAddressRequired": MessageLookupByLibrary.simpleMessage(
+      "العنوان مطلوب",
+    ),
+    "validationEmailInvalidFormat": MessageLookupByLibrary.simpleMessage(
+      "صيغة بريد إلكتروني غير صحيحة",
+    ),
+    "validationEmailRequired": MessageLookupByLibrary.simpleMessage(
+      "البريد الإلكتروني مطلوب",
+    ),
+    "validationFullNameRequired": MessageLookupByLibrary.simpleMessage(
+      "الاسم الكامل مطلوب",
+    ),
+    "validationPasswordConditions": MessageLookupByLibrary.simpleMessage(
+      "كلمة المرور لا تلبي الشروط المطلوبة",
+    ),
+    "validationPasswordMinLength": MessageLookupByLibrary.simpleMessage(
+      "يجب أن تكون كلمة المرور على الأقل 6 أحرف",
+    ),
+    "validationPasswordRequired": MessageLookupByLibrary.simpleMessage(
+      "كلمة المرور مطلوبة",
+    ),
+    "validationPhoneNumberInvalid": MessageLookupByLibrary.simpleMessage(
+      "رقم هاتف مصري غير صحيح",
+    ),
+    "validationPhoneNumberRequired": MessageLookupByLibrary.simpleMessage(
+      "رقم الهاتف مطلوب",
     ),
   };
 }

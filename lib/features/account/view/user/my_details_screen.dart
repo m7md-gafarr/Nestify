@@ -177,7 +177,8 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
                 SizedBox(height: 30.h),
                 TextFormField(
                   controller: nameController,
-                  validator: ValidationUtils.fullNameValidator,
+                  validator: (value) =>
+                      ValidationUtils.fullNameValidator(value, context),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
                     hintText: S.of(context).myDetailsFullName,
@@ -203,7 +204,8 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
                 TextFormField(
                   controller: phoneController,
                   keyboardType: TextInputType.phone,
-                  validator: ValidationUtils.phoneNumberValidator,
+                  validator: (value) =>
+                      ValidationUtils.phoneNumberValidator(value, context),
                   maxLength: 10,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
