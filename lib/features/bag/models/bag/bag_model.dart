@@ -1,4 +1,4 @@
-import 'package:depi_graduation_project/features/bag/models/bag_item_model.dart';
+import 'package:depi_graduation_project/features/bag/models/bag/bag_item_model.dart';
 
 class BagModel {
   final List<BagItemModel> items;

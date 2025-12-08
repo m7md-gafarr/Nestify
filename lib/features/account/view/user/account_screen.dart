@@ -7,7 +7,6 @@ import 'package:depi_graduation_project/data/services/account_service/auth_servi
 import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/view/dashboard/admin_screen.dart';
 import 'package:depi_graduation_project/features/account/widgets/empty_account_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,32 +20,18 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-  bool isLoggedIn = false;
-
-  @override
-  @override
-  void initState() {
-    super.initState();
-    loadUser();
-  }
-
-  Future<void> loadUser() async {
-    final currentUser = FirebaseAuth.instance.currentUser;
-
-    if (currentUser == null) {
-      setState(() => isLoggedIn = false);
-      return;
-    }
-
-    setState(() => isLoggedIn = true);
-    context.read<GetUserDataCubit>().getUserData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoggedIn == true
-          ? Padding(
+      body: BlocBuilder<GetUserDataCubit, GetUserDataState>(
+        builder: (context, state) {
+          if (state is GetUserNotLoggedIn) {
+            return const EmptyAccountWidget();
+          } else if (state is GetUserDataLoading ||
+              state is GetUserDataInitial) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is GetUserDataSuccess) {
+            return Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,38 +47,27 @@ class _AccountScreenState extends State<AccountScreen> {
                     child: CustomSectionHeaderWidget(title: 'my account'),
                   ),
                   SizedBox(height: 20.h),
-                  BlocBuilder<GetUserDataCubit, GetUserDataState>(
-                    builder: (context, state) {
-                      if (state is GetUserDataSuccess) {
-                        return ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: ShimmerNetworkImage(
-                            imageUrl: state.userModel.profileImageUrl!,
-                            width: 50.w,
-                            height: 50.w,
-                            borderRadius: BorderRadius.circular(50.r),
-                            fit: BoxFit.cover,
-                          ),
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: ShimmerNetworkImage(
+                      imageUrl: state.userModel.profileImageUrl!,
+                      width: 50.w,
+                      height: 50.w,
+                      borderRadius: BorderRadius.circular(50.r),
+                      fit: BoxFit.cover,
+                    ),
 
-                          title: Text(
-                            state.userModel.fullName,
-                            style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          subtitle: Text(
-                            state.userModel.phoneNumber,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        );
-                      } else {
-                        return Center(child: CircularProgressIndicator());
-                      }
-                    },
+                    title: Text(
+                      state.userModel.fullName,
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    subtitle: Text(
+                      state.userModel.phoneNumber,
+                      style: TextStyle(fontSize: 14.sp, color: Colors.grey),
+                    ),
                   ),
 
                   SizedBox(height: 30.h),
@@ -226,8 +200,12 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                 ],
               ),
-            )
-          : EmptyAccountWidget(),
+            );
+          } else {
+            return const SizedBox.shrink();
+          }
+        },
+      ),
     );
   }
 }

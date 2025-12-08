@@ -35,9 +35,10 @@ class CheckoutContactInfoWidget extends StatelessWidget {
 
               SizedBox(height: 20.h),
 
-              /// Full Name
               TextFormField(
                 controller: fullNameController,
+                keyboardType: TextInputType.name,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: const InputDecoration(
                   hintText: 'Full name',
                   border: OutlineInputBorder(),
@@ -46,7 +47,6 @@ class CheckoutContactInfoWidget extends StatelessWidget {
               ),
               SizedBox(height: 20.h),
 
-              /// Phone
               TextFormField(
                 controller: phoneController,
                 keyboardType: TextInputType.phone,
@@ -63,9 +63,9 @@ class CheckoutContactInfoWidget extends StatelessWidget {
               ),
               SizedBox(height: 20.h),
 
-              /// Email
               TextFormField(
                 controller: emailController,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   hintText: 'Email',
@@ -75,6 +75,7 @@ class CheckoutContactInfoWidget extends StatelessWidget {
               ),
               SizedBox(height: 40.h),
               ElevatedButton(onPressed: onNext, child: Text("Next")),
+              SizedBox(height: 20.h),
             ],
           ),
         ),

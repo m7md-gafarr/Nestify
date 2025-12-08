@@ -15,6 +15,7 @@ class GetUserDataCubit extends Cubit<GetUserDataState> {
     : super(GetUserDataInitial());
 
   UserModel? userData;
+  bool isLoggedIn = false;
 
   Future<void> getUserData() async {
     if (connectionCubit.state is CheckConnectionNoInternet) {
@@ -31,6 +32,17 @@ class GetUserDataCubit extends Cubit<GetUserDataState> {
       emit(GetUserDataSuccess(userData!));
     } catch (e) {
       emit(GetUserDataFailure("Failed to get user data: $e"));
+    }
+  }
+
+  Future<void> checkUserLoginStatus() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      isLoggedIn = true;
+      await getUserData();
+    } else {
+      isLoggedIn = false;
+      emit(GetUserNotLoggedIn());
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
 import 'package:depi_graduation_project/features/home/view/dashboard/add_best_category_screen.dart';
 import 'package:depi_graduation_project/features/home/view/dashboard/add_product_screen.dart';
+import 'package:depi_graduation_project/features/home/view/dashboard/add_promo_code_screen.dart';
 import 'package:depi_graduation_project/features/home/view/dashboard/add_room_category_screen.dart';
 import 'package:depi_graduation_project/features/home/view/dashboard/add_room_screen.dart';
 import 'package:flutter/material.dart';
@@ -72,6 +73,19 @@ class AdminScreen extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (_) => AddRoomCategoryScreen(),
+                          ),
+                        );
+                      },
+                    ),
+
+                    _DashboardCard(
+                      icon: Iconsax.add_square,
+                      label: "Add Promo Codes",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => AddPromoCodeScreen(),
                           ),
                         );
                       },

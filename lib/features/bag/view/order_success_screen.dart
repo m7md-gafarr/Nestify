@@ -10,46 +10,40 @@ class OrderSuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orderId = ModalRoute.of(context)?.settings.arguments as String?;
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 60.h),
 
-          Expanded(
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SvgPicture.asset(
-                    Assets.assetsFriendly,
-                    width: 160.w,
-                    height: 160.w,
-                    fit: BoxFit.cover,
-                  ),
-                  SizedBox(height: 24.h),
-                  Text(
-                    "your order is placed",
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(height: 8.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 48.w),
-                    child: Text(
-                      "thanks for your order, we hope you enjoyed shopping with us",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.black87, fontSize: 16.sp),
-                    ),
-                  ),
-                ],
-              ),
+          Text("#${orderId ?? ''}"),
+          Spacer(flex: 2),
+
+          SvgPicture.asset(
+            Assets.assetsFriendly,
+            width: 160.w,
+            height: 160.w,
+            fit: BoxFit.cover,
+          ),
+          Text(
+            "your order is placed",
+            style: TextStyle(
+              fontSize: 24.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
             ),
           ),
+          SizedBox(height: 12.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 48.w),
+            child: Text(
+              "thanks for your order, we hope you enjoyed shopping with us",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.black87, fontSize: 16.sp),
+            ),
+          ),
+          Spacer(flex: 2),
 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),

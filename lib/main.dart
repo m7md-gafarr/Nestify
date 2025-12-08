@@ -6,6 +6,8 @@ import 'package:depi_graduation_project/core/utils/theme/theme_provider.dart';
 import 'package:depi_graduation_project/data/services/home_service/best_category_service.dart';
 import 'package:depi_graduation_project/features/account/logic/forgot_password/forgot_password_cubit.dart';
 import 'package:depi_graduation_project/features/bag/logic/bag/bag_cubit.dart';
+import 'package:depi_graduation_project/features/bag/logic/checkout/checkout_cubit.dart';
+import 'package:depi_graduation_project/features/bag/logic/promo_code/promo_code_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/best_product/best_product_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/new_review/new_review_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/subscribes/subscribes_cubit.dart';
@@ -52,11 +54,8 @@ void main() async {
   SharedPreferencesService pref = SharedPreferencesService();
   await pref.init();
   bool seen = await pref.loadOnboardingStatus() ?? false;
-  bool isLoggedIn = await pref.loadUserLoginStatus() ?? false;
   _initialRoute = seen
-      ? (isLoggedIn
-            ? AppRouteNames.homePageRoute
-            : AppRouteNames.loginScreenRoute)
+      ? AppRouteNames.homePageRoute
       : AppRouteNames.introducationPageRoute;
   runApp(
     MultiProvider(
@@ -98,7 +97,7 @@ void main() async {
             create: (context) => GetUserDataCubit(
               context.read<CheckConnectionCubit>(),
               UserFirestoreService(),
-            ),
+            )..checkUserLoginStatus(),
           ),
           BlocProvider(
             create: (_) =>
@@ -121,6 +120,8 @@ void main() async {
                 BagCubit()
                   ..loadBagItems(FirebaseAuth.instance.currentUser!.uid),
           ),
+          BlocProvider(create: (context) => PromoCodeCubit()),
+          BlocProvider(create: (context) => CheckoutCubit()),
         ],
 
         child: MyApp(appRouter: AppRouter()),

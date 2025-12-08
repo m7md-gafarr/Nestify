@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 void showMainFilterSheet({required BuildContext context}) {
   showModalBottomSheet(
     context: context,
+
     builder: (context) {
       return BlocBuilder<FilterAndSortCubit, FilterAndSortState>(
         builder: (context, state) {
@@ -36,7 +37,7 @@ void showMainFilterSheet({required BuildContext context}) {
                     ),
                   ],
                 ),
-                SizedBox(height: 20.h),
+                SizedBox(height: 10.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

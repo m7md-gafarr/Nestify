@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:depi_graduation_project/features/bag/models/bag_model.dart';
+import 'package:depi_graduation_project/features/bag/models/bag/bag_model.dart';
 import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
 import 'package:depi_graduation_project/data/services/home_service/product_service.dart';
 import 'package:depi_graduation_project/data/services/bag_service/bag_service.dart';

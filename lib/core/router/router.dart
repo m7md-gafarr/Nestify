@@ -8,6 +8,8 @@ import 'package:depi_graduation_project/features/account/view/user/login_screen.
 import 'package:depi_graduation_project/features/account/view/user/my_details_screen.dart';
 import 'package:depi_graduation_project/features/account/view/user/my_orders_screen.dart';
 import 'package:depi_graduation_project/features/account/view/user/register_screen.dart';
+import 'package:depi_graduation_project/features/bag/view/checkout_screen.dart';
+import 'package:depi_graduation_project/features/bag/view/order_success_screen.dart';
 import 'package:depi_graduation_project/features/home/view/user/best_catalog_screen.dart';
 import 'package:depi_graduation_project/features/home/view/user/main_screen.dart';
 import 'package:depi_graduation_project/features/home/view/user/story_screen.dart';
@@ -90,12 +92,23 @@ class AppRouter {
       // Bag/Cart Screen Route
       case AppRouteNames.bagScreenRoute:
         return MaterialPageRoute(builder: (context) => BagScreen());
-      // case AppRouteNames.checkoutScreenRoute:
-      //   return MaterialPageRoute(builder: (context) => CheckoutScreen());
+      case AppRouteNames.checkoutScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => CheckoutScreen(),
+          settings: settings,
+        );
+      case AppRouteNames.orderConfirmationScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => OrderSuccessScreen(),
+          settings: settings,
+        );
 
       // Saved Items Screen Route
       case AppRouteNames.savedItemsScreenRoute:
-        return MaterialPageRoute(builder: (context) => SavedItemsScreen());
+        return MaterialPageRoute(
+          builder: (context) => SavedItemsScreen(),
+          settings: settings,
+        );
 
       // Account Screen Route
       case AppRouteNames.accountScreenRoute:

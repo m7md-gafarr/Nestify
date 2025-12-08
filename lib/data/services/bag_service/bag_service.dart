@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:depi_graduation_project/core/constants/firebase_collection.dart';
-import 'package:depi_graduation_project/features/bag/models/bag_item_model.dart';
-import 'package:depi_graduation_project/features/bag/models/bag_model.dart';
+import 'package:depi_graduation_project/features/bag/models/bag/bag_item_model.dart';
+import 'package:depi_graduation_project/features/bag/models/bag/bag_model.dart';
+import 'package:depi_graduation_project/features/bag/models/order/order_model.dart';
 import 'package:depi_graduation_project/features/home/models/product/product_model.dart';
 
 class BagService {
@@ -112,5 +113,16 @@ class BagService {
 
       tx.update(docRef, {"items": updatedItems});
     });
+  }
+
+  Future<void> saveOrder(OrderModel order, String userId) async {
+    final doc = _db.collection(FirebaseCollection.orders).doc(userId);
+    await doc.set({
+      "orders": FieldValue.arrayUnion([order.toMap()]),
+    }, SetOptions(merge: true));
+  }
+
+  Future<void> clearBag(String userId) async {
+    await _db.collection(FirebaseCollection.bag).doc(userId).set({"items": []});
   }
 }

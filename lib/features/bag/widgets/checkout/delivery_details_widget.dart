@@ -1,3 +1,4 @@
+import 'package:depi_graduation_project/core/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:depi_graduation_project/components/custom_section_header_widget.dart';
@@ -27,14 +28,8 @@ class DeliveryDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> dates = ['Tomorrow', 'Jun 25', 'Jun 26', 'Jun 27'];
-    final List<String> timeSlots = [
-      '12:00 pm',
-      '2:00 pm',
-      '4:00 pm',
-      '6:00 pm',
-    ];
-
+    final List<String> dates = AppDateHelper().generateDeliveryDates(7);
+    final List<String> timeSlots = AppDateHelper().generateTimeSlots();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: LayoutBuilder(
@@ -50,8 +45,7 @@ class DeliveryDetailsWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 40.h),
-                    const CustomSectionHeaderWidget(title: 'delivery details'),
-                    SizedBox(height: 20.h),
+                    const CustomSectionHeaderWidget(title: 'delivery method'),
                     MethodOption(
                       icon: Icon(Icons.directions_car, size: 28.sp),
                       title: 'By courier',
@@ -67,14 +61,7 @@ class DeliveryDetailsWidget extends StatelessWidget {
                       onTap: () => onDeliveryMethodChanged('pickup'),
                     ),
                     SizedBox(height: 16.h),
-                    Text(
-                      'delivery address',
-                      style: Theme.of(context).textTheme.headlineSmall!
-                          .copyWith(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.sp,
-                          ),
-                    ),
+                    const CustomSectionHeaderWidget(title: 'delivery address'),
                     SizedBox(height: 8.h),
                     DeliveryAddressCard(
                       address: 'London, 221B Baker Street',
@@ -82,14 +69,7 @@ class DeliveryDetailsWidget extends StatelessWidget {
                       onTap: () {},
                     ),
                     SizedBox(height: 16.h),
-                    Text(
-                      'delivery time',
-                      style: Theme.of(context).textTheme.headlineSmall!
-                          .copyWith(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.sp,
-                          ),
-                    ),
+                    const CustomSectionHeaderWidget(title: 'delivery time'),
                     SizedBox(height: 16.h),
                     SizedBox(
                       height: 40.h,

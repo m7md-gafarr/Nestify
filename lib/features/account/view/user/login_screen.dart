@@ -2,7 +2,12 @@ import 'package:depi_graduation_project/components/custom_section_header_widget.
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/core/utils/dialog/dialog_helper.dart';
 import 'package:depi_graduation_project/core/utils/validation_utils.dart';
+import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
 import 'package:depi_graduation_project/features/account/logic/login/login_cubit.dart';
+import 'package:depi_graduation_project/features/bag/logic/bag/bag_cubit.dart';
+import 'package:depi_graduation_project/features/saved_items/logic/saved_items/saved_items_cubit.dart';
+import 'package:depi_graduation_project/features/saved_items/models/saved_item_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -154,6 +159,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             message: "No Internet Connection",
                           );
                         } else if (state is LoginSuccess) {
+                          context.read<GetUserDataCubit>().getUserData();
+                          context.read<BagCubit>().loadBagItems(
+                            FirebaseAuth.instance.currentUser!.uid,
+                          );
+                          context.read<SavedItemsCubit>().loadSavedItems(
+                            FirebaseAuth.instance.currentUser!.uid,
+                          );
                           Navigator.pushNamedAndRemoveUntil(
                             context,
                             AppRouteNames.homePageRoute,

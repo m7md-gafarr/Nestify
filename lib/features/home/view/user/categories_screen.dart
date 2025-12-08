@@ -40,76 +40,79 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         (ModalRoute.of(context)!.settings.arguments as List<dynamic>)[1];
     return Scaffold(
       appBar: CustomAppBarWidget(title: categoryTitle),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          context.read<RoomCategoryCubit>().listenToRoomCategories(
-            roomId: categoryId,
-          );
-        },
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 30.h),
-                TextField(
-                  onChanged: (value) {
-                    setState(() {
-                      searchQuery = value.toLowerCase().trim();
-                    });
-                  },
-                  decoration: InputDecoration(
-                    hintText: "Search for categories",
-                    prefixIcon: Icon(Iconsax.search_normal, size: 26.sp),
+      body: SafeArea(
+        top: false,
+        child: RefreshIndicator(
+          onRefresh: () async {
+            context.read<RoomCategoryCubit>().listenToRoomCategories(
+              roomId: categoryId,
+            );
+          },
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 30.h),
+                  TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        searchQuery = value.toLowerCase().trim();
+                      });
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Search for categories",
+                      prefixIcon: Icon(Iconsax.search_normal, size: 26.sp),
+                    ),
                   ),
-                ),
-                SizedBox(height: 15.h),
-                CustomSectionHeaderWidget(title: 'categories'),
+                  SizedBox(height: 15.h),
+                  CustomSectionHeaderWidget(title: 'categories'),
 
-                BlocBuilder<RoomCategoryCubit, RoomCategoryState>(
-                  builder: (context, state) {
-                    if (state is RoomCategorySucess) {
-                      final categories = state.roomCategories;
+                  BlocBuilder<RoomCategoryCubit, RoomCategoryState>(
+                    builder: (context, state) {
+                      if (state is RoomCategorySucess) {
+                        final categories = state.roomCategories;
 
-                      final filtered = categories.where((category) {
-                        return category.name.toLowerCase().contains(
-                          searchQuery,
+                        final filtered = categories.where((category) {
+                          return category.name.toLowerCase().contains(
+                            searchQuery,
+                          );
+                        }).toList();
+                        if (filtered.isEmpty) {
+                          return SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            child: NoResultsWidget(
+                              message: "No categories found",
+                            ),
+                          );
+                        }
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: filtered.length,
+                          itemBuilder: (context, index) {
+                            final category = filtered[index];
+                            return CategoryListTileWidget(
+                              categoryName: category.name,
+                              imageAsset: category.imageUrl,
+                              categoryId: category.id,
+                            );
+                          },
                         );
-                      }).toList();
-                      if (filtered.isEmpty) {
-                        return SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.3,
-                          child: NoResultsWidget(
-                            message: "No categories found",
+                      } else {
+                        return Column(
+                          children: List.generate(
+                            5,
+                            (index) => const CategoryCardWidgetShimmer(),
                           ),
                         );
                       }
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: filtered.length,
-                        itemBuilder: (context, index) {
-                          final category = filtered[index];
-                          return CategoryListTileWidget(
-                            categoryName: category.name,
-                            imageAsset: category.imageUrl,
-                            categoryId: category.id,
-                          );
-                        },
-                      );
-                    } else {
-                      return Column(
-                        children: List.generate(
-                          5,
-                          (index) => const CategoryCardWidgetShimmer(),
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ],
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

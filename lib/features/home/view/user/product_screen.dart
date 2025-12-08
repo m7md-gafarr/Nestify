@@ -1,5 +1,6 @@
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/core/utils/snakbar/snackebar_helper.dart';
+import 'package:depi_graduation_project/features/account/logic/get_user_data/get_user_data_cubit.dart';
 import 'package:depi_graduation_project/features/bag/logic/bag/bag_cubit.dart';
 import 'package:depi_graduation_project/features/home/logic/product/product_cubit.dart';
 import 'package:depi_graduation_project/features/home/widgets/review/no_reviews_widget.dart';
@@ -118,41 +119,53 @@ class _ProductScreenState extends State<ProductScreen> {
                               ),
                             ),
                           ),
-                          Positioned(
-                            top: 30.h,
-                            right: 16.w,
-                            child: IconButton.filled(
-                              style: IconButton.styleFrom(
-                                backgroundColor: Theme.of(context)
-                                    .colorScheme
-                                    .surfaceContainerHighest
-                                    .withOpacity(0.8),
-                              ),
-                              onPressed: () {
-                                context.read<SavedItemsCubit>().addSavedItem(
-                                  userId:
-                                      FirebaseAuth.instance.currentUser!.uid,
-                                  productId: product.id,
-                                );
-                              },
-                              icon:
-                                  BlocConsumer<
-                                    SavedItemsCubit,
-                                    SavedItemsState
-                                  >(
-                                    listener: (context, state) {
-                                      if (state is SavedItemsLoaded) {
-                                        SnackbarHelper.showSuccess(
-                                          context,
-                                          "Added to saved items",
-                                        );
-                                      }
+                          BlocBuilder<GetUserDataCubit, GetUserDataState>(
+                            builder: (context, state) {
+                              if (state is GetUserNotLoggedIn) {
+                                return SizedBox.shrink();
+                              } else {
+                                return Positioned(
+                                  top: 30.h,
+                                  right: 16.w,
+                                  child: IconButton.filled(
+                                    style: IconButton.styleFrom(
+                                      backgroundColor: Theme.of(context)
+                                          .colorScheme
+                                          .surfaceContainerHighest
+                                          .withOpacity(0.8),
+                                    ),
+                                    onPressed: () {
+                                      context
+                                          .read<SavedItemsCubit>()
+                                          .addSavedItem(
+                                            userId: FirebaseAuth
+                                                .instance
+                                                .currentUser!
+                                                .uid,
+                                            productId: product.id,
+                                          );
                                     },
-                                    builder: (context, state) {
-                                      return Icon(Iconsax.heart);
-                                    },
+                                    icon:
+                                        BlocConsumer<
+                                          SavedItemsCubit,
+                                          SavedItemsState
+                                        >(
+                                          listener: (context, state) {
+                                            if (state is SavedItemsLoaded) {
+                                              SnackbarHelper.showSuccess(
+                                                context,
+                                                "Added to saved items",
+                                              );
+                                            }
+                                          },
+                                          builder: (context, state) {
+                                            return Icon(Iconsax.heart);
+                                          },
+                                        ),
                                   ),
-                            ),
+                                );
+                              }
+                            },
                           ),
                         ],
                       ),
@@ -243,31 +256,50 @@ class _ProductScreenState extends State<ProductScreen> {
                             ),
                           ),
                           SizedBox(height: 20.h),
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              context.read<BagCubit>().addBagItem(
-                                userId: FirebaseAuth.instance.currentUser!.uid,
-                                product: product,
-                              );
+                          BlocBuilder<GetUserDataCubit, GetUserDataState>(
+                            builder: (context, state) {
+                              if (state is GetUserNotLoggedIn) {
+                                return ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      AppRouteNames.loginScreenRoute,
+                                    );
+                                  },
+                                  child: Text('Login to add to Bag'),
+                                );
+                              } else {
+                                return ElevatedButton.icon(
+                                  onPressed: () {
+                                    context.read<BagCubit>().addBagItem(
+                                      userId: FirebaseAuth
+                                          .instance
+                                          .currentUser!
+                                          .uid,
+                                      product: product,
+                                    );
+                                  },
+                                  icon: BlocBuilder<BagCubit, BagState>(
+                                    builder: (context, state) {
+                                      if (state is BagLoading) {
+                                        return SizedBox.shrink();
+                                      }
+                                      return Icon(Iconsax.shopping_cart5);
+                                    },
+                                  ),
+                                  label: BlocBuilder<BagCubit, BagState>(
+                                    builder: (context, state) {
+                                      if (state is BagLoading) {
+                                        return CircularProgressIndicator(
+                                          color: Colors.white,
+                                        );
+                                      }
+                                      return Text('Add to Bag');
+                                    },
+                                  ),
+                                );
+                              }
                             },
-                            icon: BlocBuilder<BagCubit, BagState>(
-                              builder: (context, state) {
-                                if (state is BagLoading) {
-                                  return SizedBox.shrink();
-                                }
-                                return Icon(Iconsax.shopping_cart5);
-                              },
-                            ),
-                            label: BlocBuilder<BagCubit, BagState>(
-                              builder: (context, state) {
-                                if (state is BagLoading) {
-                                  return CircularProgressIndicator(
-                                    color: Colors.white,
-                                  );
-                                }
-                                return Text('Add to Bag');
-                              },
-                            ),
                           ),
 
                           SizedBox(height: 30.h),

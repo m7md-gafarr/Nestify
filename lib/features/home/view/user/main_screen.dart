@@ -36,7 +36,7 @@ class MainScreenState extends State<MainScreen> {
 
   final List<Widget> _screens = [
     HomeContent(),
-    const BagScreen(),
+    BagScreen(),
     const SavedItemsScreen(),
     const AccountScreen(),
   ];
@@ -65,7 +65,10 @@ class MainScreenState extends State<MainScreen> {
                         child: child,
                       );
                     },
-                child: IndexedStack(index: _currentIndex, children: _screens),
+                child: SafeArea(
+                  top: false,
+                  child: IndexedStack(index: _currentIndex, children: _screens),
+                ),
               );
             } else {
               return const NoInternetScreen();

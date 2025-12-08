@@ -99,94 +99,59 @@ class _CatalogScreenState extends State<CatalogScreen> {
 
     return Scaffold(
       appBar: CustomAppBarWidget(title: categoryTitle),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          context.read<ProductCubit>().listenToProducts(categoryId);
-        },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
-            children: [
-              SizedBox(height: 30.h),
+      body: SafeArea(
+        top: false,
+        child: RefreshIndicator(
+          onRefresh: () async {
+            context.read<ProductCubit>().listenToProducts(categoryId);
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Column(
+              children: [
+                SizedBox(height: 30.h),
 
-              TextField(
-                onChanged: (value) {
-                  searchQuery = value.toLowerCase();
-                  setState(() {});
-                },
-                decoration: InputDecoration(
-                  hintText: "Search for furniture",
-                  prefixIcon: Icon(Iconsax.search_normal, size: 26.sp),
+                TextField(
+                  onChanged: (value) {
+                    searchQuery = value.toLowerCase();
+                    setState(() {});
+                  },
+                  decoration: InputDecoration(
+                    hintText: "Search for furniture",
+                    prefixIcon: Icon(Iconsax.search_normal, size: 26.sp),
+                  ),
                 ),
-              ),
 
-              SizedBox(height: 15.h),
+                SizedBox(height: 15.h),
 
-              Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton.icon(
-                      onPressed: () => showSortBottomSheet(context: context),
-                      icon: const Icon(Iconsax.sort),
-                      label: const Text("Sort"),
+                Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        onPressed: () => showSortBottomSheet(context: context),
+                        icon: const Icon(Iconsax.sort),
+                        label: const Text("Sort"),
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 15.w),
-                  Expanded(
-                    child: OutlinedButton.icon(
-                      onPressed: () => showMainFilterSheet(context: context),
-                      icon: const Icon(Iconsax.filter),
-                      label: const Text("Filter"),
+                    SizedBox(width: 15.w),
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        onPressed: () => showMainFilterSheet(context: context),
+                        icon: const Icon(Iconsax.filter),
+                        label: const Text("Filter"),
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
 
-              SizedBox(height: 15.h),
+                SizedBox(height: 15.h),
 
-              Expanded(
-                child: BlocBuilder<ProductCubit, ProductState>(
-                  builder: (context, productState) {
-                    if (productState is! ProductSuccess) {
-                      return GridView.builder(
-                        itemCount: 4,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                              childAspectRatio: 0.55,
-                            ),
-                        itemBuilder: (_, __) => ProductGridItemShimmer(),
-                      );
-                    }
-
-                    originalProducts = productState.products;
-                    if (!pricesInitialized) {
-                      final maxPrice = originalProducts
-                          .map((p) => p.price)
-                          .reduce((a, b) => a > b ? a : b);
-                      final minPrice = originalProducts
-                          .map((p) => p.price)
-                          .reduce((a, b) => a < b ? a : b);
-
-                      context.read<FilterAndSortCubit>().setMinMax(
-                        minPrice,
-                        maxPrice,
-                      );
-                      pricesInitialized = true;
-                    }
-
-                    return BlocBuilder<FilterAndSortCubit, FilterAndSortState>(
-                      builder: (context, filterState) {
-                        applyFiltersAndSort(filterState);
-
-                        if (visibleProducts.isEmpty) {
-                          return NoResultsWidget(message: "No products found");
-                        }
-
+                Expanded(
+                  child: BlocBuilder<ProductCubit, ProductState>(
+                    builder: (context, productState) {
+                      if (productState is! ProductSuccess) {
                         return GridView.builder(
-                          itemCount: visibleProducts.length,
+                          itemCount: 4,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
@@ -194,18 +159,61 @@ class _CatalogScreenState extends State<CatalogScreen> {
                                 crossAxisSpacing: 10,
                                 childAspectRatio: 0.55,
                               ),
-                          itemBuilder: (context, index) {
-                            return ProductGridItem(
-                              product: visibleProducts[index],
-                            );
-                          },
+                          itemBuilder: (_, __) => ProductGridItemShimmer(),
                         );
-                      },
-                    );
-                  },
+                      }
+
+                      originalProducts = productState.products;
+                      if (!pricesInitialized) {
+                        final maxPrice = originalProducts
+                            .map((p) => p.price)
+                            .reduce((a, b) => a > b ? a : b);
+                        final minPrice = originalProducts
+                            .map((p) => p.price)
+                            .reduce((a, b) => a < b ? a : b);
+
+                        context.read<FilterAndSortCubit>().setMinMax(
+                          minPrice,
+                          maxPrice,
+                        );
+                        pricesInitialized = true;
+                      }
+
+                      return BlocBuilder<
+                        FilterAndSortCubit,
+                        FilterAndSortState
+                      >(
+                        builder: (context, filterState) {
+                          applyFiltersAndSort(filterState);
+
+                          if (visibleProducts.isEmpty) {
+                            return NoResultsWidget(
+                              message: "No products found",
+                            );
+                          }
+
+                          return GridView.builder(
+                            itemCount: visibleProducts.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10,
+                                  childAspectRatio: 0.55,
+                                ),
+                            itemBuilder: (context, index) {
+                              return ProductGridItem(
+                                product: visibleProducts[index],
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

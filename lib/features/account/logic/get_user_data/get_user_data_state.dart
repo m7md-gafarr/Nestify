@@ -13,6 +13,8 @@ final class GetUserDataSuccess extends GetUserDataState {
   GetUserDataSuccess(this.userModel);
 }
 
+final class GetUserNotLoggedIn extends GetUserDataState {}
+
 final class GetUserDataFailure extends GetUserDataState {
   final String errorMessage;
 
