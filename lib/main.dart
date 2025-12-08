@@ -4,6 +4,7 @@ import 'package:depi_graduation_project/core/theme/app_theme/app_theme_dark.dart
 import 'package:depi_graduation_project/core/theme/app_theme/app_theme_light.dart';
 import 'package:depi_graduation_project/core/utils/theme/theme_provider.dart';
 import 'package:depi_graduation_project/data/services/home_service/best_category_service.dart';
+import 'package:depi_graduation_project/features/account/logic/address_book/address_book_cubit.dart';
 import 'package:depi_graduation_project/features/account/logic/forgot_password/forgot_password_cubit.dart';
 import 'package:depi_graduation_project/features/bag/logic/bag/bag_cubit.dart';
 import 'package:depi_graduation_project/features/bag/logic/checkout/checkout_cubit.dart';
@@ -122,6 +123,11 @@ void main() async {
           ),
           BlocProvider(create: (context) => PromoCodeCubit()),
           BlocProvider(create: (context) => CheckoutCubit()),
+          BlocProvider(
+            create: (context) =>
+                AddressBookCubit()
+                  ..loadAddressBooks(FirebaseAuth.instance.currentUser!.uid),
+          ),
         ],
 
         child: MyApp(appRouter: AppRouter()),

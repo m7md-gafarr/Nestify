@@ -1,7 +1,8 @@
+import 'package:depi_graduation_project/core/images/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:flutter_svg/svg.dart';
 
 class NoResultsWidget extends StatelessWidget {
   const NoResultsWidget({super.key, required this.message});
@@ -12,11 +13,18 @@ class NoResultsWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Iconsax.search_status, size: 60.sp),
+          SizedBox(height: 10.h),
+
+          SvgPicture.asset(
+            Assets.assetsImagesDissatisfied,
+            width: 120.w,
+            height: 120.w,
+          ),
           SizedBox(height: 10.h),
           Text(
-            message,
-            style: TextStyle(fontSize: 16.sp, color: Colors.grey),
+            "nothing found,try\nsomething else",
+            style: Theme.of(context).textTheme.headlineSmall,
+            textAlign: TextAlign.center,
           ),
         ],
       ),

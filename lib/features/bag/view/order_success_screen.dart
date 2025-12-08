@@ -22,7 +22,7 @@ class OrderSuccessScreen extends StatelessWidget {
           Spacer(flex: 2),
 
           SvgPicture.asset(
-            Assets.assetsFriendly,
+            Assets.assetsImagesFriendly,
             width: 160.w,
             height: 160.w,
             fit: BoxFit.cover,

@@ -35,6 +35,8 @@ class AppRouteNames {
   static const String addressBookScreenRoute = "/addressBookScreenRoute";
   static const String editAddressScreenRoute = "/editAddressScreenRoute";
   static const String paymentMethodsScreenRoute = "/paymentMethodsScreenRoute";
+  static const String addNewAddressBookScreenRoute =
+      "/addNewAddressBookScreenRoute";
 
   // Settings Feature
   static const String settingsScreenRoute = "/settingsScreenRoute";

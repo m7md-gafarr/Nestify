@@ -43,7 +43,6 @@ class BagEmptyWidget extends StatelessWidget {
 
           ElevatedButton(
             onPressed: () {
-              log('Start shopping pressed');
               mainScreenKey.currentState?.jumpToHome();
             },
             child: const Text("Start shopping"),

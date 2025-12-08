@@ -1,6 +1,7 @@
 import 'package:depi_graduation_project/core/constants/app_constants.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
 import 'package:depi_graduation_project/features/Settings/view/settings_screen.dart';
+import 'package:depi_graduation_project/features/account/view/user/add_new_address_book_screen.dart';
 import 'package:depi_graduation_project/features/account/view/user/address_book_screen.dart';
 import 'package:depi_graduation_project/features/account/view/user/complete_add_data_screen.dart';
 import 'package:depi_graduation_project/features/account/view/user/forgot_password_screen.dart';
@@ -147,6 +148,11 @@ class AppRouter {
       case AppRouteNames.addressBookScreenRoute:
         return MaterialPageRoute(
           builder: (context) => AddressBookScreen(),
+          settings: settings,
+        );
+      case AppRouteNames.addNewAddressBookScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => AddNewAddressBookScreen(),
           settings: settings,
         );
 
