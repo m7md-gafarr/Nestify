@@ -40,4 +40,8 @@ class AppRouteNames {
 
   // Settings Feature
   static const String settingsScreenRoute = "/settingsScreenRoute";
+  static const String aboutScreenRoute = "/aboutScreenRoute";
+  static const String privacyPolicyScreenRoute = "/privacyPolicyScreenRoute";
+  static const String termsAndConditionsScreenRoute =
+      "/termsAndConditionsScreenRoute";
 }

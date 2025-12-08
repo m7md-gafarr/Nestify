@@ -1,6 +1,9 @@
 import 'package:depi_graduation_project/core/constants/app_constants.dart';
 import 'package:depi_graduation_project/core/router/route_names.dart';
+import 'package:depi_graduation_project/features/Settings/view/about_screen.dart';
+import 'package:depi_graduation_project/features/Settings/view/privacy_policy_screen.dart';
 import 'package:depi_graduation_project/features/Settings/view/settings_screen.dart';
+import 'package:depi_graduation_project/features/Settings/view/terms_and_conditions_screen.dart';
 import 'package:depi_graduation_project/features/account/view/user/add_new_address_book_screen.dart';
 import 'package:depi_graduation_project/features/account/view/user/address_book_screen.dart';
 import 'package:depi_graduation_project/features/account/view/user/complete_add_data_screen.dart';
@@ -159,6 +162,17 @@ class AppRouter {
       // Settings Screen Route
       case AppRouteNames.settingsScreenRoute:
         return MaterialPageRoute(builder: (context) => SettingsScreen());
+
+      case AppRouteNames.aboutScreenRoute:
+        return MaterialPageRoute(builder: (context) => AboutScreen());
+
+      case AppRouteNames.privacyPolicyScreenRoute:
+        return MaterialPageRoute(builder: (context) => PrivacyPolicyScreen());
+
+      case AppRouteNames.termsAndConditionsScreenRoute:
+        return MaterialPageRoute(
+          builder: (context) => TermsAndConditionsScreen(),
+        );
 
       default:
         return MaterialPageRoute(
