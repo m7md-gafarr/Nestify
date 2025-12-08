@@ -1,4 +1,5 @@
-import 'package:depi_graduation_project/core/router/route_names.dart';
+import 'package:depi_graduation_project/features/home/view/user/main_screen.dart';
+import 'package:depi_graduation_project/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -51,11 +52,15 @@ class OrderSuccessScreen extends StatelessWidget {
               style: OutlinedButton.styleFrom(
                 side: BorderSide(color: Colors.black, width: 2),
               ),
-              onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                context,
-                AppRouteNames.mainScreenRoute,
-                (route) => false,
-              ),
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => MainScreen(key: mainScreenKey),
+                  ),
+                  (route) => false,
+                );
+              },
               child: Text("To home"),
             ),
           ),
