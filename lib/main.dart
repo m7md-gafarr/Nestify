@@ -56,8 +56,11 @@ void main() async {
   SharedPreferencesService pref = SharedPreferencesService();
   await pref.init();
   bool seen = await pref.loadOnboardingStatus() ?? false;
+  bool isLoggedIn = await pref.loadUserLoginStatus() ?? false;
   _initialRoute = seen
-      ? AppRouteNames.homePageRoute
+      ? (isLoggedIn
+            ? AppRouteNames.homePageRoute
+            : AppRouteNames.loginScreenRoute)
       : AppRouteNames.introducationPageRoute;
   runApp(
     MultiBlocProvider(
